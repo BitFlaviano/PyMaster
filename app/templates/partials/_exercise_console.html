@@ -1,0 +1,22 @@
+{% if result.get('input_request') %}
+<div class="console console-err" data-input-prompt="{{ result.input_request.prompt|e }}">
+  <div class="console-head"><span class="console-err-head">⇢ entrada solicitada</span></div>
+  <div class="console-pending">Seu código usa <code>input()</code> e está esperando um valor.
+    {% if result.input_request.prompt %}<div class="console-prompt">{{ result.input_request.prompt }}</div>{% endif %}
+  </div>
+</div>
+{% else %}
+<div class="console {% if not result.ok %}console-err{% endif %}">
+  <div class="console-head">
+    {% if result.ok %}<span class="console-ok">✓ Executado</span>{% else %}<span class="console-err-head">✗ Erro{% endif %}
+    <span class="console-time">{{ result.get('elapsed_ms', 0) }}ms</span>
+  </div>
+  <pre class="console-output">{{ result.output }}</pre>
+  {% if result.get('error') %}
+  <div class="console-error">{{ result.error.class }}: {{ result.error.message }}{% if result.error.line %} (linha {{ result.error.line }}){% endif %}</div>
+  {% endif %}
+  {% if result.get('tip') %}
+  <div class="console-tip">💡 {{ result.tip }}</div>
+  {% endif %}
+</div>
+{% endif %}

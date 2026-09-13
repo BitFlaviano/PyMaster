@@ -1,0 +1,833 @@
+# ────────────────────────────────────────────────────────────────
+# NÍVEL 3 — CÓDIGO PROFISSIONAL
+# Métodos de texto, módulos, erros e arquivos.
+# ────────────────────────────────────────────────────────────────
+level: 3
+slug: "nivel-3"
+title: "Nível 3 — Código Profissional"
+subtitle: "Trate erros com elegância, leia arquivos e comece a usar as ferramentas da biblioteca padrão."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: metodos_strings
+    title: "Métodos de strings"
+    color: "#0ea5e9"
+    summary: "upper, lower, strip, replace, split e join: ferramentas para modelar textos."
+    lessons:
+      - id: metodos_strings_intro
+        title: "Textos têm superpoderes"
+        blocks:
+          - type: text
+            body: |
+              Strings são objetos: elas trazem **métodos** prontos. O método é chamado com um ponto e parênteses:
+
+              ```python
+              nome = "ana"
+              print(nome.upper())      # ANA
+              print(nome.capitalize()) # Ana
+              ```
+
+              - `upper()/lower()` — letras maiúsculas/minúsculas
+              - `strip()` — remove espaços das pontas
+              - `replace(a, b)` — troca pedaços do texto
+              - `split(sep)` — divide em uma lista
+              - `join(lista)` — junta uma lista em texto
+          - type: code
+            code: |
+              email = "  ana@exemplo.com  "
+              print(email.strip().upper())
+              # ANA@EXEMPLO.COM
+
+              partes = "2026-01-12".split("-")
+              print(partes)             # ['2026', '01', '12']
+              print("-".join(partes))   # 2026-01-12
+          - type: callout
+            body: "split() divide o texto em lista; join() faz o caminho inverso — ame-os em dupla."
+    exercises:
+      - id: metodos_strings_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          print("Python".upper())
+        answer: |
+          PYTHON
+        hints:
+          - "upper() passa tudo para maiúsculas."
+        time_estimate: 45
+
+      - id: metodos_strings_2
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          texto = "  olá  "
+          print(texto.strip() + "!")
+        answer: |
+          olá!
+        hints:
+          - "strip() remove os espaços das pontas."
+          - "As aspas da variável não aparecem na saída."
+        time_estimate: 60
+
+      - id: metodos_strings_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          palavras = "a,b,c".split(",")
+          print(len(palavras))
+        answer: |
+          3
+        hints:
+          - "split(\",\") divide o texto onde aparece a vírgula."
+          - "Resultado: ['a', 'b', 'c']."
+        time_estimate: 60
+
+      - id: metodos_strings_4
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete para remover os espaços das pontas:
+        code: |
+          nome = "  Ana  "
+          print(nome.____())
+        answer: 'strip'
+        hints:
+          - "É o método que significa 'tirar a casca'."
+        solution: |
+          nome = "  Ana  "
+          print(nome.strip())
+        time_estimate: 90
+
+      - id: metodos_strings_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que junte a lista `["2026", "01", "12"]` com `"-"` e exiba o resultado.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              2026-01-12
+        hints:
+          - "Use \"-\".join(lista)."
+          - "O separador vem ANTES do join, entre aspas."
+        solution: |
+          print("-".join(["2026", "01", "12"]))
+        time_estimate: 120
+
+
+
+      - id: metodos_strings_boss
+        type: write
+        difficulty: hard
+        xp: 60
+        time_estimate: 420
+        prompt: 'Chefão (escreva o código): a string `"Ana Bia Carlos"` contém três nomes separados por espaço. Use `split()` para quebrá-la em uma lista e exiba, um por linha: o primeiro nome (índice 0), o último nome (índice -1) e a quantidade de nomes
+          (`len()`).'
+        solution: 'palavras = "Ana Bia Carlos".split()
+
+          print(palavras[0])
+
+          print(palavras[-1])
+
+          print(len(palavras))
+
+          '
+        tests:
+        - name: Nomes da string
+          expected: 'Ana
+
+            Carlos
+
+            3
+
+            '
+        must_include:
+        - split(
+        hints:
+        - split() sem argumentos divide pelos espaços.
+        common_error: Esquecer os parênteses de split() e tentar fatiar a própria string.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: modulos
+    title: "Módulos e biblioteca padrão"
+    color: "#a855f7"
+    summary: "import traz ferramentas prontas: matemática, sorteio, estatística e muito mais."
+    lessons:
+      - id: modulos_intro
+        title: "Não reinventar a roda"
+        blocks:
+          - type: text
+            body: |
+              O Python já vem com **milhares de funções prontas** agrupadas em módulos.
+
+              ```python
+              import math
+
+              print(math.sqrt(144))    # 12.0
+              print(math.floor(3.7))   # 3
+              print(math.ceil(3.2))    # 4
+              ```
+
+              E dá para importar só uma parte:
+
+              ```python
+              from math import sqrt
+              print(sqrt(16))          # 4.0
+              ```
+          - type: text
+            body: |
+              A biblioteca padrão também tem **estatística**:
+
+              ```python
+              import statistics
+
+              notas = [7, 8, 9, 10]
+              print(statistics.mean(notas))    # 8.5
+              print(statistics.median([1, 2, 9]))  # 2
+              ```
+
+              E **sorteio** (aleatório):
+
+              ```python
+              import random
+              print(random.choice(["a", "b", "c"]))
+              ```
+          - type: code
+            code: |
+              import statistics
+
+              precos = [10.5, 20.0, 7.25]
+              print(statistics.mean(precos))   # 12.58333...
+          - type: callout
+            body: "Antes de escrever uma função, pergunte: 'será que o Python já não tem isso pronto?'"
+    exercises:
+      - id: modulos_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import math
+          print(math.floor(3.7))
+        answer: |
+          3
+        hints:
+          - "floor() arredonda para BAIXO."
+          - "3.7 → 3."
+        time_estimate: 60
+
+      - id: modulos_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import math
+          print(math.sqrt(144))
+        answer: |
+          12.0
+        hints:
+          - "sqrt() é a raiz quadrada."
+          - "Funções de matemática costumam devolver float."
+        time_estimate: 60
+
+      - id: modulos_3
+        type: complete
+        difficulty: easy
+        xp: 20
+        prompt: |
+          Complete para importar o módulo que tem a função `floor`:
+        code: |
+          import ____
+          print(math.floor(3.7))
+        answer: 'math'
+        hints:
+          - "É a biblioteca de MATEMÁTICA."
+        solution: 'import math\nprint(math.floor(3.7))'
+        time_estimate: 90
+
+      - id: modulos_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que exiba a **média** de `[10, 20, 30]` usando o módulo `statistics`.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              20
+        hints:
+          - "import statistics e use statistics.mean(lista)."
+          - "Média de 10, 20, 30 → 20."
+        solution: |
+          import statistics
+          print(statistics.mean([10, 20, 30]))
+        allow_imports: ["statistics", "os", "sys"]
+        time_estimate: 120
+
+      - id: modulos_5
+        type: choice
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Qual importação traz apenas a função `sqrt`, sem precisar escrever `math.` antes?
+        options:
+          - "import math"
+          - "from math import sqrt"
+          - "import sqrt"
+        answer: "1"
+        hints:
+          - "O formato é from módulo import função."
+        time_estimate: 60
+
+
+
+      - id: modulos_boss
+        type: write
+        difficulty: hard
+        xp: 60
+        time_estimate: 420
+        prompt: 'Chefão (escreva o código): usando os módulos `math` e `statistics`, calcule a média das notas `[7, 6, 8]` com `statistics.mean()`. Exiba o piso da média (`math.floor()`) e, logo abaixo, a média ao quadrado arredondada com `round(...,
+          1)`.'
+        solution: 'import math
+
+          import statistics
+
+
+          notas = [7, 6, 8]
+
+          media = statistics.mean(notas)
+
+          print(math.floor(media))
+
+          print(round(float(media) ** 2, 1))
+
+          '
+        allow_imports:
+        - math
+        - statistics
+        - os
+        - sys
+        tests:
+        - name: Piso e quadrado da média
+          expected: '7
+
+            49.0
+
+            '
+        must_include:
+        - 'import '
+        hints:
+        - statistics.mean devolve 7.0; media ** 2 resulta em 49.0.
+        common_error: Esquecer de permitir os imports no ambiente (bloqueado por padrão).
+
+  # ────────────────────────────────────────────────────────────────
+  - id: excecoes
+    title: "Erros e exceções"
+    color: "#f43f5e"
+    summary: "Seu programa pode prever e tratar erros com try/except em vez de simplesmente quebrar."
+    lessons:
+      - id: excecoes_intro
+        title: "Erros podem ser tratados"
+        blocks:
+          - type: text
+            body: |
+              Todo programa pode encontrar erros em **tempo de execução** — como dividir por zero ou converter texto inválido.
+
+              O Python permite **capturar** esses erros:
+
+              ```python
+              try:
+                  numero = int("abc")
+              except ValueError:
+                  print("isso não é um número")
+              ```
+
+              Se o bloco dentro de `try` gerar um erro do tipo `ValueError`, o programa segue o `except` em vez de quebrar.
+          - type: code
+            code: |
+              def dividir(a, b):
+                  try:
+                      return a / b
+                  except ZeroDivisionError:
+                      return "divisão por zero"
+
+              print(dividir(10, 2))   # 5.0
+              print(dividir(10, 0))   # divisão por zero
+          - type: visual
+            kind: branch
+            code: |
+              int("abc") gera erro?
+               ├─ Sim → except: "inválido"
+               └─ Não → continua normalmente
+          - type: callout
+            body: "Use try apenas onde o erro é plausível. Exagerar no try esconde bugs reais."
+    exercises:
+      - id: excecoes_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Qual exceção é gerada por `10 / 0`?
+        options:
+          - "ValueError"
+          - "ZeroDivisionError"
+          - "TypeError"
+        answer: "1"
+        hints:
+          - "O nome fala por si: divisão por zero."
+        time_estimate: 45
+
+      - id: excecoes_2
+        type: predict
+        difficulty: easy
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          try:
+              x = 10 / 0
+          except ZeroDivisionError:
+              print("sem divisão por zero")
+          print("fim")
+        answer: |
+          sem divisão por zero
+          fim
+        hints:
+          - "10 / 0 gera ZeroDivisionError."
+          - "O except captura o erro e o programa continua."
+        time_estimate: 90
+
+      - id: excecoes_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def dividir(a, b):
+              try:
+                  return a / b
+              except ZeroDivisionError:
+                  return "inválido"
+
+          print(dividir(10, 0))
+        answer: |
+          inválido
+        hints:
+          - "A função captura o ZeroDivisionError e devolve 'inválido'."
+        time_estimate: 90
+
+      - id: excecoes_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que tente converter `"abc"` em inteiro dentro de um `try` e, se falhar, exiba `"inválido"`.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              inválido
+        hints:
+          - "try: numero = int(\"abc\")"
+          - "except ValueError: print(\"inválido\")"
+        solution: |
+          try:
+              numero = int("abc")
+          except ValueError:
+              print("inválido")
+        time_estimate: 180
+
+      - id: excecoes_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva uma função `dividir(a, b)` que:
+          1. Tente devolver `a / b`.
+          2. Se acontecer `ZeroDivisionError`, devolva a string `"erro"`.
+          Depois exiba o resultado de `dividir(8, 2)` e de `dividir(8, 0)`, um por linha.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              4.0
+              erro
+        hints:
+          - "Use try/except ZeroDivisionError dentro da função."
+          - "8 / 2 é 4.0; 8 / 0 cai no except."
+        solution: |
+          def dividir(a, b):
+              try:
+                  return a / b
+              except ZeroDivisionError:
+                  return "erro"
+
+          print(dividir(8, 2))
+          print(dividir(8, 0))
+        time_estimate: 240
+
+
+
+      - id: excecoes_boss
+        type: write
+        difficulty: hard
+        xp: 60
+        time_estimate: 420
+        prompt: 'Chefão (escreva o código): crie a função `ler_numero(texto)`. Ela tenta converter o texto com `int()`, mas se falhar (`ValueError`) deve retornar 0. Depois exiba `ler_numero("12")` e `ler_numero("abc")`, um por linha.'
+        solution: "def ler_numero(texto):\n    try:\n        return int(texto)\n    except ValueError:\n        return 0\n\n\nprint(ler_numero(\"12\"))\nprint(ler_numero(\"abc\"))\n"
+        tests:
+        - name: Sucesso e falha
+          expected: '12
+
+            0
+
+            '
+        must_include:
+        - try
+        hints:
+        - O except deve pegar apenas o ValueError da conversão.
+        common_error: Usar except sem o tipo (bloqueio genérico) — capture específico.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: arquivos
+    title: "Arquivos e dados estruturados"
+    color: "#14b8a6"
+    summary: "Leia arquivos de texto, CSV e JSON para trabalhar com dados reais."
+    lessons:
+      - id: arquivos_intro
+        title: "Seu programa conversa com arquivos"
+        blocks:
+          - type: text
+            body: |
+              Para ler um arquivo, use `open()` com o modo `"r"` (de read):
+
+              ```python
+              arquivo = open("notas.txt", "r", encoding="utf-8")
+              linhas = arquivo.readlines()
+              arquivo.close()
+              ```
+
+              A forma segura usa `with`: o Python fecha o arquivo sozinho, mesmo se der erro.
+
+              ```python
+              with open("notas.txt", "r", encoding="utf-8") as arquivo:
+                  linhas = arquivo.readlines()
+              ```
+          - type: text
+            body: |
+              Dados estruturados são mais fáceis de ler prontos:
+
+              ```python
+              import json
+
+              dados = '{"nome": "Ana", "idade": 25}'
+              pessoa = json.loads(dados)
+              print(pessoa["nome"])     # Ana
+              ```
+          - type: code
+            code: |
+              import csv
+
+              with open("clientes.csv", encoding="utf-8") as arquivo:
+                  linhas = list(csv.reader(arquivo))
+
+              print(len(linhas) - 1)   # número de clientes (menos o cabeçalho)
+          - type: dataset_note
+            body: |
+              Aqui no PyMaster você pode ler os datasets de exemplo usando a variável **`DATASETS_DIR`**. Exemplo: `open(DATASETS_DIR + "/estoque.csv")`.
+          - type: callout
+            body: "with open(...) as f: é o jeito certo — nunca esqueça de fechar o arquivo."
+    exercises:
+      - id: arquivos_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Qual modo do `open()` serve para **leitura**?
+        options:
+          - '"w"'
+          - '"r"'
+          - '"a"'
+        answer: "1"
+        hints:
+          - "w é write (escrita), a é append (adicionar)."
+          - "r é read — leitura."
+        time_estimate: 45
+
+      - id: arquivos_2
+        type: complete
+        difficulty: easy
+        xp: 20
+        prompt: |
+          Complete para abrir o arquivo no modo leitura:
+        code: |
+          with open("dados.txt", ____) as arquivo:
+              dados = arquivo.read()
+        answer: '"r"'
+        hints:
+          - "O modo de leitura é uma letra entre aspas."
+        solution: |
+          with open("dados.txt", "r") as arquivo:
+              dados = arquivo.read()
+        time_estimate: 60
+
+      - id: arquivos_3
+        type: write
+        difficulty: medium
+        xp: 35
+        prompt: |
+          Escreva um programa que abra o arquivo `estoque.csv` (use `DATASETS_DIR + "/estoque.csv"`) e exiba o **número de linhas de dados** (total de linhas menos o cabeçalho).
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              15
+        hints:
+          - "use open(DATASETS_DIR + \"/estoque.csv\", encoding=\"utf-8\")"
+          - "readlines() devolve uma lista; subtraia 1 por causa do cabeçalho."
+        solution: |
+          with open(DATASETS_DIR + "/estoque.csv", encoding="utf-8") as arquivo:
+              linhas = arquivo.readlines()
+          print(len(linhas) - 1)
+        time_estimate: 180
+
+      - id: arquivos_4
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import json
+
+          dados = '{"nome": "Ana", "cidade": "Rio"}'
+          pessoa = json.loads(dados)
+          print(pessoa["cidade"])
+        answer: |
+          Rio
+        hints:
+          - "json.loads transforma texto JSON em dicionário."
+          - "Depois é só acessar pela chave."
+        time_estimate: 90
+
+      - id: arquivos_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que use o módulo `json` para transformar o texto `'{"produto": "caneta", "preco": 3}'` em dicionário e exiba o **preço**.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              3
+        hints:
+          - "import json e dados = json.loads(texto)."
+          - "Exiba dados[\"preco\"]."
+        solution: |
+          import json
+
+          dados = json.loads('{"produto": "caneta", "preco": 3}')
+          print(dados["preco"])
+        allow_imports: ["json"]
+        time_estimate: 180
+
+
+
+      - id: arquivos_boss
+        type: write
+        difficulty: hard
+        xp: 60
+        time_estimate: 420
+        prompt: 'Chefão (escreva o código): abra o arquivo `produtos.csv` da pasta de datasets usando o caminho `DATASETS_DIR + "/produtos.csv"` com `encoding="utf-8"`. Use um `with ... as` para ler todas as linhas com `readlines()` e exiba o número
+          de linhas lidas (cabeçalho incluído).'
+        solution: "with open(DATASETS_DIR + \"/produtos.csv\", encoding=\"utf-8\") as arquivo:\n    linhas = arquivo.readlines()\nprint(len(linhas))\n"
+        tests:
+        - name: Linhas lidas
+          expected: '16
+
+            '
+        must_include:
+        - 'with '
+        hints:
+        - DATASETS_DIR já está disponível; cada linha termina com \n.
+        common_error: Esquecer o encoding utf-8 e falhar na leitura do CSV.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: oop_intro
+    title: "Introdução a classes e objetos"
+    color: "#f97316"
+    summary: "Classes desenham o molde; objetos são as peças criadas a partir dele."
+    lessons:
+      - id: oop_intro
+        title: "Molde e peça"
+        blocks:
+          - type: text
+            body: |
+              Uma **classe** é um molde. Um **objeto** é uma peça criada a partir do molde.
+
+              ```python
+              class Conta:
+                  def __init__(self, saldo=0):
+                      self.saldo = saldo
+
+                  def depositar(self, valor):
+                      self.saldo += valor
+
+              c = Conta(100)      # cria o objeto
+              c.depositar(50)
+              print(c.saldo)      # 150
+              ```
+
+              - `__init__` roda na criação do objeto.
+              - `self` é uma palavra especial que aponta para o próprio objeto.
+              - Os métodos são funções dentro da classe.
+          - type: code
+            code: |
+              class Cachorro:
+                  def __init__(self, nome):
+                      self.nome = nome
+
+                  def latir(self):
+                      print(f"{self.nome}: au au!")
+
+              rex = Cachorro("Rex")
+              rex.latir()
+          - type: callout
+            body: "self não é decorativo: ele é o 'cada objeto carrega os próprios dados'. Nos métodos, sempre vem primeiro."
+    exercises:
+      - id: oop_intro_1
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete com o nome do método que roda **na criação** do objeto:
+        code: |
+          class Conta:
+              def ____(self, saldo=0):
+                  self.saldo = saldo
+        answer: '__init__'
+        hints:
+          - "É o método de inicialização."
+          - "Começa e termina com dois underscores."
+        solution: |
+          class Conta:
+              def __init__(self, saldo=0):
+                  self.saldo = saldo
+        time_estimate: 120
+
+      - id: oop_intro_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          class Conta:
+              def __init__(self, saldo=0):
+                  self.saldo = saldo
+
+              def depositar(self, valor):
+                  self.saldo += valor
+
+          c = Conta(100)
+          c.depositar(50)
+          print(c.saldo)
+        answer: |
+          150
+        hints:
+          - "Cria-se a conta com 100."
+          - "depositar(50) soma 50 → 150."
+        time_estimate: 120
+
+      - id: oop_intro_3
+        type: predict
+        difficulty: hard
+        xp: 30
+        prompt: "O que será exibido?"
+        code: |
+          class Cachorro:
+              def __init__(self, nome):
+                  self.nome = nome
+
+              def latir(self):
+                  return f"{self.nome}: au au!"
+
+          rex = Cachorro("Rex")
+          print(rex.latir())
+        answer: |
+          Rex: au au!
+        hints:
+          - "O objeto Rex foi criado com nome 'Rex'."
+          - "latir() devolve uma mensagem com self.nome."
+        time_estimate: 120
+
+      - id: oop_intro_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva uma classe `Retangulo` que:
+          1. No `__init__` receba `largura` e `altura` e guarde nos atributos.
+          2. Tenha um método `area()` que devolva `largura * altura`.
+          Crie um objeto `r = Retangulo(4, 6)` e exiba `r.area()`.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              24
+        hints:
+          - "class Retangulo: e def __init__(self, largura, altura):"
+          - "Guarde como self.largura e self.altura."
+        solution: |
+          class Retangulo:
+              def __init__(self, largura, altura):
+                  self.largura = largura
+                  self.altura = altura
+
+              def area(self):
+                  return self.largura * self.altura
+
+          r = Retangulo(4, 6)
+          print(r.area())
+        time_estimate: 240
+
+      - id: oop_intro_5
+        type: find_error
+        difficulty: hard
+        xp: 35
+        prompt: "Qual método está faltando o parâmetro `self`?"
+        lines:
+          - "class Pessoa:"
+          - "    def __init__(self, nome):"
+          - "        self.nome = nome"
+          - "    def saudacao():"
+          - "        return f\"Olá, {self.nome}!\""
+        error_line: 3
+        hints:
+          - "Todo método de instância precisa de self como primeiro parâmetro."
+          - "Olhe a definição de cada método depois do __init__."
+        time_estimate: 120
+
+      - id: oop_intro_boss
+        type: write
+        difficulty: hard
+        xp: 65
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): crie a classe `Carro` com o construtor `__init__(self, modelo, velocidade=0)` guardando os dois atributos. Adicione o método `acelerar(self, valor)` que soma `valor` em `velocidade`. Instancie `Carro("Fusca")`,
+          acelere 30 e depois 20, e exiba o modelo e a velocidade final, um por linha.'
+        solution: "class Carro:\n    def __init__(self, modelo, velocidade=0):\n        self.modelo = modelo\n        self.velocidade = velocidade\n\n    def acelerar(self, valor):\n        self.velocidade += valor\n\n\nc = Carro(\"Fusca\")\nc.acelerar(30)\n\
+          c.acelerar(20)\nprint(c.modelo)\nprint(c.velocidade)\n"
+        tests:
+        - name: Fusca a 50
+          expected: 'Fusca
+
+            50
+
+            '
+        must_include:
+        - __init__
+        hints:
+        - self sempre é o primeiro parâmetro de métodos de instância.
+        common_error: Esquecer o self nos parâmetros e receber erro de argumentos.
+

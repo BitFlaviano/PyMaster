@@ -1,0 +1,594 @@
+# ------------------------------------------------------------
+# NÍVEL 0 — PENSAMENTO COMPUTACIONAL
+# ------------------------------------------------------------
+
+level: 0
+slug: "nivel-0"
+title: "Nível 0 — Pensamento Computacional"
+subtitle: "Antes de escrever código, vamos aprender a pensar como o computador."
+
+concepts:
+  - id: algoritmo
+    title: "O que é um algoritmo"
+    color: "#6366f1"
+    summary: "Um algoritmo é uma receita passo a passo para resolver um problema."
+    lessons:
+      - id: algoritmo_intro
+        title: "Algoritmo: receitas para máquinas"
+        blocks:
+          - type: text
+            body: |
+              Um **algoritmo** é um conjunto finito de instruções, organizadas numa ordem bem definida, que leva de uma entrada a uma saída esperada.
+              
+              Pense em uma receita de bolo: você começa com os ingredientes, segue passos numa ordem certa e termina com o bolo pronto.
+
+          - type: visual
+            kind: pipeline
+            code: "Entrada → Processo → Saída"
+
+          - type: text
+            body: |
+              **Exemplo clássico:** não existe algoritmo aqui, mas todo robô precisa de um. Veja os passos para 'escolher um livro':
+              
+              ```
+              1. Ir à estante
+              2. Olhar os títulos
+              3. Escolher o primeiro que pareça interessante
+              4. Abrir e ler as primeiras páginas
+              5. Se gostou, levar; senão, repetir a partir do passo 3
+              ```
+              
+              Esse passo a passo **é** um algoritmo!
+
+          - type: callout
+            body: "O computador não possui intuição. Cada passo precisa estar explícito."
+
+    exercises:
+
+
+      - id: algoritmo_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: O que é um algoritmo?
+        options:
+        - Um tipo de linguagem de programação.
+        - Uma sequência ordenada de instruções para resolver um problema.
+        - Um arquivo executável no computador.
+        - Uma fórmula matemática complexa.
+        answer: '1'
+        hints:
+        - 'Pense em uma receita de bolo: ingredientes + passos na ordem certa.'
+
+      - id: algoritmo_2
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 90
+        prompt: Qual das opções abaixo descreve um algoritmo correto para preparar café?
+        options:
+        - 'Preparar café: ① ferver água ② colocar pó ③ despejar água ④ aguardar ⑤ filtrar'
+        - 'Preparar café: ① filtrar ② ferver água ③ aguardar ④ colocar pó ⑤ despejar água'
+        - 'Preparar café: ① despejar água ② ferver água ③ filtrar ④ aguardar ⑤ colocar pó'
+        answer: '0'
+        hints:
+        - 'A ordem importa: primeiro a água, depois o pó, depois filtrar.'
+
+      - id: algoritmo_3
+        type: order
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: Ordene os passos para enviar um e-mail.
+        lines:
+        - Abrir o aplicativo de e-mail.
+        - Clicar em 'Novo e-mail'.
+        - Digitar o endereço do destinatário.
+        - Escrever o assunto e a mensagem.
+        - Clicar em 'Enviar'.
+        hints:
+        - O primeiro passo é abrir o programa; o último é enviar.
+
+      - id: algoritmo_6
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 120
+        prompt: Qual destas opções NÃO é um passo válido no algoritmo para calcular a média de três notas?
+        options:
+        - Ler as três notas e guardá-las em n1, n2 e n3
+        - Exibir a soma dos ingredientes
+        - Somar n1 + n2 + n3 e guardar na variável soma
+        - Dividir soma por 3 e exibir o resultado
+        answer: '1'
+        hints:
+        - Um passo fora do assunto (ingredientes) não pertence ao algoritmo.
+
+      - id: algoritmo_boss
+        type: order
+        difficulty: hard
+        xp: 40
+        time_estimate: 240
+        prompt: 'Ordem final (chefe): os passos abaixo formam o algoritmo "verificar se uma pessoa pode votar". A regra é: se a idade for 16 ou mais, a pessoa pode votar. Coloque as linhas na ordem correta de execução.'
+        lines:
+        - Perguntar a idade
+        - Se idade >= 16
+        - Mostrar "pode votar"
+        - Senão
+        - Mostrar "não pode votar"
+        hints:
+        - 'Existe um caminho para cada resposta possível: pode e não pode.'
+
+  - id: sequencia
+    title: "Execução em sequência"
+    color: "#10b981"
+    summary: "O computador cumpre os passos um após o outro, na ordem."
+    lessons:
+      - id: sequencia_intro
+        title: "Execução sequencial"
+        blocks:
+          - type: text
+            body: |
+              O computador executa as instruções **uma após a outra**, na ordem em que aparecem.
+              
+              Trocar a ordem quase sempre muda o resultado — como colocar o bolo no forno antes de ligá-lo, ou o contrário.
+
+          - type: visual
+            kind: sequence
+            code: "Passo 1 → Passo 2 → Passo 3"
+
+          - type: callout
+            body: "Sequência é a espinha dorsal de todo algoritmo: ela define 'quando' cada passo acontece."
+
+    exercises:
+
+
+      - id: sequencia_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Em qual ordem um computador executa os passos de um algoritmo?
+        options:
+        - Na ordem em que aparecem, um depois do outro
+        - De trás para frente
+        - Aleatoriamente
+        - Só os que ele quiser
+        answer: '0'
+        hints:
+        - Instruções em sequência seguem uma após a outra.
+
+      - id: sequencia_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: O que será exibido na tela? (uma palavra por linha)
+        code: 'print("Entrada")
+
+          print("Processamento")
+
+          print("Saída")
+
+          '
+        answer: 'Entrada
+
+          Processamento
+
+          Saída
+
+          '
+        hints:
+        - Cada print() gera uma linha, na ordem em que aparece.
+
+      - id: sequencia_3
+        type: choice
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: Trocando a ordem dos passos 'Ferver a água' e 'Escorrer o macarrão', o resultado muda?
+        options:
+        - Sim, porque a ordem dos passos importa
+        - Não, tanto faz
+        - Depende apenas da marca do macarrão
+        - Só muda se fizer à noite
+        answer: '0'
+        hints:
+        - A sequência define o resultado — essa é a essência de um algoritmo.
+
+      - id: sequencia_6
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 120
+        prompt: Qual passo deve ser executado PRIMEIRO para assar um bolo?
+        options:
+        - Pré-aquecer o forno
+        - Bater a massa
+        - Comprar os ingredientes
+        - Assar por 40 minutos
+        answer: '2'
+        hints:
+        - Antes de qualquer preparo é preciso ter o que usar.
+
+      - id: sequencia_boss
+        type: order
+        difficulty: hard
+        xp: 40
+        time_estimate: 240
+        prompt: 'Ordem final (chefe): organize o passo a passo para trocar um pneu furado. Existe uma dependência clara: nada pode ser desmontado antes do carro estar apoiado corretamente.'
+        lines:
+        - Encaixar o macaco no carro
+        - Levantar o carro
+        - Desparafusar as porcas
+        - Remover o pneu furado
+        - Instalar o pneu novo
+        - Apertar as porcas
+        - Baixar o carro
+        hints:
+        - Comece com o que sustenta o carro e termine com o que o retorna ao chão.
+
+  - id: decisao
+    title: "Decisões: se… então…"
+    color: "#f59e0b"
+    summary: "Escolher caminhos diferentes conforme uma condição."
+    lessons:
+      - id: decisao_intro
+        title: "Decisões: se… então…"
+        blocks:
+          - type: text
+            body: |
+              Muitos problemas exigem **escolhas**: a máquina precisa decidir qual caminho seguir com base numa condição.
+              
+              Por exemplo, uma catraca de ônibus só libera a passagem **se** o cartão tiver saldo.
+
+          - type: visual
+            kind: branch
+            code: "Saldo >= 0? ├─ sim → liberar passagem └─ não → bloquear"
+
+          - type: callout
+            body: "Uma decisão sempre testa UMA condição e abre dois caminhos: verdadeiro e falso."
+
+    exercises:
+
+
+      - id: decisao_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Sua conta no banco tem R$ 200 e o almoço custa R$ 35. O que acontece?
+        options:
+        - Você paga normalmente, pois tem saldo suficiente.
+        - A compra é negada, pois não tem saldo suficiente.
+        - O banco telefona para avisar a compra.
+        - O sistema apaga a conta.
+        answer: '0'
+        hints:
+        - 200 é maior que 35, então a condição 'tem saldo' é verdadeira.
+
+      - id: decisao_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        time_estimate: 90
+        prompt: Com a regra 'Se idade >= 18, acesso liberado', qual idade LIBERA o acesso?
+        options:
+        - idade = 17
+        - idade = 18
+        - idade = 16
+        - idade = 12
+        answer: '1'
+        hints:
+        - '>= significa maior OU igual a 18.'
+
+      - id: decisao_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: O que será exibido?
+        code: "nota = 7\nif nota >= 6:\n    print(\"aprovado\")\nelse:\n    print(\"reprovado\")\n"
+        answer: 'aprovado
+
+          '
+        hints:
+        - 7 é maior ou igual a 6, então o bloco do if é executado.
+
+      - id: decisao_6
+        type: predict
+        difficulty: easy
+        xp: 20
+        time_estimate: 150
+        prompt: Leia o código abaixo e diga o que ele vai exibir na tela (apenas a linha impressa).
+        code: "idade = 17\nif idade >= 18:\n    print(\"maior de idade\")\nelse:\n    print(\"menor de idade\")\n"
+        answer: 'menor de idade
+
+          '
+        hints:
+        - 17 é menor que 18, então o a ramificação else é executada.
+
+      - id: decisao_boss
+        type: order
+        difficulty: hard
+        xp: 40
+        time_estimate: 240
+        prompt: 'Ordem final (chefe): monte a estrutura de decisão correta para exibir "Aprovado" quando a nota for 7 ou mais e "Reprovado" caso contrário. Observe a indentação (espaços antes) das linhas dentro do bloco.'
+        lines:
+        - nota = 6
+        - 'if nota >= 7:'
+        - '    print("Aprovado")'
+        - 'else:'
+        - '    print("Reprovado")'
+        hints:
+        - A condição vem antes do primeiro bloco; o else vem depois.
+
+  - id: repeticao
+    title: "Repetição: laços"
+    color: "#ef4444"
+    summary: "Repetir um bloco de passos quantas vezes forem necessárias."
+    lessons:
+      - id: repeticao_intro
+        title: "Repetição: laços"
+        blocks:
+          - type: text
+            body: |
+              Algumas tarefas pedem para **repetir** o mesmo bloco várias vezes, como a campainha tocando de 5 em 5 minutos.
+              
+              Um **laço** (loop) faz o computador repetir uma sequência quantas vezes quisermos.
+
+          - type: visual
+            kind: loop
+            code: "contador = 1 → enquantos contador <= 3 ├─ imprime bip → contador += 1"
+
+          - type: callout
+            body: "Laços economizam código: em vez de escrever 1000 linhas, você escreve 3 e repete 1000 vezes."
+
+    exercises:
+
+
+      - id: repeticao_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: O que um laço de repetição faz?
+        options:
+        - Repete um bloco de instruções várias vezes
+        - Faz uma pergunta uma única vez
+        - Apaga o programa ao finalizar
+        - Troca a senha do usuário
+        answer: '0'
+        hints:
+        - 'O nome já diz: repetição!'
+
+      - id: repeticao_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: O que será exibido? (três linhas)
+        code: "for i in range(3):\n    print(\"bip\")\n"
+        answer: 'bip
+
+          bip
+
+          bip
+
+          '
+        hints:
+        - range(3) gera 0, 1 e 2 — são 3 voltas, cada uma imprime 'bip'.
+
+      - id: repeticao_3
+        type: order
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: Ordene as linhas de um laço que conta de 1 até 3.
+        lines:
+        - contador = 1
+        - 'while contador <= 3:'
+        - '    print(contador)'
+        - '    contador = contador + 1'
+        hints:
+        - Inicia o contador, testa a condição, exibe e só então incrementa.
+
+      - id: repeticao_6
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 150
+        prompt: "Quantas vezes \"Oi\" será exibido pelo laço abaixo?\n```\ncontador = 0\nwhile contador < 4:\n    print(\"Oi\")\n    contador = contador + 1\n```\n"
+        options:
+        - 3 vezes
+        - 4 vezes
+        - 5 vezes
+        - nunca
+        answer: '1'
+        hints:
+        - 'The contador vai de 0 até passar de 3: 0, 1, 2, 3.'
+
+      - id: repeticao_boss
+        type: order
+        difficulty: hard
+        xp: 40
+        time_estimate: 240
+        prompt: 'Ordem final (chefe): organize o laço que exibe "Oi" exatamente 3 vezes. Preste atenção no bloco indentado dentro do while e na atualização do contador.'
+        lines:
+        - contador = 0
+        - 'while contador < 3:'
+        - '    print("Oi")'
+        - '    contador = contador + 1'
+        hints:
+        - Sem incrementar o contador o laço nunca termina.
+
+  - id: decomposicao
+    title: "Decomposição"
+    color: "#8b5cf6"
+    summary: "Dividir o problema grande em partes menores e simples."
+    lessons:
+      - id: decomposicao_intro
+        title: "Decomposição"
+        blocks:
+          - type: text
+            body: |
+              **Decompor** é dividir um problema grande em problemas menores e mais simples de resolver.
+              
+              Preparar um lanche vira: cortar o pão, preparar o recheio, montar e servir. Cada parte é fácil; juntas, resolvem o todo.
+
+          - type: visual
+            kind: pipeline
+            code: "Problema grande → subproblemas → soluções parciais → solução final"
+
+          - type: callout
+            body: "Grandes programas são feitos de muitas funções pequenas. Dividir para conquistar!"
+
+    exercises:
+
+
+      - id: decomposicao_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: O que significa DECOMPOR um problema?
+        options:
+        - Jogar o problema fora
+        - Dividir o problema em partes menores e mais simples
+        - Esconder o problema no futuro
+        - Copiar a resposta de outra pessoa
+        answer: '1'
+        hints:
+        - 'Divide para conquistar: partes pequenas são mais fáceis de resolver.'
+
+      - id: decomposicao_2
+        type: choice
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: Qual opção 'preparar um lanche' está MAIS decomposta em subetapas?
+        options:
+        - 'Preparar um lanche: pegar o pão'
+        - 'Preparar um lanche: cortar o pão, criar o recheio, montar e servir'
+        - 'Preparar um lanche: servir'
+        - 'Preparar um lanche: comprar o pão'
+        answer: '1'
+        hints:
+        - Uma boa decomposição lista os passos intermediários entre começo e fim.
+
+      - id: decomposicao_6
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 120
+        prompt: Qual destas descrições de uma tarefa está mais bem decomposta em subetapas?
+        options:
+        - 'Fazer café: colocar água'
+        - 'Fazer café: colocar água no reservatório, adicionar o pó, ligar a máquina, aguardar e servir'
+        - 'Fazer café: ligar a máquina'
+        - 'Fazer café: servir'
+        answer: '1'
+        hints:
+        - Uma boa decomposição divide a tarefa em vários passos ordenados.
+
+      - id: decomposicao_boss
+        type: order
+        difficulty: hard
+        xp: 40
+        time_estimate: 240
+        prompt: 'Ordem final (chefe): organize a decomposição do problema "fazer um bolo" em etapas. A produção exige preparar a massa antes de ir ao forno.'
+        lines:
+        - Separar os ingredientes
+        - Peneirar os secos
+        - Bater os líquidos
+        - Misturar secos e líquidos
+        - Untar a forma
+        - Assar e deixar esfriar
+        hints:
+        - Ingredientes primeiro, forno por último.
+
+  - id: entrada_saida
+    title: "Entrada, processamento e saída"
+    color: "#06b6d4"
+    summary: "Todo programa recebe dados, processa e devolve resultados."
+    lessons:
+      - id: entrada_saida_intro
+        title: "Entrada e saída"
+        blocks:
+          - type: text
+            body: |
+              Um programa recebe **entrada**, processa e devolve uma **saída**.
+              
+              - **Entrada:** o que o programa recebe (ex.: o nome digitado pelo usuário).
+              - **Saída:** o resultado mostrado (ex.: a saudação na tela).
+
+          - type: visual
+            kind: pipeline
+            code: "Dado de entrada → processamento → resultado de saída"
+
+          - type: callout
+            body: "Pergunte-se sempre: o que este programa RECEBE e o que ele ENTREGA?"
+
+    exercises:
+
+
+      - id: entrada_saida_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Em um programa 'pergunta ao usuário e mostra uma resposta', o que é a SAÍDA?
+        options:
+        - O que o usuário digita
+        - A mensagem exibida na tela
+        - O disco rígido do computador
+        - O cabo de energia
+        answer: '1'
+        hints:
+        - Saída é o resultado mostrado — o texto impresso.
+
+      - id: entrada_saida_2
+        type: order
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: Ordene as etapas de um programa que pergunta o nome e exibe uma saudação.
+        lines:
+        - Perguntar o nome
+        - Guardar o nome digitado
+        - Montar a mensagem de saudação
+        - Exibir a saudação na tela
+        hints:
+        - Primeiro entra o dado, depois sai a resposta.
+
+      - id: entrada_saida_6
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 90
+        prompt: No programa que lê um nome e mostra 'Olá, [nome]', qual parte é a ENTRADA?
+        options:
+        - O nome digitado pelo usuário
+        - A saudação mostrada na tela
+        - A cor do teclado
+        - O print da mensagem
+        answer: '0'
+        hints:
+        - Entrada é o dado que o programa recebe — aqui, o nome digitado.
+
+      - id: entrada_saida_boss
+        type: order
+        difficulty: hard
+        xp: 40
+        time_estimate: 240
+        prompt: 'Ordem final (chefe): organize as instruções do programa ''boas-vindas'' que pergunta o nome e a cidade e então mostra ''Olá, [nome], da cidade de [cidade]''. Observe como cada resposta precisa ser guardada ANTES de ser usada.'
+        lines:
+        - 'Perguntar: "Qual o seu nome?"'
+        - Guardar a resposta em nome
+        - 'Perguntar: "De qual cidade você é?"'
+        - Guardar a resposta em cidade
+        - Exibir "Olá, [nome], da cidade de [cidade]"
+        hints:
+        - Os dois dados são capturados antes da mensagem final.
+

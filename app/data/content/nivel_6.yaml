@@ -1,0 +1,892 @@
+# ────────────────────────────────────────────────────────────────
+# NÍVEL 6 — INTEGRAÇÃO & PROJETOS
+# Tópicos avançados do dia a dia e um mini sistema completo.
+# ────────────────────────────────────────────────────────────────
+level: 6
+slug: "nivel-6"
+title: "Nível 6 — Integração & Projetos"
+subtitle: "Junte tudo o que você aprendeu: strings poderosas, matrizes, dados aninhados, geradores, recursão e um projeto final."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: strings_avancadas
+    title: "Strings avançadas"
+    color: "#0d9488"
+    summary: "Fatiamento, busca, junção, separação e formatação: texto tratado como gente grande."
+    lessons:
+      - id: strings_avancadas_intro
+        title: "Texto que trabalha por você"
+        blocks:
+          - type: text
+            body: |
+              Uma **string** é uma sequência de caracteres e o Python oferece ferramentas poderosas para manipulá-la.
+
+              **Fatiamento (slicing)** acessa trechos pelo índice:
+
+              ```python
+              palavra = "Banana"
+              print(palavra[1:4])   # "ana"
+              print(palavra[::2])   # "Bnn"
+              ```
+
+              **Métodos úteis:** `.strip()` remove espaços das pontas, `.split()` divide em lista, `.join()` junta e `.upper()/.lower()` mudam a caixa das letras.
+          - type: code
+            code: |
+              nome = "  ana beatriz souza  "
+              partes = nome.strip().split()
+              inicial = partes[0][0].upper()
+              sobrenome = partes[-1].title()
+              print(f"{inicial}. {sobrenome}")   # A. Souza
+          - type: callout
+            body: "Split e join são inversos: 'a,b'.split(',') vira ['a','b'] e ','.join(['a','b']) volta a ser 'a,b'."
+    exercises:
+      - id: strings_avancadas_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que será exibido?"
+        code: |
+          palavra = "Banana"
+          print(palavra[1:4])
+        answer: |
+          ana
+        hints:
+          - "O fatiamento [1:4] pega do índice 1 até o índice 3 (o 4 não entra)."
+        time_estimate: 90
+
+      - id: strings_avancadas_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: "Qual método remove os espaços das pontas de uma string?"
+        options:
+          - ".remove()"
+          - ".strip()"
+          - ".delete()"
+          - ".trim()"
+        answer: "1"
+        hints:
+          - "Em Python o nome é strip — lembre das tiras de espaço nas pontas."
+        time_estimate: 90
+
+      - id: strings_avancadas_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          print(",".join(["a", "b", "c"]))
+        answer: |
+          a,b,c
+        hints:
+          - ".join junta os itens da lista colocando o separador entre eles."
+        time_estimate: 120
+
+      - id: strings_avancadas_4
+        type: complete
+        difficulty: easy
+        xp: 20
+        prompt: "Complete o código para mostrar a palavra em MAIÚSCULAS:\n`print(\"python\".______())`"
+        answer: "upper()"
+        hints:
+          - "O método chama-se igual à caixa alta: upper."
+        time_estimate: 90
+
+      - id: strings_avancadas_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que conte quantas vezes a letra "a" aparece na palavra
+          "banana" e exiba a palavra em letras maiúsculas, um por linha.
+        code: |
+          texto = "banana"
+          # Seu código aqui
+        tests:
+          - name: Contagem e maiúsculas
+            expected: |
+              3
+              BANANA
+        hints:
+          - "Use .count('a') para contar e .upper() para as maiúsculas."
+          - "Os dois print() formam a saída de duas linhas."
+        solution: |
+          texto = "banana"
+          print(texto.count("a"))
+          print(texto.upper())
+        time_estimate: 180
+
+      - id: strings_avancadas_boss
+        type: write
+        difficulty: hard
+        xp: 70
+        prompt: |
+          Chefão (escreva o código): crie a função `formatar(nome)` que:
+          1. limpa os espaços das pontas com `.strip()`;
+          2. separa o nome com `.split()`;
+          3. retorna a inicial da primeira parte em maiúscula, um ponto, espaço e o
+             sobrenome (última parte) com `.title()`.
+
+          Formato final: `A. Souza`. Ao fim, chame a função com `  anA beatriz souza  `
+          e com `joao almeida`, exibindo um resultado por linha.
+        tests:
+          - name: Formato inicial. sobrenome
+            expected: |
+              A. Souza
+              J. Almeida
+        must_include:
+          - "def formatar"
+        hints:
+          - "partes[0] é o primeiro nome e partes[-1] é o sobrenome."
+          - "inicial = partes[0][0].upper() pega a primeira letra e eleva a caixa."
+        solution: |
+          def formatar(nome):
+              partes = nome.strip().split()
+              inicial = partes[0][0].upper()
+              sobrenome = partes[-1].title()
+              return f"{inicial}. {sobrenome}"
+
+          print(formatar("  anA beatriz souza  "))
+          print(formatar("joao almeida"))
+        time_estimate: 420
+
+  # ────────────────────────────────────────────────────────────────
+  - id: listas_2d
+    title: "Matrizes com listas"
+    color: "#2563eb"
+    summary: "Listas dentro de listas: grades, tabelas e coordenadas [linha][coluna]."
+    lessons:
+      - id: listas_2d_intro
+        title: "Uma lista dentro da outra"
+        blocks:
+          - type: text
+            body: |
+              Uma **matriz** é uma lista onde cada elemento também é uma lista — cada uma delas é uma linha.
+
+              ```python
+              m = [[1, 2, 3],
+                   [4, 5, 6]]
+              print(m[0][1])   # linha 0, coluna 1 → 2
+              print(m[1][2])   # linha 1, coluna 2 → 6
+              ```
+
+              O primeiro índice escolhe a **linha**; o segundo, a **coluna**.
+          - type: visual
+            kind: frame
+            code: |
+              m = [[1, 2, 3], [4, 5, 6]]
+              m[0] → [1, 2, 3]
+              m[0][2] → 3
+              m[1] → [4, 5, 6]
+          - type: callout
+            body: "Loops aninhados são o jeito clássico de varrer uma matriz: um for percorre as linhas e outro percorre os itens de cada linha."
+    exercises:
+      - id: listas_2d_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que será exibido?"
+        code: |
+          m = [[1, 2], [3, 4]]
+          print(m[1][0])
+        answer: |
+          3
+        hints:
+          - "m[1] é a segunda linha [3, 4]; o índice [0] pega o 3."
+        time_estimate: 90
+
+      - id: listas_2d_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: "Qual código cria um tabuleiro 3×3 preenchido com zeros?"
+        options:
+          - "[[0] * 3 for _ in range(3)]"
+          - "[0] * 9"
+          - "for i in range(3): print(0)"
+          - "[[0, 0, 0, 0]] * 3"
+        answer: "0"
+        hints:
+          - "Como são 3 linhas de 3 zeros, perceba duas dimensões na resposta."
+        time_estimate: 120
+
+      - id: listas_2d_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          tabela = [[1, 2, 3], [4, 5, 6]]
+          print(tabela[1][2])
+        answer: |
+          6
+        hints:
+          - "Linha 1 é [4, 5, 6]; a coluna 2 guarda o 6."
+        time_estimate: 120
+
+      - id: listas_2d_4
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          notas = [[7, 8], [9, 6]]
+          total = sum(sum(n) for n in notas)
+          print(total)
+        answer: |
+          30
+        hints:
+          - "A primeira linha soma 15 e a segunda soma 15; 15 + 15 = 30."
+        time_estimate: 150
+
+      - id: listas_2d_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que calcule a soma da diagonal principal da matriz:
+          `m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]`
+          (elementos m[0][0], m[1][1] e m[2][2]) e exiba o resultado.
+        tests:
+          - name: Soma da diagonal
+            expected: |
+              15
+        hints:
+          - "A diagonal principal tem índices iguais: [0][0], [1][1], [2][2]."
+        solution: |
+          m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+          print(m[0][0] + m[1][1] + m[2][2])
+        time_estimate: 240
+
+      - id: listas_2d_boss
+        type: write
+        difficulty: hard
+        xp: 70
+        prompt: |
+          Chefão (escreva o código): dada a matriz `matriz = [[3, 8], [1, 9], [4, 2]]`,
+          calcule com compreensões/laços:
+          1. o **total** de todos os valores (soma de cada linha e depois soma das linhas);
+          2. o **maior** valor dentre todos os números.
+
+          Exiba total e maior, um por linha.
+        tests:
+          - name: Total e maior da matriz
+            expected: |
+              27
+              9
+        must_include:
+          - "sum("
+          - "max("
+        hints:
+          - "sum(sum(linha) for linha in matriz) soma tudo em uma linha."
+          - "max(max(linha) for linha in matriz) acha o maior de cada linha e depois o maior deles."
+        solution: |
+          matriz = [[3, 8], [1, 9], [4, 2]]
+          total = sum(sum(linha) for linha in matriz)
+          maior = max(max(linha) for linha in matriz)
+          print(total)
+          print(maior)
+        time_estimate: 420
+
+  # ────────────────────────────────────────────────────────────────
+  - id: dicts_aninhados
+    title: "Dicionários aninhados"
+    color: "#7c3aed"
+    summary: "Dados com estrutura: dicionários dentro de dicionários e listas de registros."
+    lessons:
+      - id: dicts_aninhados_intro
+        title: "Estruturar é mais que guardar"
+        blocks:
+          - type: text
+            body: |
+              Um **dicionário aninhado** usa um dicionário como valor de outro.
+
+              ```python
+              turma = {
+                  "ana": {"nota": 9, "turma": "A"},
+                  "bia": {"nota": 6, "turma": "A"},
+              }
+              print(turma["ana"]["nota"])   # 9
+              ```
+
+              E **listas de dicionários** são como fichas de uma tabela:
+              ```python
+              alunos = [{"nome": "Ana", "nota": 8},
+                        {"nome": "Bia", "nota": 6}]
+              print(sum(a["nota"] for a in alunos))   # 14
+              ```
+          - type: visual
+            kind: memory
+            code: |
+              turma["ana"]      → {"nota": 9, "turma": "A"}
+              turma["ana"]["nota"] → 9
+              alunos[0]["nome"] → "Ana"
+          - type: callout
+            body: "Se não tem certeza se uma chave existe, use .get — `turma.get('caio')` devolve None em vez de quebrar."
+    exercises:
+      - id: dicts_aninhados_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que será exibido?"
+        code: |
+          turma = {"ana": {"nota": 9}}
+          print(turma["ana"]["nota"])
+        answer: |
+          9
+        hints:
+          - "Primeiro acesse a chave 'ana' e depois a chave 'nota' do dicionário interno."
+        time_estimate: 90
+
+      - id: dicts_aninhados_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: "Como acessar com segurança a ficha de um aluno que talvez não exista?"
+        options:
+          - "turma['caio']"
+          - "turma.get('caio')"
+          - "turma.pop('caio')"
+          - "turma.keys('caio')"
+        answer: "1"
+        hints:
+          - ".get devolve o valor ou um padrão (None) sem levantar erro de chave."
+        time_estimate: 120
+
+      - id: dicts_aninhados_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          estoque = {"frutas": {"maca": 3, "uva": 5}}
+          print(estoque["frutas"]["uva"])
+        answer: |
+          5
+        hints:
+          - "Desça um nível por vez: 'frutas' e depois 'uva'."
+        time_estimate: 120
+
+      - id: dicts_aninhados_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que calcule e exiba a média das notas dos alunos a partir
+          desta lista de dicionários:
+          `alunos = [{"nome": "Ana", "nota": 8}, {"nome": "Bia", "nota": 6}]`
+
+          A média é a soma das notas dividida pelo número de alunos; arredonde para 1
+          casa decimal com `round(media, 1)`.
+        tests:
+          - name: Média da turma
+            expected: |
+              7.0
+        hints:
+          - "sum(a['nota'] for a in alunos) soma as notas."
+        solution: |
+          alunos = [{"nome": "Ana", "nota": 8}, {"nome": "Bia", "nota": 6}]
+          media = sum(a["nota"] for a in alunos) / len(alunos)
+          print(round(media, 1))
+        time_estimate: 240
+
+      - id: dicts_aninhados_boss
+        type: write
+        difficulty: hard
+        xp: 70
+        prompt: |
+          Chefão (escreva o código): agrupe os alunos por turma. A partir da lista de
+          tuplas `turma = [("ana", "A"), ("bia", "B"), ("caio", "A")]`, monte um
+          dicionário onde cada chave é a sigla da turma e cada valor é a lista de
+          nomes daquela turma (use `setdefault`).
+
+          Exiba a lista da turma "A" e a lista da turma "B", uma por linha.
+        tests:
+          - name: Grupos por turma
+            expected: |
+              ['ana', 'caio']
+              ['bia']
+        must_include:
+          - "setdefault"
+        hints:
+          - "grupos.setdefault(sigla, []).append(nome) cria a lista se faltar e adiciona."
+        solution: |
+          turma = [("ana", "A"), ("bia", "B"), ("caio", "A")]
+          grupos = {}
+          for nome, sigla in turma:
+              grupos.setdefault(sigla, []).append(nome)
+          print(grupos["A"])
+          print(grupos["B"])
+        time_estimate: 420
+
+  # ────────────────────────────────────────────────────────────────
+  - id: geradores
+    title: "Geradores"
+    color: "#d97706"
+    summary: "Valores sob demanda com yield e expressões geradoras, sem estourar a memória."
+    lessons:
+      - id: geradores_intro
+        title: "Produzir um valor por vez"
+        blocks:
+          - type: text
+            body: |
+              Um **gerador** produz valores um a um, sob demanda, em vez de guardá-los todos na memória.
+
+              A palavra-chave `yield` transforma uma função em geradora:
+
+              ```python
+              def dobrar(limite):
+                  for n in range(limite):
+                      yield n * 2
+
+              print(list(dobrar(4)))   # [0, 2, 4, 6]
+              print(sum(dobrar(4)))    # 12
+              ```
+
+              Expressões geradoras usam a sintaxe de listcomp com parênteses:
+              `(x * x for x in range(4))`.
+          - type: visual
+            kind: pipeline
+            code: "range → yield → sob demanda → list()/sum()"
+          - type: callout
+            body: "A diferença prática: uma lista guarda tudo; um gerador calcula cada item só quando alguém pede."
+    exercises:
+      - id: geradores_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que será exibido?"
+        code: |
+          def dobro(n):
+              for x in range(n):
+                  yield x * 2
+
+          print(list(dobro(3)))
+        answer: |
+          [0, 2, 4]
+        hints:
+          - "Para x assumindo 0, 1 e 2, o yield devolve 0, 2 e 4."
+        time_estimate: 120
+
+      - id: geradores_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: "Qual palavra transforma uma função comum em um gerador?"
+        options:
+          - "return"
+          - "yield"
+          - "break"
+          - "pass"
+        answer: "1"
+        hints:
+          - "É o mesmo nome do 'colher' que produz cada valor: yield."
+        time_estimate: 90
+
+      - id: geradores_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          g = (x * x for x in range(4))
+          print(sum(g))
+        answer: |
+          14
+        hints:
+          - "0² + 1² + 2² + 3² = 0 + 1 + 4 + 9 = 14."
+        time_estimate: 150
+
+      - id: geradores_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva a função geradora `pares(limite)` que produz os números pares entre
+          0 e `limite` (sem incluir o limite). Exiba a soma dos pares de `pares(6)`.
+        tests:
+          - name: Soma dos pares
+            expected: |
+              6
+        hints:
+          - "if n % 2 == 0: yield n dentro de um for sobre range(limite)."
+        solution: |
+          def pares(limite):
+              for n in range(limite):
+                  if n % 2 == 0:
+                      yield n
+
+          print(sum(pares(6)))
+        time_estimate: 240
+
+      - id: geradores_boss
+        type: write
+        difficulty: hard
+        xp: 75
+        prompt: |
+          Chefão (escreva o código): crie o gerador `fibonacci(n)` que produz os `n`
+          primeiros termos da sequência de Fibonacci (começando em 0, 1, 1, 2, 3,
+          5, ...), alternando `a, b = b, a + b` a cada passo.
+
+          Transforme os 7 primeiros termos em lista, exiba a lista e a soma deles,
+          cada um em uma linha.
+        tests:
+          - name: Primeiros 7 termos
+            expected: |
+              [0, 1, 1, 2, 3, 5, 8]
+              20
+        must_include:
+          - "yield"
+        hints:
+          - "A cada volta os próximos DOIS números são (b) e (a + b)."
+          - "seq = list(fibonacci(7)) materializa o gerador em uma lista."
+        solution: |
+          def fibonacci(n):
+              a, b = 0, 1
+              for _ in range(n):
+                  yield a
+                  a, b = b, a + b
+
+          seq = list(fibonacci(7))
+          print(seq)
+          print(sum(seq))
+        time_estimate: 420
+
+  # ────────────────────────────────────────────────────────────────
+  - id: recursao
+    title: "Recursão"
+    color: "#dc2626"
+    summary: "Uma função que chama a si mesma — com um caso-base para não rodar para sempre."
+    lessons:
+      - id: recursao_intro
+        title: "Resolver resolvendo a si mesma"
+        blocks:
+          - type: text
+            body: |
+              **Recursão** é quando uma função chama a si mesma para resolver um
+              problema menor — sempre com um **caso-base** que encerra as chamadas.
+
+              ```python
+              def soma_rec(n):
+                  if n == 0:          # caso-base
+                      return 0
+                  return n + soma_rec(n - 1)
+
+              print(soma_rec(4))      # 10
+              ```
+          - type: visual
+            kind: sequence
+            code: |
+              soma_rec(4)
+                → 4 + soma_rec(3)
+                  → 3 + soma_rec(2)
+                    → 2 + soma_rec(1)
+                      → 1 + soma_rec(0) → 0
+                      = 1
+                    = 3
+                  = 6
+                = 10
+          - type: callout
+            body: "Todo programa recursivo bom tem duas partes: o caso-base (para de descer) e o passo recursivo (desce um nível mais perto do caso-base)."
+    exercises:
+      - id: recursao_1
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def conta(n):
+              if n == 0:
+                  return
+              conta(n - 1)
+              print(n)
+
+          conta(3)
+        answer: |
+          1
+          2
+          3
+        hints:
+          - "O print vem DEPOIS da chamada recursiva, então os números saem em ordem crescente."
+        time_estimate: 150
+
+      - id: recursao_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: "Para que serve o **caso-base** em uma função recursiva?"
+        options:
+          - "Acelerar a execução do programa"
+          - "Parar a recursão antes que ela rode infinitamente"
+          - "Formatar a saída do print"
+          - "Criar novas variáveis globais"
+        answer: "1"
+        hints:
+          - "Sem a condição de parada, a função chamaria a si mesma para sempre até estourar a memória."
+        time_estimate: 120
+
+      - id: recursao_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def soma(n):
+              if n == 0:
+                  return 0
+              return n + soma(n - 1)
+
+          print(soma(4))
+        answer: |
+          10
+        hints:
+          - "4 + 3 + 2 + 1 + 0 = 10."
+        time_estimate: 150
+
+      - id: recursao_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva a função recursiva `potencia(base, expoente)` que calcula
+          `base ** expoente` multiplicando repetidamente. Caso-base: se `expoente == 0`,
+          retorne 1. Exiba `potencia(2, 5)`.
+        tests:
+          - name: 2 elevado a 5
+            expected: |
+              32
+        hints:
+          - "return base * potencia(base, expoente - 1) — cada passo diminui o expoente."
+        solution: |
+          def potencia(base, expoente):
+              if expoente == 0:
+                  return 1
+              return base * potencia(base, expoente - 1)
+
+          print(potencia(2, 5))
+        time_estimate: 240
+
+      - id: recursao_boss
+        type: write
+        difficulty: hard
+        xp: 75
+        prompt: |
+          Chefão (escreva o código): escreva a função recursiva `fatorial(n)` que
+          retorna o produto de todos os inteiros de 1 até n. Caso-base: valores
+          menores ou iguais a 1 retornam 1; o passo é `n * fatorial(n - 1)`.
+
+          Exiba `fatorial(5)` e `fatorial(7)`, um por linha.
+        tests:
+          - name: Fatoriais
+            expected: |
+              120
+              5040
+        must_include:
+          - "fatorial"
+        hints:
+          - "5! = 5 · 4 · 3 · 2 · 1 = 120."
+          - "O caso-base usa n <= 1 para não descer além do necessário."
+        solution: |
+          def fatorial(n):
+              if n <= 1:
+                  return 1
+              return n * fatorial(n - 1)
+
+          print(fatorial(5))
+          print(fatorial(7))
+        time_estimate: 420
+
+  # ────────────────────────────────────────────────────────────────
+  - id: projeto_final
+    title: "Projeto final"
+    color: "#334155"
+    summary: "O capstone: um mini sistema que junta classes, dicionários, funções e loops."
+    lessons:
+      - id: projeto_final_intro
+        title: "Tudo junto: um mini sistema"
+        blocks:
+          - type: text
+            body: |
+              Este é o **capstone** do caminho. Um mini sistema do mundo real combina
+              várias peças que você já domina:
+
+              - **classes** organizam o comportamento (`Caixa`, `Aluno`, `Tarefa`);
+              - **dicionários** guardam estado (`self.itens = {}`);
+              - **funções** (métodos) fazem cada operação;
+              - **loops e comprehension** processam coleções.
+
+              ```python
+              class Caixa:
+                  def __init__(self):
+                      self.itens = {}
+
+                  def registrar(self, nome, preco):
+                      self.itens[nome] = self.itens.get(nome, 0) + preco
+
+                  def total(self):
+                      return sum(self.itens.values())
+              ```
+          - type: visual
+            kind: memory
+            code: |
+              c = Caixa()
+              c.registrar("cafe", 5.5)
+              c.itens → {"cafe": 5.5}
+              c.total() → 5.5
+          - type: callout
+            body: "Resolver um problema do mundo real é quase sempre 'juntar' ferramentas que você já aprendeu — não aprender algo novo."
+    exercises:
+      - id: projeto_final_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que será exibido?"
+        code: |
+          class Aluno:
+              def __init__(self, nome):
+                  self.nome = nome
+                  self.notas = []
+
+              def adicionar_nota(self, nota):
+                  self.notas.append(nota)
+
+          a = Aluno("Ana")
+          a.adicionar_nota(8)
+          a.adicionar_nota(10)
+          print(a.notas)
+        answer: |
+          [8, 10]
+        hints:
+          - "Cada chamada de adicionar_nota adiciona um valor à lista self.notas."
+        time_estimate: 150
+
+      - id: projeto_final_2
+        type: choice
+        difficulty: medium
+        xp: 25
+        prompt: "Qual é a melhor forma de tratar uma conversão de entrada que pode falhar (ex.: o usuário digita 'abc' para a idade)?"
+        options:
+          - "Usar um try/except em volta da conversão"
+          - "Dividir o número por zero"
+          - "Converter sem nenhuma proteção"
+          - "Apagar a variável antes de usar"
+        answer: "0"
+        hints:
+          - "Erros previstos devem ser capturados — essa é a lição do bloco exceções."
+        time_estimate: 150
+
+      - id: projeto_final_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def total(*precos):
+              return sum(precos)
+
+          print(total(10, 20, 5))
+        answer: |
+          35
+        hints:
+          - "*precos empacota os três argumentos em uma tupla que o sum adiciona."
+        time_estimate: 150
+
+      - id: projeto_final_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que, partindo da lista de produtos
+          `produtos = [("cafe", 20), ("arroz", 12), ("acucar", 7)]`,
+          monte com uma compreensão a lista dos nomes dos produtos com preço maior ou
+          igual a 10 e exiba essa lista.
+        tests:
+          - name: Produtos caros
+            expected: |
+              ['cafe', 'arroz']
+        hints:
+          - "Cada item é uma tupla (nome, preco) — desempacote com for nome, preco in produtos."
+        solution: |
+          produtos = [("cafe", 20), ("arroz", 12), ("acucar", 7)]
+          caros = [nome for nome, preco in produtos if preco >= 10]
+          print(caros)
+        time_estimate: 240
+
+      - id: projeto_final_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva a classe `Tarefa` com:
+          - `__init__(self, descricao)` que guarda `descricao` e `concluida = False`;
+          - o método `concluir(self)` que marca `concluida = True`.
+
+          Depois crie uma tarefa "Estudar", conclua-a e exiba a descrição e o
+          estado `concluida`, um por linha.
+        tests:
+          - name: Tarefa concluída
+            expected: |
+              Estudar
+              True
+        hints:
+          - "O método concluir só precisa de self e muda o próprio atributo."
+        solution: |
+          class Tarefa:
+              def __init__(self, descricao):
+                  self.descricao = descricao
+                  self.concluida = False
+
+              def concluir(self):
+                  self.concluida = True
+
+          t = Tarefa("Estudar")
+          t.concluir()
+          print(t.descricao)
+          print(t.concluida)
+        time_estimate: 240
+
+      - id: projeto_final_boss
+        type: write
+        difficulty: hard
+        xp: 90
+        prompt: |
+          Chefão final (escreva o código): um **caixa registradora** inteirinho.
+
+          A classe `Caixa` deve ter:
+          1. `__init__` criando `self.itens = {}` (nome do item → valor acumulado);
+          2. `registrar(nome, preco, qtde=1)` somando `preco * qtde` usando `.get()`;
+          3. `total()` devolvendo `sum(self.itens.values())`;
+          4. `pagar(valor)` devolvendo `round(valor - self.total(), 2)`.
+
+          Depois, registre 2 cafés a R$ 5,50 cada e 1 pão a R$ 4,00, exiba o total
+          arredondado com 2 casas e o troco para um pagamento de R$ 20,00.
+        tests:
+          - name: Café, pão e troco
+            expected: |
+              15.0
+              5.0
+        must_include:
+          - "class Caixa"
+        hints:
+          - "self.itens[nome] = self.itens.get(nome, 0) + preco * qtde guarda o acumulado."
+          - "Café: 5.5 * 2 = 11.0; pão: 4.0 → total 15.0; troco de 20 = 5.0."
+        solution: |
+          class Caixa:
+              def __init__(self):
+                  self.itens = {}
+
+              def registrar(self, nome, preco, qtde=1):
+                  self.itens[nome] = self.itens.get(nome, 0) + preco * qtde
+
+              def total(self):
+                  return sum(self.itens.values())
+
+              def pagar(self, valor):
+                  return round(valor - self.total(), 2)
+
+          c = Caixa()
+          c.registrar("cafe", 5.5, 2)
+          c.registrar("pao", 4.0)
+          print(round(c.total(), 2))
+          print(c.pagar(20.0))
+        time_estimate: 480

@@ -1,0 +1,16 @@
+id_produto,nome,categoria,quantidade,capacidade,ultima_reposicao
+0,Teclado,Periféricos,200,497,2024-06-12
+1,Mouse,Periféricos,240,310,2024-04-27
+2,Monitor,Monitores,149,216,2024-06-24
+3,Notebook,Informática,38,395,2024-06-03
+4,Fone Bluetooth,Áudio,244,239,2024-02-19
+5,Webcam,Câmeras,128,494,2024-06-18
+6,Impressora,Impressão,187,414,2024-05-24
+7,Cadeira Gamer,Mobiliário,31,470,2024-01-20
+8,Mesa Compacta,Mobiliário,120,468,2024-05-15
+9,Roteador,Redes,81,337,2024-02-27
+10,Cabo HDMI,Cabos,147,350,2024-02-11
+11,SSD 512GB,Armazenamento,62,385,2024-02-15
+12,Memória RAM 16GB,Componentes,80,259,2024-06-08
+13,Carregador USB-C,Energia,113,409,2024-03-03
+14,Hub USB,Conectividade,90,486,2024-05-03

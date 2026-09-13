@@ -1,0 +1,6 @@
+{% for s in snippets %}
+<div class="snippet-row" data-code="{{ s.code | e }}" onclick='PyMaster.loadSnippet(this)'>
+  <div class="snippet-title">{{ s.title }}</div>
+  <div class="snippet-meta">{{ s.created_at.strftime('%d/%m %H:%M') }}</div>
+</div>
+{% endfor %}

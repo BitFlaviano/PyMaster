@@ -1,0 +1,64 @@
+<div id="xp-slot" hx-swap-oob="true">
+  {% include "partials/_xp_chip.html" %}
+</div>
+{% if check.correct %}
+<div class="feedback feedback-ok" data-solved="1">
+  <div class="fb-head">
+    <span class="fb-ico">✓</span>
+    <div><b>Resposta correta!</b>
+      <span class="fb-detail">{{ check.message }}</span></div>
+    <span class="fb-xp">+{{ xp_earned }} XP</span>
+  </div>
+
+  {% if check.actual_output and check.expected_output %}
+    {% if exercise.type == 'predict' %}
+    <div class="fb-run">
+      <div><b>Resultado real do Python:</b><pre class="fb-pre">{{ check.actual_output }}</pre></div>
+      <button class="btn ghost btn-sm" onclick='PyMaster.visualizeFromCode(`{{ exercise.id }}`)'>👁 Ver passo a passo</button>
+    </div>
+    {% endif %}
+  {% endif %}
+  {% if check.tests_total %}
+  <div class="fb-tests"><span>Testes: {{ check.tests_passed }}/{{ check.tests_total }} ✓</span></div>
+  {% endif %}
+
+  <div class="fb-actions">
+    <span class="dom-status">Domínio em <b>{{ uc.concept_id | replace('_',' ') }}</b>: {{ uc.mastery | round | int }}%</span>
+    <a class="btn primary btn-sm" href="/concept/{{ exercise.concept }}">Continuar lição</a>
+  </div>
+</div>
+{% else %}
+<div class="feedback feedback-wrong">
+  <div class="fb-head">
+    <span class="fb-ico">✗</span>
+    <div><b>Quase!</b>
+      <span class="fb-detail">{{ check.message }}</span></div>
+  </div>
+
+  {% if check.feedback %}
+    <div class="fb-tip">{{ check.feedback }}</div>
+  {% elif check.run_error %}
+    <div class="fb-tip">
+      <b>{{ check.run_error.get('class', 'Erro') }}:</b>
+      {{ check.run_error.get('message', '') }}
+      {% if check.run_error.get('line') %} (linha {{ check.run_error['line'] }}){% endif %}
+    </div>
+  {% endif %}
+
+  {% if check.actual_output %}
+    <details class="fb-details">
+      <summary>O que seu código produziu</summary>
+      <pre class="fb-pre">{{ check.actual_output }}</pre>
+      {% if check.expected_output %}
+        <div class="fb-expected">Esperado:<pre class="fb-pre">{{ check.expected_output }}</pre></div>
+      {% endif %}
+    </details>
+  {% endif %}
+
+  {% if exercise.type == 'predict' %}
+    <button class="btn ghost btn-sm" onclick='PyMaster.visualizeFromCode(`{{ exercise.id }}`)'>👁 Ver o que o Python fez</button>
+  {% endif %}
+
+  <p class="fb-retry">Ajuste sua resposta e tente de novo — errar faz parte do aprendizado.</p>
+</div>
+{% endif %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Painel — PyMaster{% endblock %}
+{% block heading %}Início{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <section class="dash-hero">
+    <div class="dash-hero-text">
+      <h1>Olá, {{ user.name.split()[0] }}</h1>
+      <p class="dash-sub">{{ xp_title }} · Nível {{ xp_level }} · {{ user.xp }} XP</p>
+    </div>
+    <div class="dash-hero-rings">
+      <div class="dash-hero-ring" title="Progresso geral Python">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="ring-bg"/><circle cx="60" cy="60" r="54" class="ring-fg" stroke-dasharray="339.3" stroke-dashoffset="{{ 339.3 * (1 - python_progress/100) }}"/></svg>
+        <span class="ring-text">{{ python_progress }}%</span>
+        <span class="ring-label">Python</span>
+      </div>
+      <div class="dash-hero-ring" title="Progresso total do curso">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="ring-bg"/><circle cx="60" cy="60" r="54" class="ring-fg ring-fg-total" stroke-dasharray="339.3" stroke-dashoffset="{{ 339.3 * (1 - total_progress/100) }}"/></svg>
+        <span class="ring-text">{{ total_progress }}%</span>
+        <span class="ring-label">Curso total</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="dash-stats">
+    <div class="stat">
+      <div class="stat-num">{{ user.streak }}</div>
+      <div class="stat-label">Sequência de estudos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{{ due_reviews }}</div>
+      <div class="stat-label">Revisões pendentes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{{ user.xp }}</div>
+      <div class="stat-label">Experiência total</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{{ python_progress }}%</div>
+      <div class="stat-label">Domínio Python</div>
+    </div>
+  </section>
+
+  {% if next_item %}
+  <section class="dash-card dash-continue">
+    <div class="dash-card-head">Continue de onde parou</div>
+    <p class="continue-text">
+      <span class="concept-badge" style="background:{{ next_item[0].color }}">{{ next_item[0].title }}</span>
+      <b>{{ next_item[2].prompt.split('\n')[0] }}</b>
+      <span class="hint">{{ next_item[1].title }}</span>
+    </p>
+    <a class="btn primary" href="/concept/{{ next_item[0].id }}">Voltar às lições</a>
+  </section>
+  {% endif %}
+
+  {% if due_reviews %}
+  <section class="dash-card dash-review">
+    <div class="dash-card-head">Revisão rápida de hoje</div>
+    <p>{{ due_reviews }} conceito(s) pedem revisão.</p>
+    <a class="btn accent" href="/review">Revisar agora</a>
+  </section>
+  {% endif %}
+
+  {% if badges %}
+  <section class="dash-card dash-badges">
+    <div class="dash-card-head">Conquistas recentes</div>
+    <div class="badges-row">
+      {% for b in badges %}
+      <div class="badge-card {% if loop.index <= 6 %}{% endif %}">
+        <span class="badge-ico">{{ b.icon }}</span>
+        <span class="badge-name">{{ b.name }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="btn ghost btn-sm" href="/badges">Ver todas</a>
+  </section>
+  {% endif %}
+
+  {% if recent_attempts %}
+  <section class="dash-card dash-activity">
+    <div class="dash-card-head">Atividade recente</div>
+    <ul class="activity-list">
+      {% for a in recent_attempts[:5] %}
+      <li class="activity-item">
+        <span class="activity-{{ 'ok' if a.correct else 'fail' }}">{{ '✓' if a.correct else '✗' }}</span>
+        <span>{{ a.exercise_id }}</span>
+        <span class="activity-xp">{{ a.xp_earned }} XP</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="dash-card dash-map">
+    <div class="dash-card-head">Mapa de habilidades</div>
+    <div class="mastery-bars">
+      {% for item in overview[:20] %}
+      <div class="mastery-row">
+        <span class="mastery-label" style="color:{{ item.concept.color }}">{{ item.concept.title }}</span>
+        <div class="mastery-bar"><div class="mastery-fill" style="width:{{ item.mastery }}%;background:{{ item.concept.color }}"></div></div>
+        <span class="mastery-val">{{ item.mastery }}%</span>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="btn ghost btn-sm" href="/map">Ver mapa completo</a>
+  </section>
+</div>
+{% endblock %}

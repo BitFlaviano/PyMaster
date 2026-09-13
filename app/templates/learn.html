@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Trilha — PyMaster{% endblock %}
+{% block heading %}Trilha de aprendizado{% endblock %}
+{% block content %}
+<div class="learn">
+  <div class="learn-intro card">
+    <h2>Sua jornada</h2>
+    <p>Avance por cada conceito no seu ritmo. Os conceitos liberam os seguintes quando você demonstra domínio.</p>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot novo"></span> Novo</span>
+      <span class="legend-item"><span class="legend-dot aprendendo"></span> Aprendendo</span>
+      <span class="legend-item"><span class="legend-dot praticando"></span> Praticando</span>
+      <span class="legend-item"><span class="legend-dot dominado"></span> Dominado</span>
+      <span class="legend-item"><span class="legend-dot revisar"></span> Precisa revisar</span>
+      <span class="legend-item"><span class="legend-dot travado"></span> Bloqueado</span>
+    </div>
+  </div>
+
+  {% for level in registry.levels %}
+  <section class="level-block">
+    <div class="level-head">
+      <h2>{{ level.title }}</h2>
+      <p class="level-sub">{{ level.subtitle }}</p>
+    </div>
+    <div class="concept-grid">
+      {% for item in overview if item.concept.level == level.number %}
+      <a class="concept-card {{ item.status }}" href="/concept/{{ item.concept.id }}">
+        <div class="concept-top">
+          <span class="concept-badge" style="background:{{ item.concept.color }}">{{ item.concept.title }}</span>
+          {% if item.status == 'novo' %}<span class="status-chip novo">Novo</span>
+          {% elif item.status == 'dominado' %}<span class="status-chip ok">Dominado</span>
+          {% elif item.status == 'praticando' %}<span class="status-chip">Praticando</span>
+          {% elif item.status == 'revisar' %}<span class="status-chip warn">Revisar</span>
+          {% else %}<span class="status-chip">Aprendendo</span>{% endif %}
+        </div>
+        <p class="concept-summary">{{ item.concept.summary }}</p>
+        <div class="concept-progress">
+          <div class="mastery-bar"><div class="mastery-fill" style="width:{{ item.mastery }}%;background:{{ item.concept.color }}"></div></div>
+          <span>{{ item.mastery }}%</span>
+        </div>
+        {% if not item.unlocked %}<span class="lock-note">🔒 Domine o conceito anterior para liberar</span>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+
+  <div class="learn-hint">
+    Se preferir pular a navegação, use o <b>Laboratório</b> para brincar com Python à vontade ou a <b>Revisão</b> para fixar o que já passou.
+  </div>
+</div>
+{% endblock %}

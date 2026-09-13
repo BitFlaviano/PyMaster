@@ -1,0 +1,65 @@
+{% from "macros.html" import code_block %}
+<form class="review-card" id="rev-{{ ex.id }}" hx-post="/frag/review/submit"
+     hx-target="closest .review-question-card, .review-next-card" hx-swap="innerHTML">
+  <input type="hidden" name="concept_id" value="{{ ex.concept }}">
+  <input type="hidden" name="exercise_id" value="{{ ex.id }}">
+
+  {% if ex.lines and (ex.type in ('find_error','debug')) %}
+    <div class="lines-panel">
+      {% for line in ex.lines %}<div class="line-row"><span class="line-no">{{ loop.index0 }}</span><code>{{ line }}</code></div>{% endfor %}
+    </div>
+  {% elif ex.code %}
+    {{ code_block(ex.code) }}
+  {% endif %}
+
+  <div class="ex-body">
+    {% if ex.type in ('choice','explain') %}
+      <div class="option-list">
+        {% for opt in ex.options %}
+        <label class="option"><input type="radio" name="answer" value="{{ loop.index0 }}"><span>{{ opt }}</span></label>
+        {% endfor %}
+      </div>
+      <button class="btn primary btn-check" type="submit">Responder</button>
+
+    {% elif ex.type == 'complete' %}
+      <input class="code-input" type="text" name="answer" placeholder="Complete o código…">
+      <button class="btn primary" type="submit">Responder</button>
+
+    {% elif ex.type == 'predict' %}
+      <textarea class="code-input code-textarea" name="answer" rows="3" placeholder="O que será exibido?"></textarea>
+      <button class="btn primary" type="submit">Verificar</button>
+
+    {% elif ex.type == 'find_error' %}
+      <div class="option-list">
+        {% for line in ex.lines %}
+        <label class="option"><input type="radio" name="answer" value="{{ loop.index0 }}"><span><code>{{ line }}</code></span></label>
+        {% endfor %}
+      </div>
+      <button class="btn primary btn-check" type="submit">Confirmar linha</button>
+
+    {% elif ex.type == 'order' %}
+      {% set shuffled = ex.lines | shuffle_scoped(seed) %}
+      <div class="order-wrap" data-exercise="{{ ex.id }}">
+        <input type="hidden" name="answer" value="{% for ln in shuffled %}{{ ln }}{{ '\n' if not loop.last }}{% endfor %}">
+        <div class="order-list" data-droppable>
+          {% for ln in shuffled %}
+          <div class="order-item" data-line="{{ ln }}" draggable="true">
+            <span class="order-grip">⠿</span>
+            <span class="order-num">{{ loop.index }}.</span>
+            <code class="order-text">{{ ln }}</code>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="order-controls">
+          <button type="button" class="btn ghost btn-sm" onclick="PyMaster.orderUp(this)">▲ Mover para cima</button>
+          <button type="button" class="btn ghost btn-sm" onclick="PyMaster.orderDn(this)">▼ Mover para baixo</button>
+          <button class="btn primary btn-check" type="submit">Verificar ordem</button>
+        </div>
+      </div>
+
+    {% elif ex.type in ('write','fix','debug') %}
+      <textarea class="code-input code-textarea" name="code" rows="4" placeholder="Escreva o código…"></textarea>
+      <button class="btn primary" type="submit">Verificar</button>
+    {% endif %}
+  </div>
+</form>

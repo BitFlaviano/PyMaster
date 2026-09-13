@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Começar — PyMaster{% endblock %}
+{% block body %}
+<body class="onboard-body">
+<div class="onboard">
+  <a class="onboard-logo" href="/"><img class="brand-logo" src="/static/img/logo-sm.png" alt="PyMaster"> PyMaster</a>
+
+  {% if error %}<div class="msg-err" style="width:100%;max-width:640px;margin:0 auto 12px">{{ error }}</div>{% endif %}
+
+  <form method="post" action="/onboarding" class="onboard-form" id="onboard-form">
+
+    <section class="step active" data-step="0">
+      <div class="step-label">Passo 1 de 4</div>
+      <h2>Qual é seu nível?</h2>
+      <p class="step-sub">Seja honesto: o PyMaster se adapta ao seu ponto de partida.</p>
+      <label class="radio-card"><input type="radio" name="prior_level" value="never" required>
+        <span><b>Nunca programei.</b><small>Começo do absoluto zero.</small></span></label>
+      <label class="radio-card"><input type="radio" name="prior_level" value="tried">
+        <span><b>Já tentei programar.</b><small>Parei, mas vi algo sobre o assunto.</small></span></label>
+      <label class="radio-card"><input type="radio" name="prior_level" value="logic">
+        <span><b>Conheço lógica.</b><small>Já pensei em problemas passo a passo.</small></span></label>
+      <label class="radio-card"><input type="radio" name="prior_level" value="other_lang">
+        <span><b>Já programo em outra linguagem.</b><small>Familiar com código em geral.</small></span></label>
+      <label class="radio-card"><input type="radio" name="prior_level" value="python">
+        <span><b>Já conheço Python.</b><small>Sei o básico e quero avançar para dados.</small></span></label>
+    </section>
+
+    <section class="step" data-step="1">
+      <div class="step-label">Passo 2 de 4</div>
+      <h2>Por que você quer aprender Python?</h2>
+      <div class="goal-grid">
+        <label class="goal-card"><input type="radio" name="goal" value="trabalho"><span>👔</span><b>Trabalho</b></label>
+        <label class="goal-card"><input type="radio" name="goal" value="faculdade"><span>🎓</span><b>Faculdade</b></label>
+        <label class="goal-card"><input type="radio" name="goal" value="dados"><span>📊</span><b>Análise de dados</b></label>
+        <label class="goal-card"><input type="radio" name="goal" value="automacao"><span>⚙️</span><b>Automação</b></label>
+        <label class="goal-card"><input type="radio" name="goal" value="curiosidade"><span>🧠</span><b>Curiosidade</b></label>
+        <label class="goal-card"><input type="radio" name="goal" value="carreira"><span>🚀</span><b>Transição de carreira</b></label>
+        <label class="goal-card"><input type="radio" name="goal" value="outro"><span>💡</span><b>Outro</b></label>
+      </div>
+    </section>
+
+    <section class="step" data-step="2">
+      <div class="step-label">Passo 3 de 4</div>
+      <h2>Diagnóstico rápido</h2>
+      <p class="step-sub">Alguns minutos para mapearmos seu ponto de partida. Não é prova!</p>
+      {% for q in questions %}
+      <div class="diag-q">
+        <div class="diag-q-title">{{ loop.index }}. {{ q.q | replace("\n", "<br>") | safe }}</div>
+        <div class="diag-options">
+          {% for opt in q.options %}
+          <label class="diag-opt"><input type="radio" name="q_{{ q.id }}" value="{{ loop.index0 }}">
+            <span>{{ opt }}</span></label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section class="step" data-step="3">
+      <div class="step-label">Passo 4 de 4</div>
+      <h2>{{ "Crie seu perfil" if not new_profile else "Novo perfil" }}</h2>
+      <p class="step-sub">Tudo fica salvo somente neste aparelho. Cada perfil tem progresso independente.</p>
+      <label class="field"><span>Nome do perfil</span>
+        <input type="text" name="name" required maxlength="120" placeholder="Ex.: Ana, projetos, para mim…"></label>
+      <div class="field">
+        <span>Avatar</span>
+        <div class="avatar-picker">
+          {% for a in ['🎓', '🐍', '🚀', '🔥', '🌙', '☕', '🎯', '🦊', '👩‍💻', '🧙', '⭐', '🌸'] %}
+          <label class="avatar-opt">
+            <input type="radio" name="avatar" value="{{ a }}" {% if loop.first %}checked{% endif %} required>
+            <span>{{ a }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      <label class="field"><span>PIN (opcional)</span>
+        <input type="password" name="pin" minlength="4" maxlength="12" placeholder="Ex.: 1234 — protege este perfil"></label>
+      <p class="hint">Com PIN definido, este perfil só abre após digitá-lo. Sem PIN, entra com um toque.</p>
+    </section>
+
+    <div class="step-nav">
+      <button type="button" class="btn ghost" id="prev-btn" hidden>Voltar</button>
+      <button type="button" class="btn primary" id="next-btn">Continuar</button>
+      <button type="submit" class="btn primary" id="submit-btn" hidden>Começar a aprender</button>
+    </div>
+  </form>
+</div>
+<script>
+  (function(){
+    var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+    var idx = 0;
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    var submitBtn = document.getElementById('submit-btn');
+    function show(i){
+      steps.forEach(function(s){ s.classList.remove('active'); });
+      steps[i].classList.add('active');
+      prevBtn.hidden = i === 0;
+      nextBtn.hidden = i === steps.length - 1;
+      submitBtn.hidden = i !== steps.length - 1;
+      window.scrollTo({top: 0});
+    }
+    nextBtn.addEventListener('click', function(){
+      var cur = steps[idx];
+      var check = cur.querySelectorAll('input[required], input[type=radio]');
+      if (cur.querySelector('input[type=radio]') && !cur.querySelector('input[type=radio]:checked')){
+        var rad = cur.querySelector('input[type=radio]');
+        if (idx===0 && !rad.checked){ alert('Escolha uma opção para continuar.'); return; }
+      }
+      if (idx === steps.length - 1) return;
+      idx++;
+      show(idx);
+    });
+    prevBtn.addEventListener('click', function(){ if (idx>0){ idx--; show(idx);} });
+    show(0);
+  })();
+</script>
+</body>
+{% endblock %}

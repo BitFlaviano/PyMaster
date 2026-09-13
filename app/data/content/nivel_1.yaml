@@ -1,0 +1,1061 @@
+# ------------------------------------------------------------
+# NÍVEL 1 — PRIMEIROS PASSOS COM PYTHON
+# ------------------------------------------------------------
+
+level: 1
+slug: "nivel-1"
+title: "Nível 1 — Primeiros passos com Python"
+subtitle: "Aprenda a base da linguagem: mensagens, variáveis, tipos e entrada de dados."
+
+concepts:
+  - id: primeiro_codigo
+    title: "Primeiros passos com print"
+    color: "#6366f1"
+    summary: "Mostre mensagens na tela e entenda como o texto é tratado."
+    lessons:
+      - id: primeiro_codigo_01
+        title: "Primeiros comandos"
+        blocks:
+          - type: text
+            body: |
+              O jeito mais simples de um programa **mostrar** algo é com `print()`:
+              
+              ```
+              print("Ola")
+              ```
+              
+              Qualquer texto entre aspas (`"..."` ou `'...'`) é exibido na tela literalmente.
+
+          - type: visual
+            kind: sequence
+            code: "print('Ola') → 'Ola'"
+
+          - type: callout
+            body: "print() mostra o que estiver entre parênteses — exatamente como foi escrito."
+
+      - id: primeiro_codigo_02
+        title: "Texto é texto"
+        blocks:
+          - type: text
+            body: |
+              Tudo que fica **entre aspas** é texto, mesmo que pareça conta:
+              
+              ```
+              print("2 + 3")
+              ```
+              
+              Isso exibe `2 + 3` na tela. Para calcular de verdade, escreva sem aspas: `print(2 + 3)`.
+
+    exercises:
+
+
+      - id: primeiro_codigo_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Qual destes é um comando VÁLIDO para mostrar uma mensagem?
+        options:
+        - print('bom dia')
+        - print bom dia]
+        - print()'bom dia'
+        - 'print: bom dia'
+        answer: '0'
+        hints:
+        - print() usa parênteses e o texto vai entre aspas.
+
+      - id: primeiro_codigo_2
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: O que será exibido? (duas linhas)
+        code: 'print("oi")
+
+          print("py")
+
+          '
+        answer: 'oi
+
+          py
+
+          '
+        hints:
+        - Cada print() produz uma linha.
+
+      - id: primeiro_codigo_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: O que será exibido?
+        code: 'print("3 + 4")
+
+          '
+        answer: '3 + 4
+
+          '
+        hints:
+        - Entre aspas o computador trata tudo como texto — não calcula.
+
+      - id: primeiro_codigo_4
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 180
+        prompt: Escreva um programa que mostre 'Ola' e na linha seguinte 'PyMaster'.
+        tests:
+        - name: Duas mensagens
+          expected: 'Ola
+
+            PyMaster
+
+            '
+        solution: 'print(''Ola'')
+
+          print("PyMaster")
+
+          '
+        hints:
+        - Use aspas simples ou duplas — as duas funcionam.
+
+      - id: primeiro_codigo_6
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 90
+        prompt: O que o programa `print("Bom dia!")` faz?
+        options:
+        - Mostra Bom dia! na tela
+        - Abre uma guia no navegador
+        - Baixa um arquivo da internet
+        - Apaga um arquivo do computador
+        answer: '0'
+        hints:
+        - print serve para exibir mensagens na saída.
+
+      - id: primeiro_codigo_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 300
+        prompt: 'Chefão (escreva o código): seu primeiro prograba completo! Crie um programa que mostre exatamente duas mensagens em duas linhas diferentes: primeiro `Olá, PyMaster!` e depois `Bem-vindo(a) ao mundo dos códigos!`. Cada mensagem deve usar
+          seu próprio print e ocupar uma linha.'
+        solution: 'print("Olá, PyMaster!")
+
+          print("Bem-vindo(a) ao mundo dos códigos!")
+
+          '
+        tests:
+        - name: Saída esperada
+          expected: 'Olá, PyMaster!
+
+            Bem-vindo(a) ao mundo dos códigos!
+
+            '
+        hints:
+        - Cada print() imprime uma linha.
+        common_error: Colocar as duas mensagens no mesmo print sem o caractere de quebra.
+
+  - id: variaveis
+    title: "Variáveis"
+    color: "#10b981"
+    summary: "Guarde valores com nomes e reutilize pelo programa todo."
+    lessons:
+      - id: variaveis_01
+        title: "Guardando valores"
+        blocks:
+          - type: text
+            body: |
+              Uma **variável** guarda um valor para usar depois. Criamos com o sinal de `=`:
+              
+              ```
+              idade = 15
+              ```
+              
+              A partir daí, `idade` vale 15 — como uma caixinha etiquetada.
+
+          - type: visual
+            kind: frame
+            code: "variavel: idade → valor: 15"
+
+      - id: variaveis_02
+        title: "Usando variáveis"
+        blocks:
+          - type: text
+            body: |
+              Toda vez que usamos o nome, o computador substitui pelo valor guardado:
+              
+              ```
+              x = 5
+              y = 2
+              print(x + y)
+              ```
+              
+              Exibe `7`, pois 5 + 2 = 7.
+
+    exercises:
+
+
+      - id: variaveis_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Como guardar o valor 10 em uma variável chamada idade?
+        options:
+        - idade = 10
+        - 10 = idade
+        - idade == 10
+        - let idade = 10
+        answer: '0'
+        hints:
+        - O sinal '=' atribui; o nome da variável fica à esquerda.
+
+      - id: variaveis_2
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: O que será exibido?
+        code: 'x = 5
+
+          y = 2
+
+          print(x + y)
+
+          '
+        answer: '7
+
+          '
+        hints:
+        - x e y valem 5 e 2; a soma é 7.
+
+      - id: variaveis_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: O que será exibido?
+        code: 'total = 0
+
+          total = total + 10
+
+          print(total)
+
+          '
+        answer: '10
+
+          '
+        hints:
+        - total recomeça em 0 e recebe 0 + 10.
+
+      - id: variaveis_4
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 180
+        prompt: Crie as variáveis `nome` com 'Ana' e `idade` com 15 e exiba cada uma em uma linha.
+        tests:
+        - name: Nome e idade
+          expected: 'Ana
+
+            15
+
+            '
+        solution: 'nome = "Ana"
+
+          idade = 15
+
+          print(nome)
+
+          print(idade)
+
+          '
+        hints:
+        - Cada print() mostra uma variável por vez.
+
+      - id: variaveis_6
+        type: predict
+        difficulty: easy
+        xp: 20
+        time_estimate: 120
+        prompt: Leia o código e diga o que será exibido na tela (apenas a linha impressa).
+        code: 'x = 10
+
+          y = 5
+
+          x = x + y
+
+          print(x)
+
+          '
+        answer: '15
+
+          '
+        hints:
+        - 'x recebe o valor de x mais y: 10 + 5.'
+
+      - id: variaveis_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): as variáveis `a` é 5 e `b` é 10, mas queremos trocá-las para que `a` valha 10 e `b` valha 5. Escreva um programa que troque os valores e depois exiba `a` e `b`, um por linha, nesta ordem. Dica: Python permite
+          a troca em uma única linha.'
+        solution: 'a = 5
+
+          b = 10
+
+          a, b = b, a
+
+          print(a)
+
+          print(b)
+
+          '
+        tests:
+        - name: Valores trocados
+          expected: '10
+
+            5
+
+            '
+        must_include:
+        - a, b = b, a
+        hints:
+        - A atribuição múltipla avalia o lado direito antes de guardar.
+        common_error: Trocar com três linhas usando uma variável temporária e errar a ordem.
+
+  - id: tipos_dados
+    title: "Tipos de dados"
+    color: "#f59e0b"
+    summary: "int, float, str e bool: como diferenธรรมชาติ cada classe de valor."
+    lessons:
+      - id: tipos_dados_01
+        title: "Os tipos básicos"
+        blocks:
+          - type: text
+            body: |
+              Cada valor em Python tem um **tipo**:
+              
+              - `int` — números inteiros (ex.: `42`)
+              - `float` — números com casas decimais (ex.: `4.5`)
+              - `str` — textos (ex.: `"oi"`)
+              - `bool` — verdadeiro/falso (`True` / `False`)
+
+      - id: tipos_dados_02
+        title: "Descobrindo o tipo"
+        blocks:
+          - type: text
+            body: |
+              Podemos perguntar o tipo de um valor com `type()`:
+              
+              ```
+              print(type(5).__name__)
+              print(type("5").__name__)
+              ```
+              
+              Exibe `int` e depois `str` — mesmo parecendo o mesmo '5', sem aspas é número, com aspas é texto.
+
+    exercises:
+
+
+      - id: tipos_dados_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Qual é o TIPO do valor 5?
+        options:
+        - int
+        - str
+        - float
+        - bool
+        answer: '0'
+        hints:
+        - Inteiro = integer = int.
+
+      - id: tipos_dados_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Qual é o TIPO do valor "5"?
+        options:
+        - int
+        - str
+        - float
+        - lista
+        answer: '1'
+        hints:
+        - Entre aspas, mesmo um número vira texto (string).
+
+      - id: tipos_dados_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: O que será exibido? (duas linhas)
+        code: 'print(type(5).__name__)
+
+          print(type(5.0).__name__)
+
+          '
+        answer: 'int
+
+          float
+
+          '
+        hints:
+        - .__name__ devolve só o nome do tipo.
+
+      - id: tipos_dados_6
+        type: choice
+        difficulty: easy
+        xp: 20
+        time_estimate: 90
+        prompt: Qual é o tipo do valor `7.5` em Python?
+        options:
+        - int
+        - float
+        - str
+        - bool
+        answer: '1'
+        hints:
+        - Números com casa decimal são do tipo float.
+
+      - id: tipos_dados_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): crie três variáveis: `nome` com o texto "Ana", `idade` com o número 25 e `altura` com o decimal 1.65. Depois exiba, um por linha, o nome do tipo de cada uma usando `type(variavel).__name__` — primeiro o nome,
+          depois a idade e por último a altura.'
+        solution: 'nome = "Ana"
+
+          idade = 25
+
+          altura = 1.65
+
+          print(type(nome).__name__)
+
+          print(type(idade).__name__)
+
+          print(type(altura).__name__)
+
+          '
+        tests:
+        - name: Tipos na ordem
+          expected: 'str
+
+            int
+
+            float
+
+            '
+        must_include:
+        - type(
+        hints:
+        - .__name__ devolve o nome do tipo como texto.
+        common_error: Usar type(nome) direto sem .__name__ e exibir algo como <class 'str'>.
+
+  - id: strings
+    title: "Strings (textos)"
+    color: "#ef4444"
+    summary: "Medir, juntar e trabalhar com palavras e frases."
+    lessons:
+      - id: strings_01
+        title: "Trabalhando com textos"
+        blocks:
+          - type: text
+            body: |
+              `len()` conta os caracteres de uma string:
+              
+              ```
+              print(len("abacaxi"))
+              ```
+              
+              Exibe `7` — a b a c a x i.
+
+      - id: strings_02
+        title: "Juntando strings"
+        blocks:
+          - type: text
+            body: |
+              O `+` **concatena** (junta) textos:
+              
+              ```
+              print("Py" + "thon")
+              ```
+              
+              Exibe `Python`.
+
+    exercises:
+
+
+      - id: strings_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: Qual destes valores é uma STRING (texto)?
+        options:
+        - '''olá'''
+        - '1234'
+        - 'True'
+        - '5.5'
+        answer: '0'
+        hints:
+        - Aspas delimitam strings; números e True são outros tipos.
+
+      - id: strings_2
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: O que será exibido?
+        code: 'print(len("abacaxi"))
+
+          '
+        answer: '7
+
+          '
+        hints:
+        - len() conta os caracteres de 'a','b','a','c','a','x','i'.
+
+      - id: strings_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: O que será exibido?
+        code: 'print("Py" + "thon")
+
+          '
+        answer: 'Python
+
+          '
+        hints:
+        - O + junta (concatena) duas strings.
+
+      - id: strings_6
+        type: predict
+        difficulty: easy
+        xp: 20
+        time_estimate: 150
+        prompt: Leia o código e diga o que será exibido na tela (duas linhas).
+        code: 'a = "Py"
+
+          b = "thon"
+
+          print(a + b)
+
+          print(len(a + b))
+
+          '
+        answer: 'Python
+
+          6
+
+          '
+        hints:
+        - O sinal '+' junta strings e len conta os caracteres.
+
+      - id: strings_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): a palavra é "Python". Escreva um programa que exiba, um por linha: a primeira letra, a última letra e o tamanho da palavra. Use colchetes para acessar caracteres e a função `len()`.'
+        solution: 'nome = "Python"
+
+          print(nome[0])
+
+          print(nome[5])
+
+          print(len(nome))
+
+          '
+        tests:
+        - name: Letras e tamanho
+          expected: 'P
+
+            n
+
+            6
+
+            '
+        must_include:
+        - len(
+        hints:
+        - A indexação começa em 0, então a última letra está no índice 5.
+        common_error: Usar nome[6] para a última letra e estourar o índice (IndexError).
+
+  - id: numeros
+    title: "Números e operações"
+    color: "#8b5cf6"
+    summary: "Divisão, resto, inteiros e a ordem das operações."
+    lessons:
+      - id: numeros_01
+        title: "Operações numéricas"
+        blocks:
+          - type: text
+            body: |
+              Python calcula como uma calculadora:
+              
+              ```
+              print(10 / 4)   # divisao exata -> 2.5
+              print(7 // 2)   # divisao inteira -> 3
+              print(10 % 3)   # resto da divisao -> 1
+              ```
+              
+              - `/` devolve decimal (float).
+              - `//` devolve só a parte inteira.
+              - `%` devolve o **resto**.
+
+          - type: visual
+            kind: sequence
+            code: "10 // 4 → 2 | 10 % 3 → 1"
+
+      - id: numeros_02
+        title: "Ordem das operações"
+        blocks:
+          - type: text
+            body: |
+              Parenteses mandam no cálculo:
+              
+              ```
+              print(2 + 3 * 4)   # 14
+              print((2 + 3) * 4) # 20
+              ```
+
+          - type: callout
+            body: "Comece SEMPRE pelos parênteses mais internos."
+
+    exercises:
+
+
+      - id: numeros_1
+        type: choice
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: Qual é o resultado de 7 // 2 (divisão inteira)?
+        options:
+        - '3'
+        - '4'
+        - '3.5'
+        - '2'
+        answer: '0'
+        hints:
+        - // descarta a parte decimal, sem arredondar.
+
+      - id: numeros_2
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: O que será exibido?
+        code: 'print(10 / 4)
+
+          '
+        answer: '2.5
+
+          '
+        hints:
+        - A barra '/' faz divisão exata com decimais.
+
+      - id: numeros_3
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: O que será exibido?
+        code: 'print(10 % 3)
+
+          '
+        answer: '1
+
+          '
+        hints:
+        - '% devolve o RESTO da divisão: 3 cabe 3 vezes em 10, sobra 1.'
+
+      - id: numeros_4
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 180
+        prompt: Calcule a média das notas 6, 7 e 8 (soma dividida por 3) e exiba o resultado.
+        tests:
+        - name: Média
+          expected: '7.0
+
+            '
+        solution: 'n1 = 6
+
+          n2 = 7
+
+          n3 = 8
+
+          print((n1 + n2 + n3) / 3)
+
+          '
+        hints:
+        - Lembre dos parênteses para somar antes de dividir.
+
+      - id: numeros_6
+        type: predict
+        difficulty: easy
+        xp: 20
+        time_estimate: 120
+        prompt: Leia o código e diga o que será exibido na tela (duas linhas).
+        code: 'print(7 // 2)
+
+          print(7 % 2)
+
+          '
+        answer: '3
+
+          1
+
+          '
+        hints:
+        - // divide de forma inteira e % devolve o resto.
+
+      - id: numeros_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): calcule a média de três provas com notas 8, 9 e 10. Guarde a média e exiba o resultado arredondado para 1 casa decimal usando `round(media, 1)`. A média exata é 9.0, então o programa deve imprimir 9.0.'
+        solution: 'n1 = 8
+
+          n2 = 9
+
+          n3 = 10
+
+          media = (n1 + n2 + n3) / 3
+
+          print(round(media, 1))
+
+          '
+        tests:
+        - name: Média arredondada
+          expected: '9.0
+
+            '
+        must_include:
+        - round(
+        hints:
+        - A divisão pelo número de provas vem depois da soma.
+        common_error: Somar sem os parênteses, obtendo 8 + 9 + (10/3) em vez de (8+9+10)/3.
+
+  - id: comparacoes
+    title: "Comparações"
+    color: "#06b6d4"
+    summary: "Comparar valores e obter True ou False."
+    lessons:
+      - id: comparacoes_01
+        title: "Comparando valores"
+        blocks:
+          - type: text
+            body: |
+              Comparações devolvem `True` ou `False`:
+              
+              ```
+              print(5 > 3)      # True
+              print(2 < 1)      # False
+              print(10 == 10)   # True
+              print(10 != 9)    # True
+              ```
+              
+              Use `==` para igualdade (não `=`, que guarda valor).
+
+      - id: comparacoes_02
+        title: "Maior ou igual"
+        blocks:
+          - type: text
+            body: |
+              `>=` significa **maior OU igual**:
+              
+              ```
+              idade = 18
+              print(idade >= 18)  # True
+              ```
+
+    exercises:
+
+
+      - id: comparacoes_1
+        type: choice
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: Qual operador verifica se um valor é MAIOR que outro?
+        options:
+        - '>'
+        - <
+        - '>='
+        - '!='
+        answer: '0'
+        hints:
+        - 'O símbolo aberto para o lado maior: ''>'' é maior que.'
+
+      - id: comparacoes_2
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: O que será exibido?
+        code: 'print(10 == 10)
+
+          '
+        answer: 'True
+
+          '
+        hints:
+        - == compara se os dois lados são iguais; aqui são.
+
+      - id: comparacoes_3
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: Qual destas comparações devolve False?
+        options:
+        - 5 > 3
+        - 2 < 1
+        - 7 == 7
+        - 10 != 9
+        answer: '1'
+        hints:
+        - 2 não é menor que 1, então '2 < 1' é falso.
+
+      - id: comparacoes_4
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 180
+        prompt: Exiba o resultado de `5 > 3` e depois o de `5 < 3`, um por linha.
+        tests:
+        - name: Duas comparações
+          expected: 'True
+
+            False
+
+            '
+        solution: 'print(5 > 3)
+
+          print(5 < 3)
+
+          '
+        hints:
+        - A primeira comparação é verdadeira; a segunda não.
+
+      - id: comparacoes_6
+        type: predict
+        difficulty: easy
+        xp: 20
+        time_estimate: 120
+        prompt: Leia o código e diga o que será exibido na tela (duas linhas).
+        code: 'print(5 > 3)
+
+          print(2 == 2.0)
+
+          '
+        answer: 'True
+
+          True
+
+          '
+        hints:
+        - Comparações devolvem True ou False; 2 e 2.0 são numericamente iguais.
+
+      - id: comparacoes_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): compare os números 12 e 7. Exiba `A é o maior` se o primeiro for maior que o segundo e `B é o maior` caso contrário. Escreva o programa completo com if/else.'
+        solution: "a = 12\nb = 7\nif a > b:\n    print(\"A é o maior\")\nelse:\n    print(\"B é o maior\")\n"
+        tests:
+        - name: Maior valor
+          expected: 'A é o maior
+
+            '
+        must_include:
+        - 'if '
+        hints:
+        - O else cobre todos os casos em que a condição é falsa.
+        common_error: Esquecer a indentação do print dentro do bloco if.
+
+  - id: entrada_dados
+    title: "Entrada de dados"
+    color: "#ec4899"
+    summary: "Ler do teclado com input() e converter para número."
+    lessons:
+      - id: entrada_dados_01
+        title: "Lendo do teclado"
+        blocks:
+          - type: text
+            body: |
+              `input()` pergunta algo e devolve o que o usuário digitar **sempre como texto**:
+              
+              ```
+              nome = input("Digite seu nome: ")
+              print("Ola, " + nome)
+              ```
+
+          - type: visual
+            kind: pipeline
+            code: "input() → texto digitado → variavel nome → print"
+
+      - id: entrada_dados_02
+        title: "Convertendo números"
+        blocks:
+          - type: text
+            body: |
+              Para somar números digitados, converta com `int()` ou `float()`:
+              
+              ```
+              n1 = int(input("Nota 1: "))
+              n2 = int(input("Nota 2: "))
+              print(n1 + n2)
+              ```
+
+          - type: callout
+            body: "Som sem converter vira concatenação de texto: '2' + '3' = '23'."
+
+    exercises:
+
+
+      - id: entrada_dados_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: O que input() SEMPRE devolve, mesmo quando o usuário digita um número?
+        options:
+        - texto (str)
+        - número (int)
+        - decimal (float)
+        - lista
+        answer: '0'
+        hints:
+        - Por isso números precisam de int() ou float() depois do input.
+
+      - id: entrada_dados_2
+        type: complete
+        difficulty: easy
+        xp: 20
+        time_estimate: 90
+        prompt: 'Complete para ler o que o usuário digitar e guardar em `nome`:
+
+          `nome = ____("Nome: ")`'
+        answer: input
+        hints:
+        - A função que lê do teclado chama-se input.
+
+      - id: entrada_dados_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 120
+        prompt: O que será exibido?
+        code: 'numero = 7
+
+          print(numero + 3)
+
+          '
+        answer: '10
+
+          '
+        hints:
+        - numero vale 7; somando 3 dá 10.
+
+      - id: entrada_dados_4
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 240
+        prompt: Escreva um programa que leia dois números inteiros com input() e exiba a soma.
+        tests:
+        - name: 3 + 4
+          input: '3
+
+            4
+
+            '
+          expected: '7
+
+            '
+        - name: 10 + 20
+          input: '10
+
+            20
+
+            '
+          expected: '30
+
+            '
+        solution: 'n1 = int(input("Número 1: "))
+
+          n2 = int(input("Número 2: "))
+
+          print(n1 + n2)
+
+          '
+        hints:
+        - Converta cada input() com int() antes de somar.
+
+      - id: entrada_dados_6
+        type: complete
+        difficulty: easy
+        xp: 20
+        time_estimate: 120
+        prompt: 'Complete o trecho para guardar um número inteiro digitado pelo usuário. Escreva apenas o que falta onde está `____`:
+
+          `idade = ____(input("Idade: "))`'
+        answer: int
+        hints:
+        - A função que converte texto em número inteiro é `int`.
+
+      - id: entrada_dados_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): construa uma mini calculadora de soma. O programa lê um primeiro número, um segundo número (ambos inteiros) e exibe apenas o resultado da soma. Os testes fornecerão os números digitados.'
+        solution: 'n1 = int(input("Número 1: "))
+
+          n2 = int(input("Número 2: "))
+
+          print(n1 + n2)
+
+          '
+        tests:
+        - name: 4 + 6
+          input: '4
+
+            6
+
+            '
+          expected: '10
+
+            '
+        - name: 20 + 15
+          input: '20
+
+            15
+
+            '
+          expected: '35
+
+            '
+        must_include:
+        - input
+        hints:
+        - Inteiros entram como texto; converta com int() antes de somar.
+        common_error: Somar as strings, exibindo "46" em vez de 10.
+

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Entrar — PyMaster{% endblock %}
+{% block heading %}Entrar{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <div class="auth-title">Bem-vindo de volta</div>
+  {% if error %}<div class="msg-err">{{ error }}</div>{% endif %}
+  <form method="post" action="/login" class="form">
+    <label class="field">
+      <span>E-mail</span>
+      <input type="email" name="email" required autofocus>
+    </label>
+    <label class="field">
+      <span>Senha</span>
+      <input type="password" name="password" required>
+    </label>
+    <button class="btn primary btn-block" type="submit">Entrar</button>
+  </form>
+  <p class="auth-alt">Ainda não tem conta? <a href="/onboarding">Começar minha jornada</a></p>
+</div>
+{% endblock %}

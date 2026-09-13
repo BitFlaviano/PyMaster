@@ -1,0 +1,1 @@
+from app.router import pages, fragments, api  # noqa: F401

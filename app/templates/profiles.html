@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Seus perfis — PyMaster{% endblock %}
+{% block body %}
+<body class="landing-body">
+<main class="landing">
+  <div class="landing-hero">
+    <a class="landing-brand" href="/"><img class="brand-logo big" src="/static/img/logo.png" alt="PyMaster"></a>
+    <h1 class="landing-title" style="font-size:2.4rem">Quem vai estudar hoje?</h1>
+    <p class="landing-sub">Cada perfil tem seu próprio progresso, XP e conquistas — tudo salvo
+      somente neste dispositivo. Crie um perfil para cada pessoa (ou para cada personagem seu).</p>
+  </div>
+
+  {% if picker_error == 'pin' %}
+  <div class="msg-err" style="max-width:560px;margin:0 auto 16px">PIN incorreto. Tente novamente.</div>
+  {% elif picker_error == 'last' %}
+  <div class="msg-err" style="max-width:560px;margin:0 auto 16px">Não é possível excluir o último perfil.</div>
+  {% elif picker_error == 'confirm' %}
+  <div class="msg-err" style="max-width:560px;margin:0 auto 16px">Marque a confirmação para excluir.</div>
+  {% elif picker_error == 'pin_short' %}
+  <div class="msg-err" style="max-width:560px;margin:0 auto 16px">O PIN precisa ter pelo menos 4 caracteres.</div>
+  {% endif %}
+
+  <div class="profile-grid">
+    {% for p in profiles %}
+    <div class="profile-card {% if user and user.id == p.id %}profile-current{% endif %}">
+      {% if avatar_src(p.avatar) %}
+      <img class="profile-avatar big" src="{{ avatar_src(p.avatar) }}" alt="Avatar de {{ p.name }}">
+      {% else %}
+      <div class="profile-avatar big">{{ p.avatar }}</div>
+      {% endif %}
+      <div class="profile-name">{{ p.name }}</div>
+      {% if user and user.id == p.id %}
+      <div class="profile-current-tag">Ativo agora</div>
+      {% endif %}
+      <div class="profile-meta">
+        <span class="profile-lv">Nível {{ xp_level_for(p.xp) }}</span>
+        <span class="profile-xp">{{ p.xp }} XP</span>
+      </div>
+      <div class="profile-bar"><div class="profile-bar-fill" style="width: {{ xp_progress_for(p.xp) }}%"></div></div>
+      {% if p.last_active_at %}<div class="profile-last">Último estudo: {{ p.last_active_at.strftime('%d/%m/%Y') }}</div>{% endif %}
+
+      {% if pin_profile == p.id|string %}
+      <form class="pin-form" method="post" action="/profiles/switch">
+        <input type="hidden" name="profile_id" value="{{ p.id }}">
+        <input type="password" name="pin" class="pin-input" placeholder="Digite o PIN" inputmode="numeric" autocomplete="current-password" autofocus>
+        <button class="btn primary btn-sm btn-block" type="submit">Entrar</button>
+      </form>
+      {% else %}
+      <form method="post" action="/profiles/switch">
+        <input type="hidden" name="profile_id" value="{{ p.id }}">
+        {% if p.pin_hash %}<input type="hidden" name="pin" value="">{% endif %}
+        <button class="btn primary btn-block" type="submit">{{ "Continuar" if user and user.id == p.id else "Entrar" }}</button>
+      </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <a class="profile-card profile-new" href="/onboarding?new=1">
+      <div class="profile-avatar big new">+</div>
+      <div class="profile-name">Novo perfil</div>
+      <div class="profile-meta"><span class="profile-lv">Comece do zero, a seu modo</span></div>
+      <button class="btn accent btn-block" type="button">Criar perfil</button>
+    </a>
+  </div>
+
+  <div class="landing-foot">PyMaster · Progresso individual e 100% local. Seus dados não saem deste aparelho. · <a href="/about">Sobre</a></div>
+</main>
+</body>
+{% endblock %}

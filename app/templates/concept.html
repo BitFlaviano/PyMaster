@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}{{ concept.title }} — PyMaster{% endblock %}
+{% block heading %}{{ concept.title }}{% endblock %}
+{% block content %}
+{% set solved_ids = solved_ids | default([]) %}
+<div class="concept-page">
+  <div class="concept-header card">
+    <div class="concept-header-top">
+      <span class="concept-badge big" style="background:{{ concept.color }}">{{ concept.title }}</span>
+      <span class="level-num">Nível {{ concept.level }}</span>
+    </div>
+    <p class="concept-summary-large">{{ concept.summary }}</p>
+    <div class="concept-progress">
+      <div class="mastery-bar"><div class="mastery-fill" style="width:{{ uc.mastery }}%;background:{{ concept.color }}"></div></div>
+      <span>{{ uc.mastery | round | int }}% domínio · {{ uc.attempts }} tentativas</span>
+    </div>
+    {% if not unlocked %}
+    <div class="lock-notice">🔒 Este conceito só é liberado depois que você dominar o anterior.</div>
+    {% endif %}
+  </div>
+
+  <section class="concept-lessons">
+    <h2 class="section-title">Aprenda</h2>
+    {% for lesson in registry.lessons_of(concept.id) %}
+    <div class="lesson-card">
+      <div class="lesson-card-head">
+        <h3>{{ lesson.title }}</h3>
+        {% if loop.first %}<span class="type-tag">Lição</span>{% endif %}
+      </div>
+      {% for block in lesson.blocks %}
+        {% if block.type == 'text' %}
+          <div class="lesson-text">{{ block.body | md | safe }}</div>
+        {% elif block.type == 'code' %}
+          {{ m.code_block(block.code) }}
+        {% elif block.type == 'visual' %}
+          {{ m.visual_block(block) }}
+        {% elif block.type == 'callout' %}
+          <div class="callout">{{ block.body | md | safe }}</div>
+        {% elif block.type == 'dataset_note' %}
+          <div class="dataset-note">{{ block.body | md | safe }}</div>
+        {% elif block.type == 'exercise_ref' %}
+          <button class="btn accent btn-sm" onclick="document.getElementById('ex-{{ block.exercise_id }}').scrollIntoView({behavior:'smooth'});window.location.hash=''" style="border:none">▶ Ir para a prática</button>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </section>
+
+  {% if unlocked %}
+  <section class="concept-practice">
+    <h2 class="section-title">Pratique</h2>
+    <p class="practice-sub">Quanto menos dicas você usar, mais XP conquista.</p>
+    <div class="exercise-list">
+      {% for ex in exercises %}
+        {{ m.exercise_card(ex, ex.id in solved_ids, nav=ex_nav.get(ex.id)) }}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

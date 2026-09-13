@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="{{ page_settings.theme }}" data-motion="{% if page_settings.reduce_motion %}reduced{% endif %}" style="--font-scale: {{ page_settings.font_scale / 100 }};">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PyMaster{% endblock %}</title>
+  <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+  <link rel="apple-touch-icon" href="/static/img/logo-sm.png">
+  <link rel="stylesheet" href="/static/css/styles.css?v={{ asset_ver() }}">
+  <script defer src="/static/js/htmx.min.js"></script>
+  <script defer src="/static/js/app.js?v={{ asset_ver() }}"></script>
+  <style>.font-scale-check{display:none}</style>
+</head>
+<body>
+{% block body %}
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="/dashboard">
+    <img class="brand-logo" src="/static/img/logo-sm.png" alt="PyMaster">
+    <span class="brand-name">PyMaster</span>
+  </a>
+  {% if user %}
+  <nav class="nav">
+    <a class="nav-link {% if request.url.path == '/dashboard' %}active{% endif %}" href="/dashboard">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+      Início</a>
+    <a class="nav-link {% if request.url.path.startswith('/learn') or request.url.path.startswith('/concept') %}active{% endif %}" href="/learn">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M22 9L24 12 22 15 20 12 22 9ZM6 10H18V7H6V10ZM2 6H16V3H2V6ZM18 18H6V15H18V18Z"/></svg>
+      Trilha</a>
+    <a class="nav-link {% if request.url.path == '/map' %}active{% endif %}" href="/map">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M3 5v14h18V5H3zm16 10l-5-5-3 3-4-4-3 3V7h14v8z"/></svg>
+      Mapa</a>
+    <a class="nav-link {% if request.url.path == '/lab' %}active{% endif %}" href="/lab">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M9 3v2h6V3H9zm1 4v6l-5 6 0 1h14v-1l-5-6V7h-4z"/></svg>
+      Laboratório</a>
+    <a class="nav-link {% if request.url.path == '/review' %}active{% endif %}" href="/review">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4 11h-5V7h2v4h3v2z"/></svg>
+      Revisões
+      <span id="review-badge-slot">{% if due_reviews > 0 %}<span class="badge">{{ due_reviews }}</span>{% endif %}</span>
+    </a>
+    <a class="nav-link {% if request.url.path == '/badges' %}active{% endif %}" href="/badges">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M12 2l3 3 4-1-1 4 3 3-3 3 1 4-4-1-3 3-3-3-4 1 1-4-3-3 3-3-1-4 4 1z"/></svg>
+      Conquistas</a>
+    <a class="nav-link {% if request.url.path == '/certificate' %}active{% endif %}" href="/certificate">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4 9h-3v6h-2v-6H8l4-4 4 4z"/></svg>
+      Certificado
+      {% if certificate_issued %}<span class="badge">✓</span>{% endif %}</a>
+    <a class="nav-link {% if request.url.path == '/settings' %}active{% endif %}" href="/settings">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M19 14v-4h3l-1-3-3 1a5 5 0 0 0-1-1l1-3-3-1v4h-4v-4L8 3l1 3-1 1-3-1-1 3h3v4H4l1 3 3-1c.3.4.6.7 1 1l-1 3 3 1v-4h4v4l3-1-1-3a5 5 0 0 0 1-1l3 1 1-3h-3z"/></svg>
+      Ajustes</a>
+    <a class="nav-link {% if request.url.path == '/about' %}active{% endif %}" href="/about">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      Sobre</a>
+  </nav>
+  {% else %}
+  <a class="nav-link" href="/about">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      Sobre</a>
+  {% endif %}
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menu-btn" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24" class="ico"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+    </button>
+    <div class="topbar-title">{% block heading %}{% endblock %}</div>
+    <div class="topbar-right">
+      {% if user %}
+      <div id="xp-slot">
+        {% include "partials/_xp_chip.html" %}
+      </div>
+      <span class="streak" title="Dias seguidos estudando">
+        <svg viewBox="0 0 24 24" class="ico flame"><path d="M13 2c-1 3-3 4-3 6 0 1 .5 2 1 3 1.5-1 4-3 5-5-1 3-2 4-3 6 3-1 6-5 6-9-3 1-5 3-6 5 0-2-1-4 0-6-2 1-4 4-4 7 0 2 2 5 1 8-3-2-4-5-4-7C5 8 8 5 9 2c1-1 2.5-1 4 0z"/></svg>
+        {{ user.streak }}
+      </span>
+      <details class="profile-menu" id="profile-menu">
+        <summary class="profile-chip" title="Perfil ativo">
+          {% if avatar_src(user.avatar) %}<img class="profile-avatar" src="{{ avatar_src(user.avatar) }}" alt="">{% else %}<span class="profile-avatar">{{ user.avatar }}</span>{% endif %}
+          <span class="profile-name">{{ user.name.split()[0] }}</span>
+          <svg viewBox="0 0 24 24" class="ico chev"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </summary>
+        <div class="profile-dropdown">
+          <div class="dd-label">Perfil: {{ user.name }}</div>
+          <a class="dd-item" href="/profiles">Trocar de perfil</a>
+          <a class="dd-item" href="/onboarding?new=1">Criar novo perfil</a>
+          <a class="dd-item" href="/settings#perfis">Gerenciar perfis</a>
+          <form method="post" action="/logout">
+            <button class="dd-item btn-submit" type="submit">Sair</button>
+          </form>
+        </div>
+      </details>
+      {% endif %}
+      <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema claro/escuro">
+        <svg viewBox="0 0 24 24" class="ico"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 2a7 7 0 0 1 0 14V5z"/></svg>
+      </button>
+    </div>
+  </header>
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+</div>
+{% endblock %}
+<svg height="0" width="0" style="position:absolute"><defs><clipPath id="circle"></clipPath></defs></svg>
+
+<div class="modal-mask" id="input-modal" hidden>
+  <div class="input-modal">
+    <div class="viz-head">
+      <b>Entrada do programa</b>
+      <button class="icon-btn" id="input-cancel" aria-label="Fechar">✕</button>
+    </div>
+    <div class="input-body">
+      <div class="input-prompt" id="input-prompt"></div>
+      <input class="input-field" id="input-field" type="text" autocomplete="off">
+      <div class="input-actions">
+        <button class="btn primary" id="input-ok">Enviar ⏎</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="visualizer-modal" hidden>
+  <div class="visualizer">
+    <div class="viz-head">
+      <b>Python Visualizer</b>
+      <button class="icon-btn" onclick="document.getElementById('visualizer-modal').hidden = true">✕</button>
+    </div>
+    <div class="viz-body">
+      <div class="viz-code" id="viz-code"></div>
+      <div class="viz-memory" id="viz-memory"><div class="viz-empty">Executando…</div></div>
+      <div class="viz-console" id="viz-console"></div>
+    </div>
+    <div class="viz-controls">
+      <button class="btn ghost btn-sm" onclick="PyMaster.viz.prev()">◀</button>
+      <button class="btn ghost btn-sm" id="viz-play" onclick="PyMaster.viz.toggle()">▶</button>
+      <button class="btn ghost btn-sm" onclick="PyMaster.viz.next()">▶</button>
+      <label class="viz-speed">Velocidade
+        <input type="range" min="1" max="10" value="4" id="viz-speed" oninput="PyMaster.viz.speed=this.value">
+      </label>
+      <span class="viz-step" id="viz-step"></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

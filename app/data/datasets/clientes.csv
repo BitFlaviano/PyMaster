@@ -1,0 +1,501 @@
+id_cliente,nome,cidade,estado,idade,sexo,renda,criado_em
+1,Bruno Lima,Rio de Janeiro,BA,72,M,11691,2023-05-26
+2,Carla Mendes,São Paulo,PE,52,F,8001,2023-02-18
+3,Diego Rocha,Porto Alegre,GO,74,M,11259,2023-04-23
+4,Elisa Prado,Rio de Janeiro,SP,60,F,14465,2023-05-03
+5,Felipe Nunes,Curitiba,RJ,42,M,9228,2023-11-27
+6,Gabriela Melo,Salvador,MG,41,M,5232,2023-11-09
+7,Henrique Dias,Rio de Janeiro,GO,58,F,10551,2023-12-08
+8,Isabela Castro,Belo Horizonte,PE,42,M,12285,2023-12-18
+9,João Pedro,Curitiba,BA,71,F,5552,2023-01-26
+10,Karen Alves,Salvador,CE,35,F,5256,2023-10-23
+11,Lucas Teixeira,Salvador,PR,59,M,8282,2023-11-15
+12,Mariana Farias,Belo Horizonte,RS,26,F,14005,2023-09-18
+13,Nicolas Reis,Porto Alegre,GO,45,M,7730,2023-04-05
+14,Olivia Barros,Manaus,PE,23,F,3596,2023-03-21
+15,Paulo Câmara,Belo Horizonte,CE,56,F,8104,2023-07-20
+16,Raquel Tavares,Recife,AM,34,F,12945,2023-12-04
+17,Samuel Duarte,Manaus,RS,67,M,3627,2023-05-14
+18,Tainá Furtado,Belo Horizonte,PE,18,M,10001,2023-03-17
+19,Vitor Hugo,Rio de Janeiro,RS,71,F,4304,2023-06-25
+20,Ana Souza,Belo Horizonte,AM,67,F,11613,2023-06-16
+21,Bruno Lima,São Paulo,RJ,41,M,5723,2023-01-08
+22,Carla Mendes,Goiânia,RJ,23,M,2933,2023-09-25
+23,Diego Rocha,Belo Horizonte,MG,60,M,10807,2023-03-09
+24,Elisa Prado,Manaus,GO,45,F,10635,2023-12-23
+25,Felipe Nunes,Curitiba,RS,43,M,8977,2023-09-15
+26,Gabriela Melo,Rio de Janeiro,PR,32,F,7339,2023-01-19
+27,Henrique Dias,Manaus,PR,55,F,1917,2023-02-23
+28,Isabela Castro,São Paulo,PR,22,F,7213,2023-02-17
+29,João Pedro,Curitiba,RS,60,M,5310,2023-09-05
+30,Karen Alves,Goiânia,GO,48,F,14655,2023-08-26
+31,Lucas Teixeira,Fortaleza,PR,24,F,12596,2023-07-12
+32,Mariana Farias,Fortaleza,CE,47,F,12832,2023-11-21
+33,Nicolas Reis,Rio de Janeiro,SP,43,M,14916,2023-02-08
+34,Olivia Barros,Curitiba,PR,52,M,4096,2023-07-06
+35,Paulo Câmara,Porto Alegre,PE,33,F,9060,2023-09-04
+36,Raquel Tavares,São Paulo,AM,71,F,3328,2023-04-06
+37,Samuel Duarte,Fortaleza,PE,48,F,8370,2023-01-06
+38,Tainá Furtado,Fortaleza,SP,42,M,14646,2023-08-10
+39,Vitor Hugo,Fortaleza,AM,60,M,4336,2023-04-10
+40,Ana Souza,Curitiba,SP,55,F,14054,2023-06-02
+41,Bruno Lima,São Paulo,GO,48,F,2731,2023-09-03
+42,Carla Mendes,Belo Horizonte,RJ,56,F,12862,2023-04-13
+43,Diego Rocha,Rio de Janeiro,GO,33,F,11947,2023-02-14
+44,Elisa Prado,Goiânia,GO,51,M,6072,2023-04-22
+45,Felipe Nunes,Salvador,PR,34,M,3944,2023-11-21
+46,Gabriela Melo,Porto Alegre,PE,38,F,1952,2023-08-20
+47,Henrique Dias,Goiânia,RJ,22,F,10088,2023-05-05
+48,Isabela Castro,Salvador,RJ,74,F,7854,2023-05-06
+49,João Pedro,Recife,AM,63,M,11821,2023-11-17
+50,Karen Alves,São Paulo,AM,37,F,4000,2023-05-04
+51,Lucas Teixeira,Rio de Janeiro,AM,27,M,6416,2023-10-07
+52,Mariana Farias,Salvador,PR,61,M,10080,2023-08-09
+53,Nicolas Reis,São Paulo,RJ,58,M,6333,2023-01-01
+54,Olivia Barros,Salvador,MG,58,M,4447,2023-12-15
+55,Paulo Câmara,Manaus,CE,53,F,3632,2023-02-23
+56,Raquel Tavares,Belo Horizonte,AM,20,M,11343,2023-09-05
+57,Samuel Duarte,Fortaleza,MG,20,M,7774,2023-01-12
+58,Tainá Furtado,Curitiba,PR,60,F,7594,2023-09-28
+59,Vitor Hugo,Fortaleza,GO,65,F,5678,2023-03-26
+60,Ana Souza,Belo Horizonte,CE,19,F,13867,2023-06-26
+61,Bruno Lima,Fortaleza,PR,35,F,14700,2023-12-04
+62,Carla Mendes,Fortaleza,SP,72,M,5444,2023-04-27
+63,Diego Rocha,Recife,BA,37,F,5452,2023-01-22
+64,Elisa Prado,Curitiba,CE,39,M,2937,2023-05-12
+65,Felipe Nunes,Manaus,CE,61,M,2252,2023-02-09
+66,Gabriela Melo,Belo Horizonte,GO,34,F,3576,2023-10-14
+67,Henrique Dias,Salvador,BA,45,F,8111,2023-10-07
+68,Isabela Castro,Porto Alegre,SP,63,M,1827,2023-09-26
+69,João Pedro,Manaus,PR,41,M,2946,2023-11-11
+70,Karen Alves,Goiânia,BA,60,F,13592,2023-05-17
+71,Lucas Teixeira,Porto Alegre,CE,38,M,13223,2023-05-18
+72,Mariana Farias,Belo Horizonte,PR,44,M,12897,2023-12-06
+73,Nicolas Reis,Goiânia,GO,37,M,10777,2023-01-10
+74,Olivia Barros,Porto Alegre,PR,45,M,9418,2023-08-15
+75,Paulo Câmara,Curitiba,AM,48,F,12594,2023-02-10
+76,Raquel Tavares,Manaus,GO,39,F,14106,2023-04-22
+77,Samuel Duarte,Porto Alegre,PR,69,F,4214,2023-01-02
+78,Tainá Furtado,Curitiba,PE,57,F,9261,2023-07-21
+79,Vitor Hugo,Goiânia,PR,63,M,9899,2023-07-08
+80,Ana Souza,Belo Horizonte,SP,75,F,14553,2023-07-08
+81,Bruno Lima,Belo Horizonte,AM,47,F,10932,2023-04-28
+82,Carla Mendes,Rio de Janeiro,PE,26,M,12737,2023-09-18
+83,Diego Rocha,Goiânia,BA,66,M,11837,2023-12-17
+84,Elisa Prado,Fortaleza,AM,46,F,13984,2023-08-15
+85,Felipe Nunes,Porto Alegre,PR,71,M,14347,2023-09-16
+86,Gabriela Melo,Curitiba,RS,46,F,13490,2023-05-08
+87,Henrique Dias,Porto Alegre,BA,38,F,4067,2023-03-08
+88,Isabela Castro,Fortaleza,MG,63,F,2852,2023-07-14
+89,João Pedro,Salvador,AM,47,M,2820,2023-04-27
+90,Karen Alves,Fortaleza,CE,75,F,14343,2023-10-13
+91,Lucas Teixeira,Recife,SP,40,M,14144,2023-07-28
+92,Mariana Farias,Fortaleza,AM,65,F,9799,2023-04-09
+93,Nicolas Reis,Fortaleza,PE,19,M,7307,2023-11-22
+94,Olivia Barros,Fortaleza,MG,71,M,3891,2023-10-18
+95,Paulo Câmara,São Paulo,CE,55,F,3175,2023-11-14
+96,Raquel Tavares,Belo Horizonte,PE,29,F,6062,2023-07-11
+97,Samuel Duarte,Curitiba,PE,38,M,14271,2023-07-09
+98,Tainá Furtado,Fortaleza,RS,71,F,9505,2023-01-24
+99,Vitor Hugo,Manaus,SP,40,F,12451,2023-02-25
+100,Ana Souza,São Paulo,SP,33,F,2133,2023-10-05
+101,Bruno Lima,Curitiba,MG,48,F,11040,2023-04-15
+102,Carla Mendes,Porto Alegre,BA,28,F,14543,2023-03-10
+103,Diego Rocha,Rio de Janeiro,GO,19,M,11233,2023-11-13
+104,Elisa Prado,Fortaleza,PR,22,F,3469,2023-12-25
+105,Felipe Nunes,Porto Alegre,GO,69,F,14845,2023-10-26
+106,Gabriela Melo,São Paulo,BA,52,M,12638,2023-06-03
+107,Henrique Dias,Manaus,BA,18,M,9831,2023-02-14
+108,Isabela Castro,Salvador,PE,63,F,8935,2023-03-24
+109,João Pedro,Manaus,RS,57,M,9416,2023-07-27
+110,Karen Alves,Goiânia,RS,38,F,3219,2023-05-15
+111,Lucas Teixeira,Curitiba,PE,54,M,7311,2023-01-16
+112,Mariana Farias,Salvador,MG,49,F,7613,2023-05-11
+113,Nicolas Reis,Porto Alegre,GO,62,M,10906,2023-01-17
+114,Olivia Barros,Curitiba,RJ,33,M,9804,2023-09-25
+115,Paulo Câmara,Curitiba,PE,59,M,9142,2023-01-03
+116,Raquel Tavares,Porto Alegre,PR,43,F,6816,2023-11-19
+117,Samuel Duarte,Salvador,PE,53,M,8771,2023-12-18
+118,Tainá Furtado,Salvador,BA,62,M,6238,2023-05-09
+119,Vitor Hugo,Curitiba,RJ,64,F,6969,2023-02-24
+120,Ana Souza,Manaus,MG,30,F,13901,2023-08-09
+121,Bruno Lima,Goiânia,AM,56,M,3447,2023-04-10
+122,Carla Mendes,Curitiba,BA,29,M,2031,2023-12-18
+123,Diego Rocha,Belo Horizonte,RS,20,F,10866,2023-05-23
+124,Elisa Prado,Belo Horizonte,PE,24,F,11205,2023-05-16
+125,Felipe Nunes,Recife,PE,39,F,2641,2023-05-28
+126,Gabriela Melo,Recife,RJ,70,F,8365,2023-08-03
+127,Henrique Dias,Goiânia,SP,27,F,11021,2023-05-03
+128,Isabela Castro,Curitiba,RJ,53,M,11733,2023-10-26
+129,João Pedro,Goiânia,PR,67,M,9181,2023-08-10
+130,Karen Alves,Goiânia,CE,37,F,11788,2023-12-04
+131,Lucas Teixeira,Curitiba,PR,34,F,4373,2023-04-06
+132,Mariana Farias,Manaus,RJ,28,F,8493,2023-08-23
+133,Nicolas Reis,Goiânia,PE,36,F,5592,2023-05-23
+134,Olivia Barros,Porto Alegre,PE,22,F,6134,2023-11-19
+135,Paulo Câmara,Curitiba,CE,25,F,12410,2023-03-09
+136,Raquel Tavares,Belo Horizonte,RJ,21,F,14786,2023-05-20
+137,Samuel Duarte,Goiânia,RS,46,F,9479,2023-12-10
+138,Tainá Furtado,Fortaleza,RS,50,M,8972,2023-02-20
+139,Vitor Hugo,São Paulo,CE,65,M,11691,2023-05-01
+140,Ana Souza,Rio de Janeiro,PR,61,F,14329,2023-11-27
+141,Bruno Lima,Porto Alegre,GO,20,F,9508,2023-09-21
+142,Carla Mendes,Recife,RS,29,M,12200,2023-08-03
+143,Diego Rocha,Recife,BA,44,M,7060,2023-11-04
+144,Elisa Prado,Belo Horizonte,BA,44,M,6522,2023-11-13
+145,Felipe Nunes,Manaus,SP,47,F,6953,2023-05-11
+146,Gabriela Melo,Rio de Janeiro,CE,73,F,12575,2023-09-15
+147,Henrique Dias,Fortaleza,SP,30,M,12001,2023-08-21
+148,Isabela Castro,Recife,SP,31,M,10798,2023-03-10
+149,João Pedro,Recife,PE,25,F,12122,2023-10-26
+150,Karen Alves,Curitiba,MG,37,F,10848,2023-07-03
+151,Lucas Teixeira,Curitiba,RJ,47,F,12412,2023-03-16
+152,Mariana Farias,Porto Alegre,AM,63,M,8607,2023-08-16
+153,Nicolas Reis,Curitiba,PE,53,F,8084,2023-04-20
+154,Olivia Barros,Manaus,MG,73,F,6326,2023-07-11
+155,Paulo Câmara,Manaus,RS,70,F,6434,2023-12-10
+156,Raquel Tavares,Goiânia,GO,60,M,4234,2023-08-18
+157,Samuel Duarte,Recife,BA,39,M,9260,2023-06-28
+158,Tainá Furtado,Curitiba,PR,54,M,5626,2023-07-02
+159,Vitor Hugo,Salvador,PE,63,M,8125,2023-11-26
+160,Ana Souza,Belo Horizonte,PE,20,F,10029,2023-10-11
+161,Bruno Lima,Rio de Janeiro,PE,24,M,2051,2023-12-05
+162,Carla Mendes,Fortaleza,MG,22,M,14604,2023-05-11
+163,Diego Rocha,Goiânia,CE,59,F,7183,2023-11-28
+164,Elisa Prado,Manaus,CE,38,M,10664,2023-01-20
+165,Felipe Nunes,Rio de Janeiro,PR,58,M,5527,2023-12-03
+166,Gabriela Melo,Fortaleza,RJ,66,F,9069,2023-03-23
+167,Henrique Dias,Porto Alegre,SP,20,M,14844,2023-01-10
+168,Isabela Castro,Salvador,BA,45,F,5800,2023-09-14
+169,João Pedro,Goiânia,MG,28,F,3093,2023-10-28
+170,Karen Alves,Fortaleza,GO,61,F,9953,2023-10-05
+171,Lucas Teixeira,Curitiba,PE,58,M,9329,2023-05-22
+172,Mariana Farias,São Paulo,PE,75,M,12901,2023-09-06
+173,Nicolas Reis,Rio de Janeiro,PE,40,M,12268,2023-07-23
+174,Olivia Barros,Porto Alegre,PE,72,M,5063,2023-07-28
+175,Paulo Câmara,Recife,RJ,33,M,11170,2023-06-19
+176,Raquel Tavares,Porto Alegre,RS,19,M,6297,2023-01-19
+177,Samuel Duarte,São Paulo,GO,65,M,6489,2023-04-20
+178,Tainá Furtado,Salvador,PR,58,F,11972,2023-05-22
+179,Vitor Hugo,Belo Horizonte,RJ,75,F,6861,2023-08-02
+180,Ana Souza,Goiânia,BA,64,F,3276,2023-05-11
+181,Bruno Lima,Fortaleza,MG,30,F,14686,2023-09-12
+182,Carla Mendes,Manaus,AM,35,F,6010,2023-08-26
+183,Diego Rocha,Porto Alegre,BA,69,F,9473,2023-02-05
+184,Elisa Prado,Curitiba,CE,72,M,3279,2023-07-01
+185,Felipe Nunes,Porto Alegre,AM,25,M,7838,2023-11-24
+186,Gabriela Melo,Porto Alegre,GO,42,M,3575,2023-11-08
+187,Henrique Dias,Recife,SP,57,M,11795,2023-04-21
+188,Isabela Castro,Rio de Janeiro,PE,62,M,12437,2023-07-04
+189,João Pedro,Belo Horizonte,SP,20,M,9871,2023-02-04
+190,Karen Alves,Curitiba,AM,26,M,9232,2023-06-22
+191,Lucas Teixeira,Manaus,CE,55,F,8597,2023-11-04
+192,Mariana Farias,Recife,GO,44,M,2336,2023-12-12
+193,Nicolas Reis,Curitiba,PE,46,F,7742,2023-02-22
+194,Olivia Barros,Salvador,AM,75,M,2792,2023-07-09
+195,Paulo Câmara,Curitiba,RJ,72,M,3301,2023-11-07
+196,Raquel Tavares,Goiânia,SP,21,M,5790,2023-03-26
+197,Samuel Duarte,Goiânia,PR,22,F,11407,2023-04-27
+198,Tainá Furtado,Curitiba,BA,67,F,14721,2023-10-01
+199,Vitor Hugo,Porto Alegre,MG,26,M,14882,2023-03-04
+200,Ana Souza,São Paulo,MG,18,M,14743,2023-04-19
+201,Bruno Lima,Salvador,SP,29,M,2658,2023-03-24
+202,Carla Mendes,Fortaleza,AM,25,F,9602,2023-08-25
+203,Diego Rocha,Salvador,AM,55,F,9205,2023-09-08
+204,Elisa Prado,Goiânia,SP,64,M,9304,2023-11-01
+205,Felipe Nunes,São Paulo,PE,72,M,8784,2023-11-04
+206,Gabriela Melo,Recife,PE,22,F,7077,2023-10-05
+207,Henrique Dias,Rio de Janeiro,MG,35,M,8040,2023-10-17
+208,Isabela Castro,Porto Alegre,PE,50,M,3424,2023-12-04
+209,João Pedro,Manaus,PR,45,M,5543,2023-07-11
+210,Karen Alves,Recife,CE,44,F,6920,2023-07-11
+211,Lucas Teixeira,Porto Alegre,BA,27,M,2899,2023-02-27
+212,Mariana Farias,Rio de Janeiro,RJ,45,F,13999,2023-12-12
+213,Nicolas Reis,Belo Horizonte,AM,21,M,12777,2023-02-14
+214,Olivia Barros,Salvador,CE,73,F,6512,2023-10-10
+215,Paulo Câmara,Salvador,RJ,54,F,4335,2023-11-16
+216,Raquel Tavares,Curitiba,RJ,40,M,3682,2023-05-19
+217,Samuel Duarte,Curitiba,CE,72,F,11777,2023-11-27
+218,Tainá Furtado,Porto Alegre,SP,29,M,13313,2023-05-11
+219,Vitor Hugo,Salvador,SP,29,F,11078,2023-11-13
+220,Ana Souza,Rio de Janeiro,MG,65,F,3303,2023-12-17
+221,Bruno Lima,Curitiba,CE,44,M,7385,2023-03-12
+222,Carla Mendes,Porto Alegre,BA,67,F,2661,2023-03-06
+223,Diego Rocha,Goiânia,SP,61,F,6258,2023-08-22
+224,Elisa Prado,Fortaleza,PE,56,M,8585,2023-05-07
+225,Felipe Nunes,Manaus,RJ,40,M,3616,2023-05-22
+226,Gabriela Melo,Goiânia,PE,51,M,2544,2023-04-13
+227,Henrique Dias,Goiânia,SP,18,F,6738,2023-04-25
+228,Isabela Castro,Belo Horizonte,RS,36,M,3765,2023-01-16
+229,João Pedro,Fortaleza,MG,26,M,10525,2023-12-08
+230,Karen Alves,Manaus,AM,71,M,2980,2023-07-28
+231,Lucas Teixeira,São Paulo,CE,19,M,3075,2023-06-19
+232,Mariana Farias,Fortaleza,GO,43,M,6543,2023-02-13
+233,Nicolas Reis,São Paulo,BA,28,M,13098,2023-06-03
+234,Olivia Barros,Fortaleza,RJ,33,M,11448,2023-07-17
+235,Paulo Câmara,Rio de Janeiro,CE,73,M,14019,2023-06-08
+236,Raquel Tavares,Salvador,MG,22,F,10493,2023-09-07
+237,Samuel Duarte,Salvador,BA,64,F,5671,2023-02-05
+238,Tainá Furtado,Porto Alegre,PR,29,F,14255,2023-11-03
+239,Vitor Hugo,Belo Horizonte,PE,47,M,12959,2023-10-21
+240,Ana Souza,Goiânia,BA,73,M,4273,2023-08-03
+241,Bruno Lima,Recife,PE,58,M,14847,2023-05-19
+242,Carla Mendes,São Paulo,BA,50,F,6885,2023-08-15
+243,Diego Rocha,São Paulo,SP,41,M,3057,2023-11-28
+244,Elisa Prado,Rio de Janeiro,GO,56,M,9381,2023-10-18
+245,Felipe Nunes,São Paulo,PE,69,F,7067,2023-10-16
+246,Gabriela Melo,Manaus,MG,21,M,3495,2023-06-23
+247,Henrique Dias,Rio de Janeiro,AM,59,F,2441,2023-04-23
+248,Isabela Castro,Recife,PE,51,F,7762,2023-06-10
+249,João Pedro,Fortaleza,CE,67,M,12923,2023-10-02
+250,Karen Alves,Salvador,RJ,39,F,10941,2023-11-13
+251,Lucas Teixeira,Porto Alegre,RS,64,F,7261,2023-02-19
+252,Mariana Farias,Belo Horizonte,BA,37,M,3912,2023-10-23
+253,Nicolas Reis,Rio de Janeiro,RS,53,M,12342,2023-06-27
+254,Olivia Barros,Belo Horizonte,AM,23,M,10131,2023-06-01
+255,Paulo Câmara,Salvador,RS,29,F,7398,2023-08-07
+256,Raquel Tavares,Curitiba,MG,27,F,6646,2023-02-17
+257,Samuel Duarte,Manaus,AM,20,M,14355,2023-10-05
+258,Tainá Furtado,Goiânia,CE,27,F,4762,2023-12-25
+259,Vitor Hugo,Goiânia,MG,64,M,2515,2023-07-12
+260,Ana Souza,Curitiba,PE,57,M,14127,2023-12-26
+261,Bruno Lima,Recife,PR,52,F,6870,2023-08-27
+262,Carla Mendes,Curitiba,BA,61,M,9364,2023-05-25
+263,Diego Rocha,Fortaleza,AM,51,M,4455,2023-04-26
+264,Elisa Prado,Goiânia,MG,73,M,2654,2023-11-16
+265,Felipe Nunes,Salvador,AM,24,F,6470,2023-02-25
+266,Gabriela Melo,Belo Horizonte,RS,46,F,8967,2023-02-08
+267,Henrique Dias,Recife,BA,19,M,2672,2023-07-17
+268,Isabela Castro,Salvador,PR,42,F,7942,2023-04-01
+269,João Pedro,Salvador,RJ,71,M,14765,2023-03-05
+270,Karen Alves,São Paulo,RS,71,M,13204,2023-03-25
+271,Lucas Teixeira,Recife,PE,57,F,3098,2023-01-09
+272,Mariana Farias,Curitiba,MG,53,M,3621,2023-05-08
+273,Nicolas Reis,Porto Alegre,RJ,21,F,8678,2023-11-26
+274,Olivia Barros,Goiânia,PE,22,F,9989,2023-10-18
+275,Paulo Câmara,São Paulo,AM,54,F,13572,2023-03-10
+276,Raquel Tavares,Fortaleza,SP,57,M,5741,2023-10-14
+277,Samuel Duarte,Belo Horizonte,RJ,51,M,2908,2023-09-18
+278,Tainá Furtado,Manaus,AM,53,F,8197,2023-08-02
+279,Vitor Hugo,Fortaleza,BA,34,F,7650,2023-02-12
+280,Ana Souza,Curitiba,RJ,67,M,3985,2023-01-12
+281,Bruno Lima,Manaus,BA,70,F,14565,2023-11-15
+282,Carla Mendes,Recife,MG,69,F,2833,2023-12-25
+283,Diego Rocha,Recife,SP,36,F,2517,2023-04-02
+284,Elisa Prado,Salvador,RS,50,M,10697,2023-08-09
+285,Felipe Nunes,São Paulo,PR,36,M,14593,2023-01-28
+286,Gabriela Melo,Salvador,RS,25,M,8959,2023-07-24
+287,Henrique Dias,Recife,CE,39,F,9929,2023-12-16
+288,Isabela Castro,Salvador,AM,35,F,13712,2023-07-03
+289,João Pedro,Fortaleza,GO,70,F,10737,2023-05-11
+290,Karen Alves,Rio de Janeiro,RJ,38,M,6821,2023-08-20
+291,Lucas Teixeira,Fortaleza,MG,62,M,7559,2023-08-02
+292,Mariana Farias,Salvador,GO,45,M,12277,2023-01-03
+293,Nicolas Reis,Fortaleza,BA,50,F,2310,2023-03-28
+294,Olivia Barros,Goiânia,PE,20,F,2901,2023-04-25
+295,Paulo Câmara,Salvador,BA,42,F,11713,2023-03-22
+296,Raquel Tavares,Recife,BA,41,M,14302,2023-02-19
+297,Samuel Duarte,Belo Horizonte,AM,41,M,6950,2023-11-09
+298,Tainá Furtado,Curitiba,RJ,19,F,9976,2023-09-13
+299,Vitor Hugo,Manaus,RJ,34,M,13334,2023-08-07
+300,Ana Souza,Goiânia,RS,62,M,5079,2023-02-05
+301,Bruno Lima,Rio de Janeiro,PE,29,M,3238,2023-11-28
+302,Carla Mendes,Salvador,BA,63,F,10811,2023-09-10
+303,Diego Rocha,Porto Alegre,MG,63,F,14803,2023-06-17
+304,Elisa Prado,Curitiba,RJ,30,F,5678,2023-08-01
+305,Felipe Nunes,Salvador,AM,54,M,9457,2023-09-05
+306,Gabriela Melo,Goiânia,RJ,22,M,8323,2023-12-24
+307,Henrique Dias,Recife,AM,44,M,11219,2023-02-05
+308,Isabela Castro,Salvador,RJ,46,M,12942,2023-09-12
+309,João Pedro,Belo Horizonte,AM,58,F,14379,2023-03-14
+310,Karen Alves,Manaus,SP,71,F,10288,2023-03-10
+311,Lucas Teixeira,Belo Horizonte,MG,38,F,7469,2023-09-10
+312,Mariana Farias,Rio de Janeiro,RS,30,M,3850,2023-11-10
+313,Nicolas Reis,Goiânia,AM,23,F,11496,2023-10-05
+314,Olivia Barros,Belo Horizonte,GO,64,M,11034,2023-01-27
+315,Paulo Câmara,São Paulo,RJ,20,M,12468,2023-04-25
+316,Raquel Tavares,Goiânia,CE,57,F,9959,2023-11-18
+317,Samuel Duarte,Porto Alegre,RS,48,F,14984,2023-11-13
+318,Tainá Furtado,Porto Alegre,PE,22,F,4389,2023-08-14
+319,Vitor Hugo,Recife,PE,31,M,11739,2023-03-11
+320,Ana Souza,Salvador,BA,43,F,14262,2023-06-17
+321,Bruno Lima,Manaus,RJ,38,F,9442,2023-02-09
+322,Carla Mendes,Recife,PR,27,F,2629,2023-05-13
+323,Diego Rocha,Goiânia,CE,33,F,7164,2023-10-24
+324,Elisa Prado,Salvador,PR,66,F,9963,2023-09-15
+325,Felipe Nunes,Recife,RS,49,F,3275,2023-07-17
+326,Gabriela Melo,Recife,PR,31,M,2597,2023-01-10
+327,Henrique Dias,Recife,GO,74,M,6481,2023-09-01
+328,Isabela Castro,Rio de Janeiro,CE,26,M,13719,2023-06-25
+329,João Pedro,Fortaleza,BA,20,M,2638,2023-10-18
+330,Karen Alves,Curitiba,BA,53,M,3004,2023-07-17
+331,Lucas Teixeira,Recife,AM,35,F,3908,2023-02-13
+332,Mariana Farias,Salvador,BA,53,M,14169,2023-03-07
+333,Nicolas Reis,Goiânia,AM,43,F,2542,2023-01-05
+334,Olivia Barros,Salvador,PE,51,M,4240,2023-10-17
+335,Paulo Câmara,Belo Horizonte,BA,57,M,4462,2023-07-20
+336,Raquel Tavares,Porto Alegre,GO,39,M,13411,2023-10-10
+337,Samuel Duarte,Recife,SP,41,M,12839,2023-02-14
+338,Tainá Furtado,Goiânia,RS,68,F,11579,2023-08-09
+339,Vitor Hugo,Goiânia,GO,32,F,11360,2023-08-06
+340,Ana Souza,Manaus,GO,67,M,4221,2023-11-08
+341,Bruno Lima,São Paulo,GO,62,F,4925,2023-01-15
+342,Carla Mendes,Salvador,CE,27,M,13113,2023-04-14
+343,Diego Rocha,Manaus,GO,48,F,13363,2023-03-17
+344,Elisa Prado,Curitiba,AM,38,M,10409,2023-07-11
+345,Felipe Nunes,Belo Horizonte,PE,52,M,10750,2023-06-22
+346,Gabriela Melo,Porto Alegre,GO,48,F,5838,2023-05-18
+347,Henrique Dias,Porto Alegre,PR,37,M,13349,2023-04-23
+348,Isabela Castro,Recife,BA,48,M,10983,2023-12-09
+349,João Pedro,Porto Alegre,RJ,54,M,8264,2023-06-25
+350,Karen Alves,Belo Horizonte,RS,20,M,13500,2023-02-12
+351,Lucas Teixeira,Recife,RS,65,M,5305,2023-04-27
+352,Mariana Farias,Manaus,RS,53,M,4049,2023-02-20
+353,Nicolas Reis,Goiânia,PR,33,F,12774,2023-09-08
+354,Olivia Barros,Curitiba,SP,24,M,7211,2023-12-16
+355,Paulo Câmara,Rio de Janeiro,MG,18,F,8466,2023-11-16
+356,Raquel Tavares,Recife,PR,66,M,7062,2023-05-21
+357,Samuel Duarte,São Paulo,RJ,59,F,10567,2023-12-24
+358,Tainá Furtado,São Paulo,MG,44,F,2395,2023-07-26
+359,Vitor Hugo,Recife,MG,65,M,2413,2023-01-10
+360,Ana Souza,Goiânia,GO,24,M,6462,2023-08-21
+361,Bruno Lima,Manaus,AM,49,F,10061,2023-08-09
+362,Carla Mendes,Curitiba,RJ,39,F,13778,2023-08-21
+363,Diego Rocha,Porto Alegre,MG,18,M,14755,2023-05-19
+364,Elisa Prado,Curitiba,MG,57,M,8807,2023-09-11
+365,Felipe Nunes,Rio de Janeiro,CE,60,F,4827,2023-03-16
+366,Gabriela Melo,Salvador,PR,18,M,8084,2023-04-15
+367,Henrique Dias,Porto Alegre,BA,37,F,6085,2023-11-12
+368,Isabela Castro,Curitiba,SP,60,F,9425,2023-05-06
+369,João Pedro,Fortaleza,AM,75,M,13109,2023-02-21
+370,Karen Alves,Porto Alegre,BA,57,F,5390,2023-03-16
+371,Lucas Teixeira,Belo Horizonte,PE,65,M,8613,2023-12-18
+372,Mariana Farias,Recife,AM,69,F,14282,2023-04-22
+373,Nicolas Reis,Goiânia,RJ,51,M,10453,2023-12-12
+374,Olivia Barros,Rio de Janeiro,GO,25,F,10772,2023-09-07
+375,Paulo Câmara,Goiânia,AM,27,F,7175,2023-09-15
+376,Raquel Tavares,Rio de Janeiro,PR,63,M,3289,2023-09-15
+377,Samuel Duarte,São Paulo,PE,26,M,9284,2023-10-02
+378,Tainá Furtado,Manaus,PE,61,M,13650,2023-01-13
+379,Vitor Hugo,Porto Alegre,SP,65,F,11275,2023-02-02
+380,Ana Souza,Fortaleza,BA,62,F,10666,2023-01-03
+381,Bruno Lima,Recife,SP,36,M,4748,2023-03-25
+382,Carla Mendes,Fortaleza,BA,75,M,9148,2023-07-13
+383,Diego Rocha,Rio de Janeiro,AM,26,M,3743,2023-03-18
+384,Elisa Prado,Fortaleza,AM,26,F,1856,2023-01-10
+385,Felipe Nunes,Recife,AM,45,M,5562,2023-04-15
+386,Gabriela Melo,Salvador,MG,35,F,13678,2023-02-02
+387,Henrique Dias,Fortaleza,GO,67,F,5743,2023-04-03
+388,Isabela Castro,Rio de Janeiro,GO,20,M,11594,2023-11-23
+389,João Pedro,São Paulo,PR,65,F,8390,2023-08-08
+390,Karen Alves,Manaus,PR,66,F,4095,2023-09-10
+391,Lucas Teixeira,Curitiba,GO,38,M,5681,2023-05-05
+392,Mariana Farias,Manaus,PR,44,M,6308,2023-01-18
+393,Nicolas Reis,Goiânia,MG,58,M,10907,2023-08-02
+394,Olivia Barros,Salvador,CE,68,M,13208,2023-07-14
+395,Paulo Câmara,Belo Horizonte,RS,42,F,14160,2023-09-16
+396,Raquel Tavares,Curitiba,PR,37,F,9386,2023-01-18
+397,Samuel Duarte,Fortaleza,CE,53,F,8163,2023-04-09
+398,Tainá Furtado,Curitiba,BA,59,F,9169,2023-06-03
+399,Vitor Hugo,Manaus,PR,21,M,7979,2023-11-20
+400,Ana Souza,Goiânia,SP,73,F,4882,2023-10-24
+401,Bruno Lima,Manaus,PR,48,F,7255,2023-05-01
+402,Carla Mendes,Curitiba,PR,65,F,14036,2023-08-08
+403,Diego Rocha,Goiânia,PR,43,F,10845,2023-06-25
+404,Elisa Prado,Porto Alegre,CE,47,M,6853,2023-05-12
+405,Felipe Nunes,Manaus,PE,47,F,14953,2023-12-16
+406,Gabriela Melo,Salvador,PR,41,M,8581,2023-01-19
+407,Henrique Dias,Curitiba,MG,19,M,10865,2023-10-19
+408,Isabela Castro,Fortaleza,RS,27,F,7204,2023-04-13
+409,João Pedro,Goiânia,PR,49,M,6016,2023-08-24
+410,Karen Alves,Recife,PE,28,M,4573,2023-03-24
+411,Lucas Teixeira,Manaus,PE,29,F,10384,2023-01-27
+412,Mariana Farias,Rio de Janeiro,SP,66,F,8556,2023-03-27
+413,Nicolas Reis,Curitiba,RJ,63,F,1949,2023-04-17
+414,Olivia Barros,Recife,BA,21,M,12601,2023-08-01
+415,Paulo Câmara,São Paulo,AM,53,M,1994,2023-01-17
+416,Raquel Tavares,Porto Alegre,AM,36,F,10028,2023-12-22
+417,Samuel Duarte,Fortaleza,MG,24,F,10391,2023-03-08
+418,Tainá Furtado,Curitiba,GO,51,M,7607,2023-05-26
+419,Vitor Hugo,Fortaleza,RJ,41,M,9320,2023-10-08
+420,Ana Souza,Curitiba,RS,61,F,12510,2023-11-25
+421,Bruno Lima,São Paulo,RJ,43,M,7979,2023-09-16
+422,Carla Mendes,São Paulo,SP,62,F,3154,2023-08-28
+423,Diego Rocha,Fortaleza,BA,54,F,10453,2023-01-08
+424,Elisa Prado,Curitiba,GO,48,M,2562,2023-02-22
+425,Felipe Nunes,Porto Alegre,AM,54,F,4738,2023-06-01
+426,Gabriela Melo,Curitiba,GO,27,M,3060,2023-05-06
+427,Henrique Dias,Goiânia,PR,54,M,12892,2023-09-11
+428,Isabela Castro,Fortaleza,MG,68,F,10004,2023-12-12
+429,João Pedro,São Paulo,RJ,45,F,3045,2023-06-20
+430,Karen Alves,Goiânia,GO,43,M,2285,2023-11-09
+431,Lucas Teixeira,Recife,PE,32,M,10860,2023-07-14
+432,Mariana Farias,Belo Horizonte,GO,60,M,3204,2023-10-10
+433,Nicolas Reis,Curitiba,RJ,23,M,4326,2023-07-23
+434,Olivia Barros,Belo Horizonte,CE,38,M,3545,2023-02-01
+435,Paulo Câmara,Porto Alegre,PE,41,M,3474,2023-03-03
+436,Raquel Tavares,Belo Horizonte,CE,46,M,3492,2023-01-03
+437,Samuel Duarte,Salvador,AM,23,M,8111,2023-01-10
+438,Tainá Furtado,Fortaleza,CE,67,F,13675,2023-09-08
+439,Vitor Hugo,Goiânia,AM,28,M,4577,2023-03-09
+440,Ana Souza,Porto Alegre,RS,49,F,2836,2023-03-14
+441,Bruno Lima,Porto Alegre,CE,37,M,14623,2023-02-12
+442,Carla Mendes,Porto Alegre,PR,64,M,11528,2023-10-07
+443,Diego Rocha,Recife,RJ,26,M,1910,2023-07-11
+444,Elisa Prado,Goiânia,CE,69,M,9012,2023-06-14
+445,Felipe Nunes,Goiânia,MG,37,M,11683,2023-12-07
+446,Gabriela Melo,Recife,BA,29,M,7028,2023-05-24
+447,Henrique Dias,Recife,GO,68,F,7139,2023-07-09
+448,Isabela Castro,Fortaleza,BA,25,F,11503,2023-09-06
+449,João Pedro,Manaus,SP,64,M,13405,2023-04-15
+450,Karen Alves,Porto Alegre,RJ,70,M,12826,2023-08-05
+451,Lucas Teixeira,Porto Alegre,PR,34,F,13518,2023-07-26
+452,Mariana Farias,Fortaleza,RJ,46,M,11339,2023-07-18
+453,Nicolas Reis,Manaus,CE,52,F,14755,2023-06-23
+454,Olivia Barros,Manaus,GO,58,F,3591,2023-04-22
+455,Paulo Câmara,Salvador,MG,59,F,11027,2023-11-22
+456,Raquel Tavares,Fortaleza,BA,68,M,3535,2023-01-04
+457,Samuel Duarte,Porto Alegre,PR,50,F,9103,2023-06-13
+458,Tainá Furtado,Recife,GO,62,F,7451,2023-01-16
+459,Vitor Hugo,Rio de Janeiro,RS,44,F,3701,2023-12-05
+460,Ana Souza,Salvador,RS,39,M,14649,2023-04-17
+461,Bruno Lima,Recife,BA,48,F,8978,2023-12-23
+462,Carla Mendes,Recife,BA,22,M,2532,2023-12-04
+463,Diego Rocha,São Paulo,BA,59,F,12894,2023-03-24
+464,Elisa Prado,Curitiba,AM,29,F,7222,2023-09-14
+465,Felipe Nunes,Recife,PR,69,M,12117,2023-03-06
+466,Gabriela Melo,Fortaleza,CE,19,F,9165,2023-10-14
+467,Henrique Dias,Fortaleza,SP,63,F,5171,2023-05-25
+468,Isabela Castro,Rio de Janeiro,GO,24,F,7793,2023-06-07
+469,João Pedro,Recife,RJ,34,M,10446,2023-11-11
+470,Karen Alves,Goiânia,CE,57,M,11417,2023-02-12
+471,Lucas Teixeira,Salvador,PE,57,F,12836,2023-12-26
+472,Mariana Farias,Porto Alegre,GO,55,F,12811,2023-03-11
+473,Nicolas Reis,Rio de Janeiro,PR,37,F,4799,2023-06-23
+474,Olivia Barros,Belo Horizonte,AM,42,M,11571,2023-03-19
+475,Paulo Câmara,Fortaleza,CE,29,M,12212,2023-09-23
+476,Raquel Tavares,Belo Horizonte,AM,28,M,6532,2023-03-06
+477,Samuel Duarte,Salvador,PE,57,F,7682,2023-01-16
+478,Tainá Furtado,Belo Horizonte,PR,70,M,11000,2023-09-21
+479,Vitor Hugo,Recife,CE,61,M,8609,2023-12-27
+480,Ana Souza,Recife,PE,28,F,11063,2023-01-26
+481,Bruno Lima,Curitiba,RS,20,M,5483,2023-09-10
+482,Carla Mendes,Belo Horizonte,PE,54,M,10806,2023-09-04
+483,Diego Rocha,Goiânia,RJ,35,M,10680,2023-01-25
+484,Elisa Prado,Recife,AM,31,M,3477,2023-12-27
+485,Felipe Nunes,Curitiba,RS,73,F,9168,2023-05-12
+486,Gabriela Melo,Rio de Janeiro,PE,73,F,14507,2023-04-07
+487,Henrique Dias,Goiânia,BA,73,M,4519,2023-10-05
+488,Isabela Castro,Curitiba,PR,69,F,11140,2023-06-18
+489,João Pedro,Porto Alegre,GO,52,F,7102,2023-12-10
+490,Karen Alves,Porto Alegre,GO,35,F,4021,2023-07-02
+491,Lucas Teixeira,Porto Alegre,MG,62,F,5890,2023-03-23
+492,Mariana Farias,Salvador,PR,66,M,9819,2023-03-19
+493,Nicolas Reis,Porto Alegre,CE,42,M,3037,2023-11-26
+494,Olivia Barros,Rio de Janeiro,CE,50,M,13182,2023-06-15
+495,Paulo Câmara,Recife,BA,55,F,14483,2023-12-03
+496,Raquel Tavares,Recife,BA,72,F,14836,2023-09-13
+497,Samuel Duarte,Curitiba,CE,70,F,9905,2023-05-11
+498,Tainá Furtado,Porto Alegre,BA,53,F,11075,2023-08-26
+499,Vitor Hugo,Salvador,SP,20,F,12059,2023-08-01
+500,Ana Souza,Rio de Janeiro,MG,46,M,1811,2023-07-07

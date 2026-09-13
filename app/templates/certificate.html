@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Certificado — PyMaster{% endblock %}
+{% block heading %}Certificado{% endblock %}
+{% block content %}
+<div class="cert-page">
+  {% if not certificate %}
+  <section class="cert-locked">
+    <div class="cert-locked-ico">🎓</div>
+    <h2>Seu certificado ainda não foi emitido</h2>
+    <p>Conclua os <b>{{ modules_total }}</b> módulos do curso para liberar seu certificado de conclusão.</p>
+    <div class="cert-locked-stats">
+      <span class="cert-locked-num">{{ completed_count }}</span>
+      <span class="cert-locked-label">de {{ modules_total }} módulos concluídos</span>
+    </div>
+    <div class="cert-modules">
+      {% for m in modules %}
+      <div class="cert-module-row">
+        <span class="cert-module-name" style="color:{{ m.color }}">Módulo {{ m.number }} — {{ m.title }}</span>
+        <div class="mastery-bar"><div class="mastery-fill" style="width:{{ m.completion }}%;background:{{ m.gradient }}"></div></div>
+        <span class="cert-module-pct" style="color:{{ m.color }}">{{ m.completion }}%</span>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="btn primary" href="/learn">Continuar estudando</a>
+  </section>
+  {% else %}
+  <div class="cert-stage">
+    <div class="cert" id="cert">
+      <div class="cert-inner">
+        <div class="cert-face cert-front">
+          <div class="cert-frame">
+            <div class="cert-head">
+              <img class="cert-logo" src="/static/img/logo-sm.png" alt="PyMaster">
+              <div class="cert-brand">
+                <span class="cert-brand-name">PyMaster</span>
+                <span class="cert-brand-sub">Python para Análise de Dados</span>
+              </div>
+            </div>
+            <div class="cert-eyebrow">CURSO COMPLETO</div>
+            <h1 class="cert-title">CERTIFICADO<br>DE CONCLUSÃO</h1>
+            <p class="cert-copy">Certificamos que</p>
+            <div class="cert-name">{{ user.name }}</div>
+            <p class="cert-copy small">
+              concluiu integralmente o curso <b>PyMaster — Python para Análise de Dados</b>,
+              composto por <b>{{ certificate.modules_total }} módulos</b>,
+              com aproveitamento global de <b>{{ overall_pct }}%</b> de domínio,
+              alcançando as conquistas registradas no verso deste documento.
+            </p>
+            <div class="cert-meta">
+              <span><b>Emitido em</b><br>{{ cert_date_human }}</span>
+              <span><b>Registro</b><br>{{ certificate.cert_no }}</span>
+            </div>
+            <div class="cert-sign">
+              <div class="cert-sign-block">
+                <div class="cert-sign-line"></div>
+                <span class="cert-sign-name">Flaviano Porto</span>
+                <span class="cert-sign-role">Criador do PyMaster</span>
+              </div>
+              <div class="cert-sign-block">
+                <div class="cert-sign-line"></div>
+                <span class="cert-sign-name">Equipe PyMaster</span>
+                <span class="cert-sign-role">Direção de Ensino</span>
+              </div>
+            </div>
+            <div class="cert-stamp"><span class="cert-stamp-ico">🎓</span><b>CONCLUÍDO</b></div>
+          </div>
+        </div>
+        <div class="cert-face cert-back">
+          <div class="cert-frame cert-back-frame">
+            <div class="cert-back-head">
+              <div>
+                <div class="cert-eyebrow">ANEXO AO CERTIFICADO</div>
+                <h2 class="cert-back-title">Histórico de módulos<br>& conquistas</h2>
+              </div>
+              {% if avatar_src(user.avatar) %}
+              <img class="cert-back-avatar" src="{{ avatar_src(user.avatar) }}" alt="">
+              {% else %}
+              <div class="cert-back-avatar">{{ user.avatar }}</div>
+              {% endif %}
+            </div>
+            <p class="cert-copy small">
+              {{ user.name }} concluiu os {{ modules_total }} módulos do PyMaster com
+              aproveitamento global de <b>{{ overall_pct }}%</b>.
+            </p>
+            <div class="cert-mod-list">
+              {% for m in modules %}
+              <div class="cert-module">
+                <div class="cert-module-top">
+                  <div class="cert-module-head">
+                    <span class="cert-module-no" style="--mod-color:{{ m.color }}">Módulo {{ m.number }}</span>
+                    <span class="cert-module-title">{{ m.title }}</span>
+                  </div>
+                  <div class="cert-module-right">
+                    {% if m.completion >= 100 %}<span class="cert-chip yes">✓ Concluído</span>
+                    {% else %}<span class="cert-chip no" style="color:{{ m.color }}">{{ m.completion }}%</span>{% endif %}
+                    <span class="cert-module-pct" style="color:{{ m.color }}">{{ m.mastery }}%</span>
+                  </div>
+                </div>
+                <div class="mastery-bar"><div class="mastery-fill" style="width:{{ m.mastery }}%;background:{{ m.gradient }}"></div></div>
+                {% if m.badges %}
+                <div class="cert-tags">
+                  {% for b in m.badges %}<span class="cert-tag"><i>{{ b.icon }}</i>{{ b.name }}</span>{% endfor %}
+                </div>
+                {% else %}
+                <div class="cert-tags"><span class="cert-tag dim">Sem conquistas neste módulo</span></div>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+            {% if extra_badges %}
+            <div class="cert-extra">
+              <div class="cert-extra-title">Conquistas da jornada</div>
+              <div class="cert-tags">
+                {% for b in extra_badges %}<span class="cert-tag"><i>{{ b.icon }}</i>{{ b.name }}</span>{% endfor %}
+              </div>
+            </div>
+            {% endif %}
+            <div class="cert-back-foot">
+              <span>Registro: {{ certificate.cert_no }}</span>
+              <span>Emitido em {{ cert_date_short }}</span>
+              <span>Documento autêntico do PyMaster</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cert-actions">
+      <button class="btn ghost" onclick="document.getElementById('cert').classList.toggle('flipped')">🔄 Virar certificado</button>
+      <button class="btn primary" onclick="window.print()">🖨️ Imprimir</button>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<div id="xp-slot" hx-swap-oob="true">
+  {% include "partials/_xp_chip.html" %}
+</div>
+<span id="review-badge-slot" hx-swap-oob="true">{% if due_reviews > 0 %}<span class="badge">{{ due_reviews }}</span>{% endif %}</span>
+<span id="review-pending-slot" hx-swap-oob="true">{{ due_reviews }} pendente(s) hoje</span>
+{% if check.correct %}
+<div class="feedback feedback-ok">
+  <div class="fb-head">
+    <span class="fb-ico">✓</span>
+    <div><b>Você lembrou!</b> <span class="fb-detail">Revisão correta — recuperar isso agora vale ainda mais.</span></div>
+    <span class="fb-xp">+{{ xp_earned }} XP</span>
+  </div>
+  {% if check.actual_output %}
+  <div class="fb-run"><div><b>Saída:</b><pre class="fb-pre">{{ check.actual_output }}</pre></div></div>
+  {% endif %}
+</div>
+{% else %}
+<div class="feedback feedback-wrong">
+  <div class="fb-head">
+    <span class="fb-ico">↻</span>
+    <div><b>Esqueceu um pouco.</b> <span class="fb-detail">Isso é normal — a revisão existe exatamente para isso. O intervalo será reduzido para reforçar.</span></div>
+  </div>
+  {% if check.feedback %}<div class="fb-tip">{{ check.feedback }}</div>{% endif %}
+  {% if check.run_error %}<div class="fb-tip"><b>{{ check.run_error.get('class') }}:</b>{{ check.run_error.get('message','') }}</div>{% endif %}
+</div>
+{% endif %}
+
+{% if next_item %}
+<div class="review-next">
+  <div class="review-next-label">Próxima revisão</div>
+  <div class="review-next-card">
+    <span class="concept-badge" style="background:{{ next_concept.color }}">{{ next_concept.title }}</span>
+    <p>{{ next_item.prompt.split('\n')[0] }}</p>
+    {% with ex = next_item, solved = false, seed = 'review' %}
+      {% include "partials/_review_card.html" %}
+    {% endwith %}
+  </div>
+</div>
+{% else %}
+<div class="review-done">
+  🎉 Review completo para hoje! Seu conhecimento de longo prazo agradece.
+  <a class="btn primary" href="/dashboard">Voltar ao início</a>
+</div>
+{% endif %}

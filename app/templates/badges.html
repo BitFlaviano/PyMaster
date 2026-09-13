@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Conquistas — PyMaster{% endblock %}
+{% block heading %}Conquistas{% endblock %}
+{% block content %}
+<div class="badges-page">
+  <p class="badges-sub">Meça progresso, não pressa. Cada conquista reflete prática real e retenção.</p>
+  <div class="badges-grid">
+    {% for b in badges %}
+    <div class="badge-card {% if b.locked %}locked{% endif %}">
+      <div class="badge-ico">{{ b.icon }}</div>
+      <div class="badge-name">{{ b.name }}</div>
+      <div class="badge-desc">{{ b.description }}</div>
+      {% if b.locked %}<div class="badge-locked-label">🔒 Em progresso</div>
+      {% else %}<div class="badge-date">Desbloqueada</div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Laboratório — PyMaster{% endblock %}
+{% block heading %}Laboratório Python{% endblock %}
+{% block content %}
+<div class="lab-page">
+  <div class="lab-layout">
+    <div class="lab-editor-panel">
+      <div class="lab-toolbar">
+        <input type="text" id="lab-title" class="lab-title" value="Meu experimento" placeholder="Título do experimento">
+        <div class="lab-actions">
+          <button class="btn primary" id="lab-run">▶ Executar</button>
+          <button class="btn accent" id="lab-visualize">👁 Visualizar</button>
+          <button class="btn ghost" id="lab-save">Salvar</button>
+          <button class="btn ghost" id="lab-clear">Limpar</button>
+        </div>
+      </div>
+      <div class="lab-editor" id="lab-editor">
+        <textarea id="lab-code" spellcheck="false" placeholder="Escreva Python aqui. Ex.: print(&quot;Olá, PyMaster!&quot;)" wrap="off"></textarea>
+      </div>
+      <div class="lab-samples">
+        <span>Exemplos:</span>
+        <button class="chip" onclick='PyMaster.loadSample("loop")'>acumulador</button>
+        <button class="chip" onclick='PyMaster.loadSample("func")'>função</button>
+        <button class="chip" onclick='PyMaster.loadSample("pandas")'>pandas</button>
+      </div>
+    </div>
+
+    <div class="lab-side">
+      <div class="lab-console-wrap" id="lab-console">Executando…</div>
+      <div class="lab-history">
+        <div class="lab-history-head">Histórico salvo</div>
+        <div id="lab-history-list">{% include "partials/_lab_history.html" %}</div>
+      </div>
+      <div class="lab-datasets">
+        <div class="lab-history-head">Datasets de exemplo</div>
+        <div class="dataset-list">
+          {% for ds in registry.datasets %}
+          <a class="dataset-item" href="/datasets/{{ ds }}" onclick="PyMaster.datasetPath(this); return false">{{ ds }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="lab-console-script">
+        Dica: pandas sample lê <code>DATASETS_DIR + "/vendas.csv"</code> se o dataset não esteve aberto.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

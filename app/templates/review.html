@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Revisão — PyMaster{% endblock %}
+{% block heading %}Revisão espaçada{% endblock %}
+{% block content %}
+<div class="review-page">
+  <div class="review-intro card">
+    <h2>Revisão rápida</h2>
+    <p>Lembre-se do que estudou — reaprender no momento certo é o que fixa o conhecimento.</p>
+  </div>
+
+  {% if review_exercise %}
+  <div class="review-area">
+    <div class="review-pending"><span id="review-pending-slot">{{ review_due | length }} pendente(s) hoje</span></div>
+    <div class="review-concept-label">Revisando <b>{{ review_concept.title }}</b></div>
+    <div class="review-question-card">
+      <p class="ex-prompt">{{ review_exercise.prompt | replace("\n","<br>") | safe }}</p>
+      {% with ex = review_exercise, solved = false, seed = 'review-first' %}
+        {% include "partials/_review_card.html" %}
+      {% endwith %}
+    </div>
+  </div>
+  {% else %}
+  <div class="review-empty">
+    <div class="review-done">
+      <h2>Nada pendente por hoje 🎉</h2>
+      <p>Você está em dia com suas revisões. Continue a trilha principal quando quiser.</p>
+      <a class="btn primary" href="/learn">Voltar à trilha</a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

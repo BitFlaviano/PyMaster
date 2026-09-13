@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Datasets — PyMaster{% endblock %}
+{% block heading %}Datasets de exemplo{% endblock %}
+{% block content %}
+<div class="datasets-page">
+  <p>Arquivos realistas para a trilha de análise de dados e para experimentos no laboratório.</p>
+  <div class="dataset-grid">
+    {% for row in datasets_rows %}
+    <a class="dataset-card" href="/datasets/{{ row }}">
+      <span class="dataset-ico">📄</span>
+      <span>{{ row }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

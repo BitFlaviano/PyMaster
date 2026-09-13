@@ -1,0 +1,657 @@
+# ────────────────────────────────────────────────────────────────
+# NÍVEL 4 — PYTHON PRODUTIVO
+# Comprehensions, funções avançadas, datas e coleções do dia a dia.
+# ────────────────────────────────────────────────────────────────
+level: 4
+slug: "nivel-4"
+title: "Nível 4 — Python Produtivo"
+subtitle: "Escreva menos e faça mais: comprehensions, funções poderosas, datas e coleções espertas."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: comprehensions
+    title: "Comprehensions"
+    color: "#eab308"
+    summary: "Crie listas e dicionários em uma única linha elegante, com condição ou transformação."
+    lessons:
+      - id: comprehensions_intro
+        title: "Lista em uma linha só"
+        blocks:
+          - type: text
+            body: |
+              Uma **comprehension** constrói uma lista na hora, com a transformação na própria linha:
+
+              ```python
+              quadrados = [x ** 2 for x in range(1, 5)]
+              print(quadrados)            # [1, 4, 9, 16]
+              ```
+
+              A leitura é: *"para cada x no intervalo, quero x²"*.
+          - type: text
+            body: |
+              Dá para filtrar com um `if` no final:
+
+              ```python
+              pares = [n for n in range(10) if n % 2 == 0]
+              print(pares)                # [0, 2, 4, 6, 8]
+              ```
+
+              E também **dicionários** e **conjuntos**:
+
+              ```python
+              nomes = ["Ana", "Bia"]
+              tamanhos = {nome: len(nome) for nome in nomes}
+              print(tamanhos)             # {'Ana': 3, 'Bia': 3}
+              ```
+          - type: code
+            code: |
+              frutas = ["banana", "maca", "uva"]
+              caps = [f.upper() for f in frutas]
+              print(caps)                 # ['BANANA', 'MACA', 'UVA']
+          - type: callout
+            body: "Comprehension de lista é a ferramenta #1 no Python real — domine a sintaxe `[transformação for x in fonte if condição]`."
+    exercises:
+      - id: comprehensions_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          print([x * 2 for x in range(4)])
+        answer: |
+          [0, 2, 4, 6]
+        hints:
+          - "Mapeie cada x de 0 até 3 para x * 2."
+        time_estimate: 60
+
+      - id: comprehensions_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          print([n for n in range(10) if n % 2 == 0])
+        answer: |
+          [0, 2, 4, 6, 8]
+        hints:
+          - "O `if` filtra: só chegou os pares."
+        time_estimate: 90
+
+      - id: comprehensions_3
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete a palavra que constrói a lista (a `comprehension`):
+        code: |
+          quadrados = [x ** 2 ____ x in range(1, 4)]
+        answer: 'for'
+        hints:
+          - "A estrutura é [transformação for x in fonte]."
+        solution: |
+          quadrados = [x ** 2 for x in range(1, 4)]
+        time_estimate: 60
+
+      - id: comprehensions_4
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          print([s.upper() for s in "abc"])
+        answer: |
+          ['A', 'B', 'C']
+        hints:
+          - "Uma string pode ser percorrida letra por letra."
+          - "upper() aplica-se sobre cada letra."
+        time_estimate: 90
+
+      - id: comprehensions_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que crie a lista `tamanhos` com o **comprimento de cada nome** de `["Ana", "Bia", "Carlos"]` usando uma comprehension, e exiba a lista.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              [3, 3, 6]
+        hints:
+          - "Usa len(nome) para medir."
+          - "len(\"Carlos\") é 6."
+        solution: |
+          nomes = ["Ana", "Bia", "Carlos"]
+          tamanhos = [len(nome) for nome in nomes]
+          print(tamanhos)
+        time_estimate: 180
+
+
+
+      - id: comprehensions_boss
+        type: write
+        difficulty: hard
+        xp: 65
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): a partir de `[1, 2, 3, 4, 5, 6]`, monte com uma compreensão a lista dos pares e com outra a lista do dobro dos pares. Exiba a lista dos dobros e a soma deles (`sum()`), um por linha.'
+        solution: 'numeros = [1, 2, 3, 4, 5, 6]
+
+          pares = [n for n in numeros if n % 2 == 0]
+
+          dobro = [n * 2 for n in pares]
+
+          print(dobro)
+
+          print(sum(dobro))
+
+          '
+        tests:
+        - name: Dobros dos pares
+          expected: '[4, 8, 12]
+
+            24
+
+            '
+        must_include:
+        - for n in numeros
+        hints:
+        - Primeiro filtre os pares; depois multiplique por 2.
+        common_error: Multiplicar por 2 antes de filtrar, dobrando também os ímpares-chave.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: funcoes_avancadas
+    title: "Funções avançadas"
+    color: "#22c55e"
+    summary: "Valores padrão, *args, retornos de tupla: funções flexíveis para qualquer situação."
+    lessons:
+      - id: funcoes_avancadas_intro
+        title: "Funções com superpoderes"
+        blocks:
+          - type: text
+            body: |
+              Parâmetros com **valor padrão** tornam a chamada opcional:
+
+              ```python
+              def saudacao(nome="mundo"):
+                  return f"olá, {nome}!"
+
+              print(saudacao())        # olá, mundo!
+              print(saudacao("Ana"))   # olá, Ana!
+              ```
+          - type: text
+            body: |
+              `*args` captura qualquer quantidade de argumentos:
+
+              ```python
+              def soma(*numeros):
+                  return sum(numeros)
+
+              print(soma(1, 2, 3))     # 6
+              print(soma(5, 5))        # 10
+              ```
+
+              E uma função devolve mais de um valor empacotando numa **tupla**:
+
+              ```python
+              def calculo(a, b):
+                  return a + b, a - b
+
+              s, d = calculo(10, 3)
+              print(s, d)              # 13 7
+              ```
+          - type: callout
+            body: "Chamadas com valores padrão ficam claras usando o nome do parâmetro: `preco(100, desconto=0.5)`."
+    exercises:
+      - id: funcoes_avancadas_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def saudacao(nome="mundo"):
+              return f"olá, {nome}!"
+
+          print(saudacao())
+          print(saudacao("Ana"))
+        answer: |
+          olá, mundo!
+          olá, Ana!
+        hints:
+          - "Sem argumento usa o valor padrão 'mundo'."
+          - "Com argumento usa 'Ana'."
+        time_estimate: 90
+
+      - id: funcoes_avancadas_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def preco(valor, desconto=0.1):
+              return valor * (1 - desconto)
+
+          print(preco(100))
+          print(preco(100, 0.5))
+        answer: |
+          90.0
+          50.0
+        hints:
+          - "Primeira chamada usa o padrão 0.1 → 90.0."
+          - "Segunda passa 0.5 → 50.0."
+        time_estimate: 120
+
+      - id: funcoes_avancadas_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def calculo(a, b):
+              return a + b, a - b
+
+          s, d = calculo(10, 3)
+          print(s, d)
+        answer: |
+          13 7
+        hints:
+          - "A função devolve uma tupla com dois valores."
+          - "Desempaque com s, d = ..."
+        time_estimate: 90
+
+      - id: funcoes_avancadas_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete para que a função devolva o dobro:
+        code: |
+          def dobro(x):
+              ____ x * 2
+        answer: 'return'
+        hints:
+          - "A palavra que devolve o valor ao chamador."
+        solution: |
+          def dobro(x):
+              return x * 2
+        time_estimate: 45
+
+      - id: funcoes_avancadas_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva uma função `soma(*numeros)` que devolva a soma de tudo que for passado. Depois exiba o resultado de `soma(1, 2, 3)` e de `soma(4, 4)`, um por linha.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              6
+              8
+        hints:
+          - "def soma(*numeros): e return sum(numeros)."
+          - "soma(4, 4) → 8."
+        solution: |
+          def soma(*numeros):
+              return sum(numeros)
+
+          print(soma(1, 2, 3))
+          print(soma(4, 4))
+        time_estimate: 180
+
+
+
+      - id: funcoes_avancadas_boss
+        type: write
+        difficulty: hard
+        xp: 65
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): crie a função `media(*valores)` que aceita quantidade variável de argumentos e retorna a média usando `sum()` e `len()`. Exiba `media(4, 6)` e `round(media(10, 20, 30), 1)`, um por linha.'
+        solution: "def media(*valores):\n    return sum(valores) / len(valores)\n\n\nprint(media(4, 6))\nprint(round(media(10, 20, 30), 1))\n"
+        tests:
+        - name: Médias variadas
+          expected: '5.0
+
+            20.0
+
+            '
+        must_include:
+        - '*valores'
+        hints:
+        - '*valores agrupa todos os argumentos em uma tupla.'
+        common_error: Dividir por 2 fixo em vez de len(valores).
+
+  # ────────────────────────────────────────────────────────────────
+  - id: data_hora
+    title: "Datas e horários"
+    color: "#6366f1"
+    summary: "datetime, datedelta e strftime: o calendário e o relógio sob controle do seu código."
+    lessons:
+      - id: data_hora_intro
+        title: "O calendário do Python"
+        blocks:
+          - type: text
+            body: |
+              O módulo `datetime` lida com datas e horários. Um objeto `date` guarda dia, mês e ano:
+
+              ```python
+              import datetime
+
+              hoje = datetime.date(2026, 1, 12)
+              print(hoje)                  # 2026-01-12
+              print(hoje.year)             # 2026
+              print(hoje.month)            # 1
+              ```
+          - type: text
+            body: |
+              `timedelta` calcula diferenças:
+
+              ```python
+              a = datetime.date(2026, 1, 1)
+              b = datetime.date(2026, 1, 10)
+              print((b - a).days)          # 9
+              ```
+
+              E `strftime` formata do seu jeito:
+
+              ```python
+              d = datetime.date(2026, 12, 25)
+              print(d.strftime("%d/%m/%Y")) # 25/12/2026
+              ```
+          - type: callout
+            body: "strftime recebe códigos: %d dia, %m mês, %Y ano com 4 dígitos, %H horas."
+    exercises:
+      - id: data_hora_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import datetime
+
+          dia = datetime.date(2026, 1, 12)
+          print(dia.year)
+        answer: |
+          2026
+        hints:
+          - "year é o atributo do ano."
+        time_estimate: 60
+
+      - id: data_hora_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import datetime
+
+          natal = datetime.date(2026, 12, 25)
+          print(natal.strftime("%d/%m/%Y"))
+        answer: |
+          25/12/2026
+        hints:
+          - "%d é o dia, %m o mês, %Y o ano com 4 dígitos."
+        time_estimate: 90
+
+      - id: data_hora_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import datetime
+
+          a = datetime.date(2026, 1, 1)
+          b = datetime.date(2026, 1, 10)
+          print((b - a).days)
+        answer: |
+          9
+        hints:
+          - "a diferença entre duas dates é um timedelta."
+          - ".days traz a quantidade de dias inteiros."
+        time_estimate: 90
+
+      - id: data_hora_4
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete para acessar a **hora** do instante:
+        code: |
+          import datetime
+
+          momento = datetime.datetime(2026, 5, 10, 14, 30)
+          print(momento.____)
+        answer: 'hour'
+        hints:
+          - "É o atributo das horas, em inglês."
+        solution: |
+          import datetime
+
+          momento = datetime.datetime(2026, 5, 10, 14, 30)
+          print(momento.hour)
+        time_estimate: 60
+
+      - id: data_hora_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que calcule e exiba quantos dias existem entre `2026-02-01` e `2026-03-01` (use o módulo `datetime`).
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              28
+        hints:
+          - "Subtraia as duas date e use .days."
+          - "2026 não é bissexto → fevereiro tem 28 dias."
+        solution: |
+          import datetime
+
+          a = datetime.date(2026, 2, 1)
+          b = datetime.date(2026, 3, 1)
+          print((b - a).days)
+        allow_imports: ["datetime"]
+        time_estimate: 180
+
+
+
+      - id: data_hora_boss
+        type: write
+        difficulty: hard
+        xp: 65
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): com o módulo `datetime`, crie as datas 5/1/2026 e 12/1/2026. Exiba a quantidade de dias entre elas (subtraia uma da outra e use `.days`) e a data final formatada como `dd/mm/aaaa` com `strftime("%d/%m/%Y")`.'
+        solution: 'import datetime
+
+
+          inicio = datetime.date(2026, 1, 5)
+
+          fim = datetime.date(2026, 1, 12)
+
+          print((fim - inicio).days)
+
+          print(fim.strftime("%d/%m/%Y"))
+
+          '
+        allow_imports:
+        - datetime
+        tests:
+        - name: Dias e formato
+          expected: '7
+
+            12/01/2026
+
+            '
+        must_include:
+        - strftime
+        hints:
+        - Subtrair date devolve um timedelta com o atributo .days.
+        common_error: Usar strftime("%d-%m-%Y") e destoar do formato pedido.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: collections_tools
+    title: "Coleções espertas"
+    color: "#64748b"
+    summary: "Counter e deque da biblioteca collections: contar tudo e filas que trabalham dos dois lados."
+    lessons:
+      - id: collections_tools_intro
+        title: "Contar e enfileirar"
+        blocks:
+          - type: text
+            body: |
+              `Counter` conta quantas vezes cada item aparece:
+
+              ```python
+              from collections import Counter
+
+              contagem = Counter(["a", "b", "a", "c", "a"])
+              print(contagem["a"])               # 3
+              print(contagem.most_common(1))     # [('a', 3)]
+              ```
+
+              Dá até para contar letras de uma palavra:
+
+              ```python
+              letras = Counter("banana")
+              print(letras["a"])                 # 3
+              ```
+          - type: text
+            body: |
+              `deque` é uma fila de dois lados:
+
+              ```python
+              from collections import deque
+
+              fila = deque([1, 2, 3])
+              fila.append(4)
+              print(fila.popleft())              # 1
+              ```
+          - type: callout
+            body: "Counter é o atalho perfeito para 'quantas vezes?'. Chega de contar no braço com loops."
+    exercises:
+      - id: collections_tools_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          from collections import Counter
+
+          contagem = Counter(["a", "b", "a", "c", "a"])
+          print(contagem["a"])
+        answer: |
+          3
+        hints:
+          - "O 'a' aparece 3 vezes na lista."
+        time_estimate: 60
+
+      - id: collections_tools_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          from collections import Counter
+
+          letras = Counter("banana")
+          print(letras["a"])
+        answer: |
+          3
+        hints:
+          - "banana → b-1, a-3, n-2."
+        time_estimate: 60
+
+      - id: collections_tools_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          from collections import deque
+
+          fila = deque([1, 2, 3])
+          fila.append(4)
+          print(fila.popleft())
+        answer: |
+          1
+        hints:
+          - "popleft() remove e devolve o primeiro da fila."
+        time_estimate: 60
+
+      - id: collections_tools_4
+        type: complete
+        difficulty: easy
+        xp: 20
+        prompt: |
+          Complete com a classe da biblioteca `collections` que conta ocorrências:
+        code: |
+          from collections import ____
+
+          contagem = ____(["a", "b", "a"])
+          print(contagem["a"])
+        answer: 'Counter'
+        hints:
+          - "É o contador de ocorrências."
+        solution: |
+          from collections import Counter
+
+          contagem = Counter(["a", "b", "a"])
+          print(contagem["a"])
+        time_estimate: 45
+
+      - id: collections_tools_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que use `Counter` para contar as palavras de `["banana", "maca", "banana", "uva"]` e exiba o item mais comum com `most_common(1)`.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              [('banana', 2)]
+        hints:
+          - "contagem.most_common(1) devolve uma lista com o par mais frequente."
+          - "banana aparece 2 vezes."
+        solution: |
+          from collections import Counter
+
+          frutas = Counter(["banana", "maca", "banana", "uva"])
+          print(frutas.most_common(1))
+        allow_imports: ["collections"]
+        time_estimate: 180
+
+      - id: collections_tools_boss
+        type: write
+        difficulty: hard
+        xp: 65
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): importe `Counter` e `deque` de `collections`. Conte as letras da palavra "banana" com `Counter` e exiba a contagem da letra "a". Crie um `deque([1, 2])`, adicione o 3 com `append`, remova o primeiro com `popleft()`
+          e exiba esse valor removido.'
+        solution: 'from collections import Counter, deque
+
+
+          contagem = Counter("banana")
+
+          fila = deque([1, 2])
+
+          fila.append(3)
+
+          print(contagem["a"])
+
+          print(fila.popleft())
+
+          '
+        allow_imports:
+        - collections
+        tests:
+        - name: Contagem e fila
+          expected: '3
+
+            1
+
+            '
+        must_include:
+        - Counter
+        - deque
+        hints:
+        - banana tem três letras 'a'; popleft remove do início.
+        common_error: Usar pop() no deque e remover do final em vez do início.
+

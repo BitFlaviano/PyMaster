@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block title %}Ajustes — PyMaster{% endblock %}
+{% block heading %}Ajustes{% endblock %}
+{% block content %}
+<div class="settings-page">
+  <div class="card settings-group">
+    <h3>Aparência e acessibilidade</h3>
+    <form method="post" action="/settings/update" class="form">
+      <div class="setting-row">
+        <span>Modo escuro</span>
+        <label class="switch">
+          <input type="radio" name="theme" value="dark" {% if user.theme == 'dark' %}checked{% endif %}>
+          <span class="switch-track"><span class="switch-knob"></span></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <span>Modo claro</span>
+        <label class="switch">
+          <input type="radio" name="theme" value="light" {% if user.theme == 'light' %}checked{% endif %}>
+          <span class="switch-track"><span class="switch-knob"></span></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <span>Tamanho do texto — <b id="font-sel">{{ user.font_scale }}%</b></span>
+        <input type="range" min="80" max="150" step="5" value="{{ user.font_scale }}"
+               name="font_scale" id="font-range" oninput="document.getElementById('font-sel').textContent = this.value + '%'">
+      </div>
+      <div class="setting-row">
+        <span>Reduzir animações</span>
+        <label class="switch">
+          <input type="checkbox" name="reduce_motion" {% if user.reduce_motion %}checked{% endif %}>
+          <span class="switch-track"><span class="switch-knob"></span></span>
+        </label>
+      </div>
+      <button class="btn primary" type="submit">Salvar ajustes</button>
+    </form>
+  </div>
+
+  <div class="card settings-group" id="perfis">
+    <h3>Perfis</h3>
+    <p class="hint">Perfis são independentes: cada um tem XP, progresso e conquistas próprios, salvos só aqui.</p>
+    <div class="profiles-list">
+    {% for p in profiles %}
+      <div class="profile-row {% if user.id == p.id %}profile-row-current{% endif %}">
+        {% if avatar_src(p.avatar) %}
+        <img class="profile-avatar" src="{{ avatar_src(p.avatar) }}" alt="">
+        {% else %}
+        <div class="profile-avatar">{{ p.avatar }}</div>
+        {% endif %}
+        <div class="profile-row-info">
+          <div class="profile-name">{{ p.name }}{% if user.id == p.id %} <span class="profile-current-tag">ativo</span>{% endif %}</div>
+          <div class="profile-meta"><span class="profile-lv">Nível {{ xp_level_for(p.xp) }}</span> · {{ p.xp }} XP</div>
+        </div>
+        <details class="profile-edit">
+          <summary class="btn ghost btn-sm">Editar</summary>
+          <form method="post" action="/profiles/{{ p.id }}/update" class="profile-edit-form">
+            <label class="field"><span>Nome</span><input type="text" name="name" value="{{ p.name }}"></label>
+            <label class="field"><span>Avatar</span><input type="text" name="avatar" value="{{ p.avatar }}" maxlength="8"></label>
+            <label class="field"><span>PIN {% if p.pin_hash %}(definido){% endif %}</span>
+              <input type="password" name="pin" placeholder="Novo PIN (4+ caracteres)"></label>
+            <label class="field checkbox-inline"><input type="checkbox" name="clear_pin" value="1"> Remover PIN</label>
+            <button class="btn primary btn-sm" type="submit">Salvar</button>
+          </form>
+        </details>
+        <form method="post" action="/profiles/{{ p.id }}/delete" class="profile-delete"
+              onsubmit="return confirm('Excluir o perfil {{ p.name }}? Todos os dados dele serão apagados.');">
+          <input type="hidden" name="confirm" value="1">
+          <button class="btn danger btn-sm" type="submit">Excluir</button>
+        </form>
+      </div>
+    {% endfor %}
+    </div>
+    <div class="profile-actions">
+      <a class="btn accent btn-sm" href="/onboarding?new=1">Criar novo perfil</a>
+      <a class="btn ghost btn-sm" href="/profiles">Ir para o seletor</a>
+    </div>
+  </div>
+
+  <div class="card settings-group" id="sobre">
+    <h3>Sobre você</h3>
+    {% if about_error %}<div class="msg-err">{{ about_error }}</div>{% endif %}
+    <form method="post" action="/settings/about" enctype="multipart/form-data" class="form" id="about-form">
+      <input type="hidden" name="clear_avatar" value="0" id="about-clear">
+      <div class="about-avatar-wrap">
+        <label class="about-avatar" title="Alterar foto">
+          <input type="file" id="avatar-file" name="file" accept="image/png,image/jpeg,image/gif,image/webp">
+          {% if avatar_src(user.avatar) %}
+          <img class="about-avatar-img" src="{{ avatar_src(user.avatar) }}" alt="Foto de {{ user.name }}">
+          {% else %}
+          <span class="about-avatar-emoji">{{ user.avatar }}</span>
+          {% endif %}
+          <span class="about-avatar-pencil">✏️</span>
+        </label>
+        <div class="about-name">{{ user.name }}</div>
+        {% if avatar_src(user.avatar) %}
+        <button type="button" class="about-trash" id="about-trash" title="Remover foto" aria-label="Remover foto">🗑️</button>
+        {% endif %}
+        <span class="about-hint">Clique no lápis ou no avatar para escolher uma imagem · PNG, JPG, GIF ou WebP até 1,5 MB</span>
+      </div>
+      <label class="field"><span>Nome</span><input type="text" name="name" value="{{ user.name }}" maxlength="120"></label>
+      <div class="field">
+        <span>Avatar (emoji)</span>
+        <div class="avatar-picker">
+          {% if avatar_src(user.avatar) %}
+          <label class="avatar-opt" title="Manter esta foto">
+            <input type="radio" name="avatar" value="{{ user.avatar }}" checked>
+            <span class="avatar-opt-pic"><img src="{{ avatar_src(user.avatar) }}" alt="Foto atual"></span>
+          </label>
+          {% endif %}
+          {% for a in ['🎓', '🐍', '🚀', '🔥', '🌙', '☕', '🎯', '🦊', '👩‍💻', '🧙', '⭐', '🌸'] %}
+          <label class="avatar-opt">
+            <input type="radio" name="avatar" value="{{ a }}" {% if user.avatar == a %}checked{% endif %}>
+            <span>{{ a }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="btn primary" type="submit">Salvar perfil</button>
+    </form>
+    <dl class="settings-info about-info">
+      <dt>Objetivo</dt><dd>{{ {'trabalho':'Trabalho','faculdade':'Faculdade','dados':'Análise de dados','automacao':'Automação','curiosidade':'Curiosidade','carreira':'Transição de carreira','outro':'Outro'}.get(user.goal, user.goal or '—') }}</dd>
+      <dt>Nível inicial apontado</dt><dd>{{ user.diagnosed_level }}</dd>
+    </dl>
+  </div>
+
+  <div class="card settings-group">
+    <h3>Zona segura</h3>
+    <p class="hint">O executador de código é apresentado com limites de tempo, memória e acesso — código do usuário nunca roda fora do sandbox local.</p>
+  </div>
+</div>
+<script>
+  (function () {
+    var trash = document.getElementById('about-trash');
+    if (trash) {
+      trash.addEventListener('click', function () {
+        if (confirm('Remover a foto? Seu avatar volta a ser o emoji.')) {
+          var clear = document.getElementById('about-clear');
+          if (clear) clear.value = '1';
+          var form = document.getElementById('about-form');
+          if (form) form.submit();
+        }
+      });
+    }
+  })();
+</script>
+{% endblock %}

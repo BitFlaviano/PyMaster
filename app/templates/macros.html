@@ -1,0 +1,186 @@
+{% macro difficulty_tag(ex) -%}
+  <span class="diff diff-{{ ex.difficulty }}">{{ 'Fácil' if ex.difficulty == 'easy' else ('Médio' if ex.difficulty == 'medium' else 'Difícil') }}</span>
+{%- endmacro %}
+
+{% macro type_tag(ex) -%}
+  <span class="type-tag">{{ {'choice':'Escolha','complete':'Complete o código','predict':'Preveja a saída','order':'Ordene as linhas','find_error':'Encontre o erro','fix':'Corrija o código','write':'Escreva o código','debug':'Detetive de bugs'}.get(ex.type, ex.type) }}</span>
+{%- endmacro %}
+
+{% macro visual_block(block) -%}
+<div class="visual-block v-{{ block.kind }}">
+  {% if block.title %}<div class="v-title">{{ block.title }}</div>{% endif %}
+  {% if block.kind == 'pipeline' %}
+    {% for chunk in (block.code or '').replace('→',' > ').split('>') %}
+      <span class="pipe-stage">{{ chunk.strip() }}</span>
+      {% if not loop.last %}<span class="pipe-arr">→</span>{% endif %}
+    {% endfor %}
+  {% elif block.kind == 'memory' %}
+    <div class="memory-boxes">
+      {% for line in (block.code or '').splitlines() %}
+        {% set parts = line.split('→', 1) %}
+        {% if parts|length == 2 %}
+        <div class="mem-row">
+          <span class="mem-label">{{ parts[0].strip() }}</span>
+          <span class="mem-value">{{ parts[1].strip() }}</span>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% elif block.kind == 'sequence' %}
+    <ol class="seq-list">
+      {% for line in (block.code or '').splitlines() %}
+        <li>{{ line }}</li>
+      {% endfor %}
+    </ol>
+  {% elif block.kind == 'branch' %}
+    <div class="branch-view">
+      <div class="branch-cond">{{ block.code.split('→')[0].strip() if block.code }}</div>
+      <div class="branch-paths">
+        <div class="branch-yes">Sim → <code>{{ block.code.split('→')[1].strip() if block.code and '→' in block.code }}</code></div>
+        <div class="branch-no">Não → <code>{{ block.code.split('→')[2].strip() if block.code and '→' in block.code }}</code></div>
+      </div>
+    </div>
+  {% elif block.kind == 'loop' %}
+    <div class="loop-view">
+      {% for line in (block.code or '').splitlines() %}
+        <div class="loop-line">{{ line }}</div>
+      {% endfor %}
+      <span class="loop-cycle">⟳ repete</span>
+    </div>
+  {% else %}
+    <pre class="v-pre">{{ block.code }}</pre>
+  {% endif %}
+</div>
+{%- endmacro %}
+
+{% macro code_block(code) -%}
+<div class="code-block">
+  <div class="code-block-head">Python</div>
+  <pre class="code-pre"><code>{{ code | e }}</code></pre>
+  <button class="copy-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent)">Copiar</button>
+</div>
+{%- endmacro %}
+
+{% macro exercise_card(ex, solved, seed='1', nav=None) -%}
+<div class="exercise-card" id="ex-{{ ex.id }}"{% if ex.type == 'predict' and ex.code %} data-code="{{ ex.code | e }}"{% endif %}>
+  <div class="ex-head">
+    <div class="ex-tags">
+      {{ type_tag(ex) }}
+      {{ difficulty_tag(ex) }}
+      <span class="ex-xp">+{{ ex.xp }} XP</span>
+    </div>
+    {% if solved %}<span class="ex-solved">✓ Resolvido</span>{% endif %}
+  </div>
+  <p class="ex-prompt">{{ ex.prompt | replace("\n", "<br>") | safe }}</p>
+
+  {% if ex.type in ('find_error','debug') and ex.lines %}
+    {% if ex.buggy_code %}
+      {{ code_block(ex.buggy_code) }}
+    {% else %}
+      <div class="lines-panel">
+        {% for line in ex.lines %}<div class="line-row"><span class="line-no">{{ loop.index0 }}</span><code>{{ line }}</code></div>{% endfor %}
+      </div>
+    {% endif %}
+  {% elif ex.code %}
+    {{ code_block(ex.code) }}
+  {% endif %}
+
+  <div class="ex-body">
+    {% if ex.type == 'choice' or ex.type == 'explain' %}
+      <div class="option-list">
+        {% for opt in ex.options %}
+        <label class="option"><input type="radio" name="answer" value="{{ loop.index0 }}">
+          <span>{{ opt }}</span></label>
+        {% endfor %}
+      </div>
+      <button class="btn primary btn-check" hx-post="/frag/exercise/{{ ex.id }}/answer"
+              hx-include="closest .exercise-card" hx-target="#fb-{{ ex.id }}" hx-swap="innerHTML">Responder</button>
+
+    {% elif ex.type == 'complete' %}
+      <form class="inline-check-form" hx-post="/frag/exercise/{{ ex.id }}/answer" hx-target="#fb-{{ ex.id }}" hx-swap="innerHTML">
+        <input class="code-input" type="text" name="answer" placeholder="Escreva o trecho que completa o código…" style="flex:1">
+        <button class="btn primary" type="submit">Responder</button>
+      </form>
+
+    {% elif ex.type == 'predict' %}
+      <form class="inline-check-form" hx-post="/frag/exercise/{{ ex.id }}/answer" hx-target="#fb-{{ ex.id }}" hx-swap="innerHTML">
+        <textarea class="code-input code-textarea" name="answer" rows="4" placeholder="Digite o que será exibido, uma linha por vez…"></textarea>
+        <button class="btn primary" type="submit">Verificar previsão</button>
+      </form>
+
+    {% elif ex.type == 'order' %}
+      <div class="order-wrap" data-exercise="{{ ex.id }}">
+        {% set shuffled = ex.lines | shuffle_scoped(seed) %}
+        <input type="hidden" name="answer" value="{% for ln in shuffled %}{{ ln }}{{ '\n' if not loop.last }}{% endfor %}">
+        <div class="order-list" data-droppable>
+          {% for ln in shuffled %}
+          <div class="order-item" data-line="{{ ln }}" draggable="true">
+            <span class="order-grip">⠿</span>
+            <span class="order-num">{{ loop.index }}.</span>
+            <code class="order-text">{{ ln }}</code>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="order-controls">
+          <button type="button" class="btn ghost btn-sm" onclick="PyMaster.orderUp(this)">▲ Mover para cima</button>
+          <button type="button" class="btn ghost btn-sm" onclick="PyMaster.orderDn(this)">▼ Mover para baixo</button>
+          <button class="btn primary btn-check" hx-post="/frag/exercise/{{ ex.id }}/answer"
+                  hx-include="closest .order-wrap" hx-target="#fb-{{ ex.id }}" hx-swap="innerHTML">Verificar ordem</button>
+        </div>
+      </div>
+
+    {% elif ex.type == 'find_error' %}
+      <div class="option-list">
+        {% for line in ex.lines %}
+        <label class="option"><input type="radio" name="answer" value="{{ loop.index0 }}">
+          <span><code>{{ line }}</code></span></label>
+        {% endfor %}
+      </div>
+      <button class="btn primary btn-check" hx-post="/frag/exercise/{{ ex.id }}/answer"
+              hx-include="closest .exercise-card" hx-target="#fb-{{ ex.id }}" hx-swap="innerHTML">Confirmar linha</button>
+
+    {% elif ex.type in ('write','fix','debug') %}
+      <div class="editor-wrap">
+        <div class="editor-toolbar">
+          <span class="editor-label">{{ 'Corrige o código' if ex.type in ('fix','debug') else 'Seu código' }}</span>
+          <button class="btn ghost btn-sm" onclick='PyMaster.editorRun("ex-{{ ex.id }}")'>▶ Executar</button>
+          <button class="btn ghost btn-sm" onclick='PyMaster.editorVisualize("ex-{{ ex.id }}")'>👁 Ver o que o Python faz</button>
+        </div>
+        <div class="code-editor">
+          <textarea class="editor" name="code" data-editor="ex-{{ ex.id }}" spellcheck="false" placeholder="Escreva seu código aqui…" wrap="off"></textarea>
+        </div>
+        <div class="editor-footer">
+          <button class="btn primary btn-check" type="button"
+                  onclick='PyMaster.editorVerify("ex-{{ ex.id }}")'>Verificar resposta</button>
+        </div>
+        <div class="console-placeholder" id="console-ex-{{ ex.id }}"></div>
+      </div>
+    {% endif %}
+
+    {% if ex.hints %}
+    <div class="hint-zone">
+      <span class="hint-btn" onclick='PyMaster.nextHint("ex-{{ ex.id }}")'>💡 Preciso de uma dica</span>
+      <div id="hint-ex-{{ ex.id }}"></div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div id="fb-{{ ex.id }}" class="feedback-zone"></div>
+  {% if nav %}
+  <div class="ex-nav">
+    {% if nav.prev %}
+    <a class="btn ghost btn-sm" href="#ex-{{ nav.prev }}">← Anterior</a>
+    {% endif %}
+    <div class="ex-nav-grow"></div>
+    {% if nav.next %}
+    <button type="button" class="btn primary btn-sm btn-next" data-jump="#ex-{{ nav.next }}" {% if not solved %}disabled{% endif %}>Próximo →</button>
+    {% elif nav.next_concept %}
+    <button type="button" class="btn primary btn-sm btn-next" data-href="/concept/{{ nav.next_concept }}" {% if not solved %}disabled{% endif %}>Próximo conceito →</button>
+    {% endif %}
+  </div>
+  {% if not solved and (nav.next or nav.next_concept) %}
+  <p class="next-note">🔒 Finalize esta questão para liberar o Próximo.</p>
+  {% endif %}
+  {% endif %}
+</div>
+{%- endmacro %}

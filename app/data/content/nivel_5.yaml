@@ -1,0 +1,1137 @@
+# ────────────────────────────────────────────────────────────────
+# NÍVEL 5 — ANÁLISE DE DADOS
+# NumPy, Series, DataFrame e os primeiros passos com pandas.
+# ────────────────────────────────────────────────────────────────
+level: 5
+slug: "nivel-5"
+title: "Nível 5 — Análise de Dados"
+subtitle: "Descubra as histórias escondidas nos dados: numpy, pandas, filtros, agregações e estatística."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: numpy
+    title: "NumPy na prática"
+    color: "#059669"
+    summary: "Arrays numéricos e operações em lote: matemática de verdade na velocidade da luz."
+    lessons:
+      - id: numpy_intro
+        title: "Arrays: matemática em lote"
+        blocks:
+          - type: text
+            body: |
+              O **NumPy** é o motor numérico do Python. Ele trabalha com **arrays** — tabelas numéricas — e aplica operações a **todos os valores de uma vez**:
+
+              ```python
+              import numpy as np
+
+              a = np.array([1, 2, 3])
+              b = a + 10            # soma 10 em cada item
+              print(b)              # [11 12 13]
+              print(np.arange(5))   # [0 1 2 3 4]
+              ```
+          - type: code
+            code: |
+              import numpy as np
+
+              notas = np.array([8, 9, 10, 7])
+              print(np.mean(notas))   # 8.5
+              print(notas ** 2)       # [64 81 100  49]
+          - type: visual
+            kind: memory
+            code: |
+              a = np.array([1, 2, 3])
+              a + 10 → array([11, 12, 13])
+              np.arange(5) → array([0, 1, 2, 3, 4])
+          - type: callout
+            body: "O pandas (próximo passo) é construído em cima do NumPy. Dominar np.array é meio caminho andado."
+    exercises:
+      - id: numpy_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import numpy as np
+
+          a = np.array([1, 2, 3])
+          print(a + 10)
+        answer: |
+          [11 12 13]
+        hints:
+          - "Somar um número a um array soma em todos os itens."
+        time_estimate: 60
+
+      - id: numpy_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import numpy as np
+
+          a = np.array([1, 2, 3, 4])
+          print(a ** 2)
+        answer: |
+          [ 1  4  9 16]
+        hints:
+          - "Eleve cada número ao quadrado."
+          - "Observe o alinhamento dos espaços na saída do array."
+        time_estimate: 60
+
+      - id: numpy_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import numpy as np
+
+          a = np.array([5, 10, 15, 20])
+          print(np.mean(a))
+        answer: |
+          12.5
+        hints:
+          - "mean() calcula a média dos valores do array."
+        time_estimate: 60
+
+      - id: numpy_4
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete para exibir as **dimensões** do array:
+        code: |
+          import numpy as np
+
+          matriz = np.array([[1, 2], [3, 4]])
+          print(matriz.____)
+        answer: 'shape'
+        hints:
+          - "O atributo que devolve a forma (linhas, colunas)."
+        solution: |
+          import numpy as np
+
+          matriz = np.array([[1, 2], [3, 4]])
+          print(matriz.shape)
+        allow_imports: ["numpy"]
+        time_estimate: 60
+
+      - id: numpy_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que crie o array `np.array([2, 4, 6, 8])`, multiplique por `3` e exiba o resultado.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              [ 6 12 18 24]
+        hints:
+          - "a * 3 multiplica cada item."
+          - "A saída alinha os números com espaços."
+        solution: |
+          import numpy as np
+
+          a = np.array([2, 4, 6, 8])
+          print(a * 3)
+        allow_imports: ["numpy"]
+        time_estimate: 120
+
+
+
+      - id: numpy_boss
+        type: write
+        difficulty: hard
+        xp: 70
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): importe `numpy` como `np` e crie o array `np.array([2, 4, 6])`. Exiba, um por linha: a soma (`.sum()`), a média (`.mean()`) e o valor máximo (`.max()`) do array.'
+        solution: 'import numpy as np
+
+
+          a = np.array([2, 4, 6])
+
+          print(a.sum())
+
+          print(a.mean())
+
+          print(a.max())
+
+          '
+        allow_imports:
+        - numpy
+        tests:
+        - name: Agregados do array
+          expected: '12
+
+            4.0
+
+            6
+
+            '
+        must_include:
+        - np.array
+        hints:
+        - .mean() devolve float, então o print mostra 4.0.
+        common_error: Criar o array com mudança indevida no tipo e mudar as saídas.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: series
+    title: "Series do pandas"
+    color: "#0d9488"
+    summary: "Uma coluna de dados com nome, índice e funções estatísticas prontas."
+    lessons:
+      - id: series_intro
+        title: "Uma coluna de dados"
+        blocks:
+          - type: text
+            body: |
+              Uma **Series** é uma coluna de dados significada pelo pandas:
+
+              ```python
+              import pandas as pd
+
+              notas = pd.Series([8, 9, 7])
+              print(notas.mean())   # 8.0
+              print(notas.max())    # 9
+              print(notas.sum())    # 24
+              ```
+
+              Dá para dar nome ao índice:
+
+              ```python
+              vendas = pd.Series([100, 200], index=["jan", "fev"])
+              print(vendas["fev"])   # 200
+              ```
+          - type: visual
+            kind: memory
+            code: |
+              notas = pd.Series([8, 9, 7])
+              mean() → 8.0  max() → 9  min() → 7
+              notas["fev"] → acessa pelo índice nomeado
+          - type: callout
+            body: "Literalmente: Series ≈ uma coluna; DataFrame ≈ uma tabela cheia. Você está no caminho."
+    exercises:
+      - id: series_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          notas = pd.Series([8, 9, 7])
+          print(notas.mean())
+        answer: |
+          8.0
+        hints:
+          - "Média de 8, 9 e 7 é 8."
+          - "mean() costuma devolver float → 8.0."
+        time_estimate: 60
+
+      - id: series_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          vendas = pd.Series([100, 200], index=["jan", "fev"])
+          print(vendas["fev"])
+        answer: |
+          200
+        hints:
+          - "O índice nomeado permite acessar pela chave."
+          - "fev vale 200."
+        time_estimate: 60
+
+      - id: series_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          precos = pd.Series([10, 20, 30])
+          print(precos.max())
+        answer: |
+          30
+        hints:
+          - "max() devolve o maior valor."
+        time_estimate: 60
+
+      - id: series_4
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete para somar todos os valores da Series:
+        code: |
+          import pandas as pd
+
+          precos = pd.Series([10, 20, 30])
+          print(precos.____())
+        answer: 'sum'
+        hints:
+          - "É o mesmo verbo em português: somar."
+        solution: |
+          import pandas as pd
+
+          precos = pd.Series([10, 20, 30])
+          print(precos.sum())
+        allow_imports: ["pandas"]
+        time_estimate: 45
+
+      - id: series_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que crie a Series `pd.Series([1.7, 1.8, 1.6])` e exiba a **média** das alturas.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              1.7
+        hints:
+          - "média de 1.7, 1.8 e 1.6 = 1.7."
+        solution: |
+          import pandas as pd
+
+          alturas = pd.Series([1.7, 1.8, 1.6])
+          print(alturas.mean())
+        allow_imports: ["pandas"]
+        time_estimate: 120
+
+
+
+      - id: series_boss
+        type: write
+        difficulty: hard
+        xp: 70
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): importe `pandas` como `pd` e crie a Series `pd.Series([120, 80, 200], index=["seg", "ter", "qua"])`. Exiba, um por linha: o valor de "ter" (acesso por rótulo), o maior valor e a soma.'
+        solution: 'import pandas as pd
+
+
+          vendas = pd.Series([120, 80, 200], index=["seg", "ter", "qua"])
+
+          print(vendas["ter"])
+
+          print(vendas.max())
+
+          print(vendas.sum())
+
+          '
+        allow_imports:
+        - pandas
+        tests:
+        - name: Série de vendas
+          expected: '80
+
+            200
+
+            400
+
+            '
+        must_include:
+        - pd.Series
+        hints:
+        - O acesso com colchetes usa o rótulo do índice, não a posição.
+        common_error: Acessar vendas[1] para 'ter' e obter o valor da posição errada.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: dataframe
+    title: "DataFrame e datasets"
+    color: "#0369a1"
+    summary: "A tabela do pandas: leia CSV com read_csv e inspecione colunas, linhas e formato."
+    lessons:
+      - id: dataframe_intro
+        title: "A tabela dos dados"
+        blocks:
+          - type: text
+            body: |
+              O **DataFrame** é a tabela do pandas: linhas × colunas. O `read_csv` transforma o arquivo **CSV** direto em DataFrame:
+
+              ```python
+              import pandas as pd
+
+              df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+              print(len(df))     # 1200 (nº de linhas)
+              print(df.shape)    # (1200, 8)
+              print(df.columns.tolist())
+              ```
+          - type: text
+            body: |
+              Aqui no PyMaster a pasta de datasets de exemplo fica na variável **`DATASETS_DIR`** — basta concatenar o nome do arquivo:
+
+              - `vendas.csv` — 1200 vendas (canal, valores, quantidades)
+              - `notas.csv` — 600 notas de alunos
+              - `clientes.csv` — 500 clientes (sexo, renda, cidade)
+              - `temperaturas.csv` — medições por cidade
+          - type: dataset_note
+            body: |
+              Exemplo: `df = pd.read_csv(DATASETS_DIR + "/vendas.csv")` carrega o dataset de vendas e mostra 1200 linhas em `len(df)`.
+          - type: code
+            code: |
+              import pandas as pd
+
+              df = pd.read_csv(DATASETS_DIR + "/estoque.csv")
+              print(len(df))       # 15 produtos
+              print(df.shape)      # (15, 6)
+          - type: callout
+            body: "shape devolve (linhas, colunas). len() de um DataFrame devolve só o número de linhas."
+    exercises:
+      - id: dataframe_1
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          print(len(df))
+        answer: |
+          1200
+        hints:
+          - "len() de um DataFrame é o número de linhas."
+          - "O dataset de vendas tem 1200 vendas."
+        time_estimate: 90
+
+      - id: dataframe_2
+        type: predict
+        difficulty: hard
+        xp: 30
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          print(df.shape)
+        answer: |
+          (1200, 8)
+        hints:
+          - "shape devolve um par (linhas, colunas)."
+        time_estimate: 90
+
+      - id: dataframe_3
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/estoque.csv")
+          print(len(df))
+        answer: |
+          15
+        hints:
+          - "estoque.csv tem 15 produtos."
+        time_estimate: 60
+
+      - id: dataframe_4
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete para exibir o **formato** (linhas, colunas) do DataFrame:
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/notas.csv")
+          print(df.____)
+        answer: 'shape'
+        hints:
+          - "Mesmo atributo usado no NumPy para dimensões."
+        solution: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/notas.csv")
+          print(df.shape)
+        allow_imports: ["pandas"]
+        time_estimate: 60
+
+      - id: dataframe_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que leia `DATASETS_DIR + "/notas.csv"` com `read_csv` e exiba o **número de notas** (linhas).
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              600
+        hints:
+          - "df = pd.read_csv(DATASETS_DIR + \"/notas.csv\")"
+          - "len(df) conta as linhas."
+        solution: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/notas.csv")
+          print(len(df))
+        allow_imports: ["pandas"]
+        time_estimate: 120
+
+
+
+      - id: dataframe_boss
+        type: write
+        difficulty: hard
+        xp: 75
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): leia `notas.csv` da pasta de datasets em um DataFrame. Exiba, um por linha: o número de colunas (`len(df.columns)`), a quantidade de disciplinas distintas (`df["disciplina"].nunique()`) e o número de linhas
+          (`len(df)`).'
+        solution: 'import pandas as pd
+
+
+          df = pd.read_csv(DATASETS_DIR + "/notas.csv")
+
+          print(len(df.columns))
+
+          print(df["disciplina"].nunique())
+
+          print(len(df))
+
+          '
+        allow_imports:
+        - pandas
+        tests:
+        - name: Dimensões do DataFrame
+          expected: '8
+
+            5
+
+            600
+
+            '
+        must_include:
+        - read_csv
+        hints:
+        - Cada linha do CSV vira uma linha do DataFrame; o cabeçalho vira colunas.
+        common_error: Contar disciplinas com len() em vez de nunique().
+
+  # ────────────────────────────────────────────────────────────────
+  - id: pandas_filtros
+    title: "Filtrando dados"
+    color: "#2563eb"
+    summary: "df[condição] seleciona linhas: o começo de todas as análises de dados reais."
+    lessons:
+      - id: pandas_filtros_intro
+        title: "Peneira com condições"
+        blocks:
+          - type: text
+            body: |
+              O filtro é a ferramenta mais usada do pandas. Dentro dos colchetes vai uma **condição por coluna**:
+
+              ```python
+              import pandas as pd
+
+              df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+              online = df[df["canal"] == "online"]
+              print(len(online))        # 451
+
+              caros = df[df["total"] > 500]
+              mixed = df[(df["canal"] == "loja") & (df["quantidade"] > 3)]
+              ```
+          - type: code
+            code: |
+              import pandas as pd
+
+              df = pd.read_csv(DATASETS_DIR + "/imoveis.csv")
+              casas = df[df["tipo"] == "casa"]
+              print(len(casas))         # 209
+          - type: visual
+            kind: pipeline
+            code: |
+              read_csv → df[df["canal"] == "online"] → filtrar → contar
+          - type: callout
+            body: "& é o 'e' entre condições; a condição sempre vai entre parênteses. Uma coluna comparada a um valor devolve True/False por linha."
+    exercises:
+      - id: pandas_filtros_1
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          print(len(df[df["canal"] == "online"]))
+        answer: |
+          451
+        hints:
+          - "O sucesso das vendas online."
+          - "online é o segundo canal mais frequente (451)."
+        time_estimate: 90
+
+      - id: pandas_filtros_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/imoveis.csv")
+          print(len(df[df["tipo"] == "casa"]))
+        answer: |
+          209
+        hints:
+          - "Só os imóveis do tipo 'casa'."
+        time_estimate: 90
+
+      - id: pandas_filtros_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          print(len(df[df["quantidade"] == 5]))
+        answer: |
+          238
+        hints:
+          - "Conta as vendas com exatamente 5 itens."
+        time_estimate: 90
+
+      - id: pandas_filtros_4
+        type: predict
+        difficulty: hard
+        xp: 30
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/notas.csv")
+          print(len(df[df["media"] >= 8]))
+        answer: |
+          47
+        hints:
+          - "Notas com média maior ou igual a 8."
+        time_estimate: 120
+
+      - id: pandas_filtros_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que leia `clientes.csv` e exiba o **número de clientes do sexo `"M"`**.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              254
+        hints:
+          - "df[df[\"sexo\"] == \"M\"] e depois len()."
+        solution: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/clientes.csv")
+          print(len(df[df["sexo"] == "M"]))
+        allow_imports: ["pandas"]
+        time_estimate: 150
+
+
+
+      - id: pandas_filtros_boss
+        type: write
+        difficulty: hard
+        xp: 75
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): leia `clientes.csv` e filtre apenas os clientes com renda acima de 12000 (`df["renda"] > 12000`). Exiba, um por linha: a quantidade de clientes nesse grupo (`len()`) e a contagem por sexo como dicionário (`value_counts().to_dict()`).'
+        solution: 'import pandas as pd
+
+
+          df = pd.read_csv(DATASETS_DIR + "/clientes.csv")
+
+          ricos = df[df["renda"] > 12000]
+
+          print(len(ricos))
+
+          print(ricos["sexo"].value_counts().to_dict())
+
+          '
+        allow_imports:
+        - pandas
+        tests:
+        - name: Clientes com alta renda
+          expected: '114
+
+            {''F'': 57, ''M'': 57}
+
+            '
+        must_include:
+        - value_counts
+        hints:
+        - O filtro booleano dentro de df[...] seleciona só as linhas verdadeiras.
+        common_error: Fazer df[df["renda"]] sem a comparação e receber erro de colunas.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: pandas_agregacao
+    title: "Agrupando com groupby"
+    color: "#7c3aed"
+    summary: "value_counts, groupby e sum: transforme milhares de linhas em uma resposta."
+    lessons:
+      - id: pandas_agregacao_intro
+        title: "Dado bruto virando resposta"
+        blocks:
+          - type: text
+            body: |
+              **value_counts()** conta quantas vezes cada valor aparece:
+
+              ```python
+              import pandas as pd
+
+              df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+              print(df["canal"].value_counts())
+              print(df["canal"].value_counts().iloc[0])   # 491 (canal mais comum)
+              ```
+
+              **groupby** agrupa e aplica uma função ao grupo:
+
+              ```python
+              por_canal = df.groupby("canal")["total"].sum()
+              print(por_canal)             # total de vendas por canal
+              print(por_canal.max())       # maior total entre os canais
+              ```
+          - type: code
+            code: |
+              import pandas as pd
+
+              df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+              print(df.groupby("canal").size())   # contagem por canal
+          - type: visual
+            kind: pipeline
+            code: |
+              groupby("canal") → ["total"].sum() → comparar canais
+          - type: callout
+            body: "value_counts ordena do mais para o menos frequente. Era o mesmo Counter que você já conhece — só que em escala de dataframe."
+    exercises:
+      - id: pandas_agregacao_1
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          print(df["canal"].value_counts().iloc[0])
+        answer: |
+          491
+        hints:
+          - "value_counts conta cada canal e ordena do maior para o menor."
+          - "loja é o canal com mais vendas: 491."
+        time_estimate: 90
+
+      - id: pandas_agregacao_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          print(df.groupby("canal").size().min())
+        answer: |
+          258
+        hints:
+          - "groupby(\"canal\").size() conta cada grupo."
+          - "marketplace é o menor grupo: 258."
+        time_estimate: 120
+
+      - id: pandas_agregacao_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          print(df["total"].sum())
+        answer: |
+          1447750.26
+        hints:
+          - "Soma de todos os totais de venda no ano."
+        time_estimate: 90
+
+      - id: pandas_agregacao_4
+        type: choice
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Qual comando devolve a **média do total por canal**?
+        options:
+          - 'df["canal"].mean()'
+          - 'df.groupby("canal")["total"].mean()'
+          - 'df["total"].mean()'
+        answer: "1"
+        hints:
+          - "Primeiro agrupa por canal, depois aplica a média na coluna total."
+        time_estimate: 60
+
+      - id: pandas_agregacao_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que leia `vendas.csv` e exiba o **maior total de vendas entre os canais**, usando `groupby("canal")["total"].sum()` e `.max()`.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              602838.99
+        hints:
+          - "por_canal = df.groupby(\"canal\")[\"total\"].sum()"
+          - "Depois print(por_canal.max())."
+        solution: |
+          import pandas as pd
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+          por_canal = df.groupby("canal")["total"].sum()
+          print(por_canal.max())
+        allow_imports: ["pandas"]
+        time_estimate: 180
+
+
+
+      - id: pandas_agregacao_boss
+        type: write
+        difficulty: hard
+        xp: 75
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): leia `vendas.csv` e agrupe as vendas por canal somando o total (`df.groupby("canal")["total"].sum()`). Exiba, um por linha: o total do canal "loja" e o total do canal "marketplace".'
+        solution: 'import pandas as pd
+
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+
+          por_canal = df.groupby("canal")["total"].sum()
+
+          print(por_canal["loja"])
+
+          print(por_canal["marketplace"])
+
+          '
+        allow_imports:
+        - pandas
+        tests:
+        - name: Totais por canal
+          expected: '602838.99
+
+            317682.16
+
+            '
+        must_include:
+        - groupby
+        hints:
+        - O groupby agrupa por categoria e a soma soma cada grupo separadamente.
+        common_error: Somar o total geral em vez de separar por canal.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: estatisticas
+    title: "Estatística com dados reais"
+    color: "#be123c"
+    summary: "Média, máximo, mediana: números que resumem mil linhas em uma frase."
+    lessons:
+      - id: estatisticas_intro
+        title: "Resumir para decidir"
+        blocks:
+          - type: text
+            body: |
+              Uma coluna inteira vira um único número:
+
+              ```python
+              import pandas as pd
+
+              notas = pd.read_csv(DATASETS_DIR + "/notas.csv")
+              print(round(notas["media"].mean(), 2))   # 5.95
+              ```
+
+              Métricas que respondem perguntas de negócio:
+
+              - `max()/min()` → o extremo (maior venda, menor salário)
+              - `mean()` → o meio do caminho
+              - `median()` → o valor do meio (imune a extremos)
+              - `count()` / `len()` → quantos temos
+          - type: code
+            code: |
+              import pandas as pd
+
+              clientes = pd.read_csv(DATASETS_DIR + "/clientes.csv")
+              print(clientes["renda"].max())          # 14984
+              print(round(clientes["renda"].mean(), 2))  # 8522.74
+          - type: dataset_note
+            body: |
+              Média vs mediana: a média é puxada pelos extremos; a mediana sempre divide a lista ao meio. Por isso salários costumam ser resumidos pela **mediana**.
+          - type: callout
+            body: "round(valor, 2) evita as famosas dízimas. mean() de pandas já é float; a formatação é com você."
+    exercises:
+      - id: estatisticas_1
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          notas = pd.read_csv(DATASETS_DIR + "/notas.csv")
+          print(round(notas["media"].mean(), 2))
+        answer: |
+          5.95
+        hints:
+          - "Média de todas as médias do dataset de notas."
+        time_estimate: 90
+
+      - id: estatisticas_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          clientes = pd.read_csv(DATASETS_DIR + "/clientes.csv")
+          print(clientes["renda"].max())
+        answer: |
+          14984
+        hints:
+          - "max() acha a maior renda registrada."
+        time_estimate: 90
+
+      - id: estatisticas_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          func = pd.read_csv(DATASETS_DIR + "/funcionarios.csv")
+          print(func["salario"].max())
+        answer: |
+          17994
+        hints:
+          - "O maior salário entre os funcionários."
+        time_estimate: 90
+
+      - id: estatisticas_4
+        type: predict
+        difficulty: hard
+        xp: 30
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          func = pd.read_csv(DATASETS_DIR + "/funcionarios.csv")
+          print(func["salario"].median())
+        answer: |
+          10290.5
+        hints:
+          - "Mediana = valor que divide a lista ao meio."
+          - "Cuidado: dataset par → mediana é a média dos dois do meio."
+        time_estimate: 120
+
+      - id: estatisticas_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que leia `temperaturas.csv` e exiba a **média da coluna `max`**, arredondada para 2 casas.
+        tests:
+          - name: "Saída esperada"
+            expected: |
+              25.09
+        hints:
+          - "temp[\"max\"].mean() e depois round(..., 2)."
+        solution: |
+          import pandas as pd
+
+          temp = pd.read_csv(DATASETS_DIR + "/temperaturas.csv")
+          print(round(temp["max"].mean(), 2))
+        allow_imports: ["pandas"]
+        time_estimate: 120
+
+
+
+      - id: estatisticas_boss
+        type: write
+        difficulty: hard
+        xp: 75
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): leia `funcionarios.csv` e calcule estatísticas do salário. Exiba, um por linha: a média arredondada com `round(df["salario"].mean(), 2)` e o salário máximo (`df["salario"].max()`).'
+        solution: 'import pandas as pd
+
+
+          df = pd.read_csv(DATASETS_DIR + "/funcionarios.csv")
+
+          print(round(df["salario"].mean(), 2))
+
+          print(df["salario"].max())
+
+          '
+        allow_imports:
+        - pandas
+        tests:
+        - name: Média e máximo
+          expected: '10364.11
+
+            17994
+
+            '
+        must_include:
+        - mean(
+        hints:
+        - A média deve ser arredondada para 2 casas decimais antes de imprimir.
+        common_error: Imprimir a média com muitas casas decimais sem o round.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: visualizacao
+    title: "Visualização de dados"
+    color: "#f59e0b"
+    summary: "Um gráfico vale mil tabelas: matplotlib para dar forma aos números."
+    lessons:
+      - id: visualizacao_intro
+        title: "Dos números ao gráfico"
+        blocks:
+          - type: text
+            body: |
+              O **matplotlib** é a biblioteca clássica de gráficos do Python:
+
+              ```python
+              import matplotlib.pyplot as plt
+
+              plt.plot([1, 2, 3], [10, 20, 15])   # linha
+              plt.show()
+              ```
+
+              Padrões da análise de dados:
+
+              - **linha** → evolução no tempo
+              - **barras** → comparar categorias
+              - **histograma** → distribuição de uma coluna
+              - **dispersão (scatter)** → relação entre duas colunas numéricas
+          - type: visual
+            kind: memory
+            code: |
+              plt.plot(x, y) → gráfico de linha
+              plt.bar(cat, val) → barras
+              plt.hist(dados) → histograma
+              plt.scatter(x, y) → dispersão
+              plt.show() → exibe o gráfico
+          - type: callout
+            body: "Regra de ouro: linha para tempo, barras para comparação, histograma para distribuição, scatter para relação."
+    exercises:
+      - id: visualizacao_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Qual biblioteca é a mais usada para desenhar gráficos no Python?
+        options:
+          - "matplotlib"
+          - "numpy"
+          - "json"
+        answer: "0"
+        hints:
+          - "O nome faz trocadilho com MATLAB, o avô dos gráficos."
+        time_estimate: 45
+
+      - id: visualizacao_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Qual comando **exibe** o gráfico desenhado no matplotlib?
+        options:
+          - "plt.show()"
+          - "plt.plot()"
+          - "plt.display()"
+        answer: "0"
+        hints:
+          - "Você desenha com plot/bar/hist/scatter e termina com show()."
+        time_estimate: 45
+
+      - id: visualizacao_3
+        type: choice
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Qual tipo de gráfico é o melhor para mostrar a **evolução das vendas ao longo dos meses**?
+        options:
+          - "Gráfico de linha (plot)"
+          - "Histograma (hist)"
+          - "Gráfico de pizza"
+        answer: "0"
+        hints:
+          - "Valores ao longo do tempo pedem linha."
+        time_estimate: 60
+
+      - id: visualizacao_4
+        type: choice
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Qual tipo de gráfico mostra a **distribuição de uma única coluna** (ex.: renda dos clientes)?
+        options:
+          - "Histograma (hist)"
+          - "Dispersão (scatter)"
+          - "Linha (plot)"
+        answer: "0"
+        hints:
+          - "histograma é a 'tabela de frequência' em forma de barras."
+        time_estimate: 60
+
+      - id: visualizacao_5
+        type: choice
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Quer ver se **preço** e **área** dos imóveis estão relacionados. Qual gráfico usar?
+        options:
+          - "Dispersão (scatter)"
+          - "Histograma (hist)"
+          - "Pizza"
+        answer: "0"
+        hints:
+          - "Duas colunas numéricas que podem se correlacionar pedem scatter."
+        time_estimate: 60
+
+      - id: visualizacao_boss
+        type: write
+        difficulty: hard
+        xp: 80
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): antes de criar um gráfico de barras por canal de vendas, é preciso preparar os dados. Leia `vendas.csv`, agrupe por canal somando o total e ordene do maior para o menor com `sort_values(ascending=False)`. Exiba,
+          um por linha: o canal de maior venda (`índice [0]`) e o valor dele (`round(..., 2)`).'
+        solution: 'import pandas as pd
+
+
+          df = pd.read_csv(DATASETS_DIR + "/vendas.csv")
+
+          por_canal = df.groupby("canal")["total"].sum().sort_values(ascending=False)
+
+          print(por_canal.index[0])
+
+          print(round(por_canal.iloc[0], 2))
+
+          '
+        allow_imports:
+        - pandas
+        tests:
+        - name: Canal líder
+          expected: 'loja
+
+            602838.99
+
+            '
+        must_include:
+        - sort_values
+        hints:
+        - Com ascendente falso, os grupos vêm do maior para o menor total.
+        common_error: Usar ordenação padrão e pegar o canal errado como primeiro.
+

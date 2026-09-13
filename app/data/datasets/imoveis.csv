@@ -1,0 +1,701 @@
+id,cidade,bairro,quartos,area_m2,preco,tipo
+1,Fortaleza,Vila Nova,2,156,587797,apartamento
+2,São Paulo,Ponta Verde,3,117,668346,apartamento
+3,São Paulo,Ponta Verde,2,150,1050738,casa
+4,Manaus,Jardins,1,184,224109,apartamento
+5,Porto Alegre,Boa Viagem,2,59,648419,apartamento
+6,São Paulo,Centro,4,184,962776,casa
+7,Manaus,Bela Vista,4,193,1198675,casa
+8,Belo Horizonte,Bela Vista,3,96,482135,casa
+9,Porto Alegre,Ponta Verde,4,107,660860,apartamento
+10,Manaus,Vila Nova,1,95,791970,casa
+11,Fortaleza,Santa Cruz,3,148,386599,apartamento
+12,São Paulo,Vila Nova,1,80,398983,casa
+13,Recife,Vila Nova,1,129,1136510,apartamento
+14,São Paulo,Bela Vista,2,38,253920,apartamento
+15,São Paulo,Ponta Verde,4,101,1021813,apartamento
+16,Fortaleza,Cidade Baixa,2,189,306632,casa
+17,São Paulo,Centro,1,69,454369,apartamento
+18,Fortaleza,Centro,1,186,1191332,apartamento
+19,Fortaleza,Boa Viagem,2,98,335609,casa
+20,Recife,Bela Vista,4,186,895958,casa
+21,Goiânia,Cidade Baixa,1,137,199339,casa
+22,Salvador,Alvorada,1,178,635914,apartamento
+23,Porto Alegre,Santo Antônio,2,48,243123,apartamento
+24,Goiânia,Boa Viagem,3,213,419761,apartamento
+25,Fortaleza,Jardins,1,100,1189389,apartamento
+26,Rio de Janeiro,Jardins,1,119,286958,casa
+27,Goiânia,Ponta Verde,3,215,461725,apartamento
+28,Manaus,Vila Nova,3,76,209053,apartamento
+29,Porto Alegre,Centro,1,130,403336,apartamento
+30,Curitiba,Alvorada,4,143,221427,apartamento
+31,Salvador,Santo Antônio,3,110,800276,casa
+32,Porto Alegre,Santo Antônio,4,151,345472,casa
+33,São Paulo,Jardins,1,178,334649,apartamento
+34,São Paulo,Vila Nova,1,214,721623,apartamento
+35,Belo Horizonte,Bela Vista,4,190,1157251,apartamento
+36,São Paulo,Vila Nova,4,74,225316,casa
+37,Salvador,Ponta Verde,1,165,464810,casa
+38,Salvador,Vila Nova,4,96,1018027,apartamento
+39,Curitiba,Santo Antônio,3,78,1187232,apartamento
+40,Salvador,Cidade Baixa,1,40,498972,apartamento
+41,Belo Horizonte,Boa Viagem,1,181,1186585,apartamento
+42,Manaus,Santa Cruz,1,178,311839,casa
+43,Fortaleza,Jardins,2,199,533266,apartamento
+44,Goiânia,Centro,3,208,1098357,apartamento
+45,Rio de Janeiro,Centro,1,156,820839,apartamento
+46,Curitiba,Centro,3,147,618236,apartamento
+47,São Paulo,Jardins,2,181,444073,casa
+48,Belo Horizonte,Cidade Baixa,1,45,284089,casa
+49,Belo Horizonte,Bela Vista,2,183,960711,casa
+50,Fortaleza,Jardins,3,60,321169,apartamento
+51,Porto Alegre,Ponta Verde,3,40,711937,casa
+52,Fortaleza,Santo Antônio,3,95,1192145,casa
+53,Porto Alegre,Alvorada,4,49,1107838,apartamento
+54,Belo Horizonte,Vila Nova,4,145,419389,casa
+55,Porto Alegre,Santo Antônio,1,65,842255,apartamento
+56,Salvador,Bela Vista,1,131,713470,casa
+57,Curitiba,Alvorada,4,76,462077,apartamento
+58,Salvador,Ponta Verde,4,59,705028,apartamento
+59,Manaus,Vila Nova,2,119,983627,apartamento
+60,Belo Horizonte,Cidade Baixa,2,138,665071,apartamento
+61,Manaus,Santo Antônio,4,218,1038549,apartamento
+62,Salvador,Santo Antônio,2,71,479471,apartamento
+63,Goiânia,Cidade Baixa,4,177,653468,casa
+64,Porto Alegre,Boa Viagem,3,159,679770,apartamento
+65,Belo Horizonte,Boa Viagem,1,201,407782,apartamento
+66,São Paulo,Centro,4,65,1035442,casa
+67,Porto Alegre,Ponta Verde,4,115,342645,apartamento
+68,Curitiba,Santa Cruz,3,91,512541,apartamento
+69,Porto Alegre,Santo Antônio,4,178,349761,apartamento
+70,Belo Horizonte,Jardins,3,201,643848,apartamento
+71,Goiânia,Santa Cruz,2,129,459251,casa
+72,Belo Horizonte,Centro,4,206,914520,apartamento
+73,Porto Alegre,Jardins,1,63,893154,casa
+74,Goiânia,Cidade Baixa,2,177,767168,apartamento
+75,Manaus,Vila Nova,4,101,192643,casa
+76,Fortaleza,Bela Vista,3,95,543750,casa
+77,Goiânia,Alvorada,2,54,743894,casa
+78,Porto Alegre,Boa Viagem,4,175,214326,apartamento
+79,Fortaleza,Alvorada,1,126,1077873,apartamento
+80,Rio de Janeiro,Centro,2,61,358818,apartamento
+81,Porto Alegre,Bela Vista,3,59,1031112,casa
+82,Belo Horizonte,Bela Vista,1,68,932636,apartamento
+83,São Paulo,Alvorada,4,39,1053812,apartamento
+84,Recife,Vila Nova,1,220,955440,casa
+85,Manaus,Santo Antônio,1,52,402478,apartamento
+86,São Paulo,Bela Vista,1,190,658421,casa
+87,Goiânia,Boa Viagem,1,58,283811,apartamento
+88,São Paulo,Centro,2,114,1153624,apartamento
+89,Rio de Janeiro,Bela Vista,1,214,710494,casa
+90,Rio de Janeiro,Boa Viagem,4,204,771724,apartamento
+91,São Paulo,Jardins,4,77,987504,apartamento
+92,Goiânia,Centro,3,63,800097,casa
+93,Porto Alegre,Cidade Baixa,3,131,1156015,apartamento
+94,Rio de Janeiro,Jardins,2,150,547277,apartamento
+95,Salvador,Ponta Verde,2,218,315178,apartamento
+96,Recife,Vila Nova,4,171,970850,apartamento
+97,Recife,Vila Nova,4,191,987392,apartamento
+98,Curitiba,Cidade Baixa,1,144,300922,apartamento
+99,São Paulo,Ponta Verde,1,195,682811,apartamento
+100,Belo Horizonte,Bela Vista,4,102,694492,apartamento
+101,Rio de Janeiro,Ponta Verde,2,162,545307,apartamento
+102,São Paulo,Cidade Baixa,4,181,1095226,apartamento
+103,São Paulo,Vila Nova,3,178,205649,casa
+104,Manaus,Santa Cruz,3,157,1099253,casa
+105,São Paulo,Centro,2,204,459372,casa
+106,Porto Alegre,Bela Vista,2,92,1108908,apartamento
+107,Belo Horizonte,Vila Nova,1,138,803501,apartamento
+108,Fortaleza,Boa Viagem,4,179,559530,apartamento
+109,Porto Alegre,Santo Antônio,4,43,597826,apartamento
+110,Salvador,Jardins,4,196,913615,apartamento
+111,Curitiba,Boa Viagem,3,216,974930,apartamento
+112,Rio de Janeiro,Santa Cruz,1,67,1069471,apartamento
+113,Porto Alegre,Vila Nova,4,56,194626,apartamento
+114,São Paulo,Bela Vista,2,131,238675,casa
+115,Manaus,Alvorada,2,110,1079753,apartamento
+116,Rio de Janeiro,Boa Viagem,2,185,333606,apartamento
+117,Manaus,Alvorada,1,94,214730,apartamento
+118,Porto Alegre,Jardins,4,191,1038684,apartamento
+119,São Paulo,Santa Cruz,2,49,344518,apartamento
+120,Salvador,Jardins,4,159,944655,apartamento
+121,Manaus,Santo Antônio,3,141,937545,apartamento
+122,Curitiba,Boa Viagem,3,97,514909,casa
+123,Rio de Janeiro,Jardins,1,121,207905,apartamento
+124,Porto Alegre,Cidade Baixa,4,104,996048,apartamento
+125,Recife,Ponta Verde,4,69,525604,apartamento
+126,Curitiba,Ponta Verde,3,120,970622,apartamento
+127,Belo Horizonte,Ponta Verde,1,152,1141695,apartamento
+128,Salvador,Jardins,2,97,811045,apartamento
+129,Goiânia,Cidade Baixa,1,125,569878,apartamento
+130,Belo Horizonte,Santo Antônio,1,209,1041546,casa
+131,Recife,Vila Nova,2,136,209776,apartamento
+132,Porto Alegre,Alvorada,4,132,999188,apartamento
+133,Fortaleza,Cidade Baixa,4,74,228460,apartamento
+134,Rio de Janeiro,Cidade Baixa,1,44,673071,apartamento
+135,São Paulo,Ponta Verde,4,69,569221,apartamento
+136,Porto Alegre,Cidade Baixa,2,161,886862,casa
+137,São Paulo,Bela Vista,1,162,523499,apartamento
+138,Curitiba,Ponta Verde,1,85,1121835,apartamento
+139,Porto Alegre,Jardins,3,166,1077804,apartamento
+140,Recife,Vila Nova,4,50,359866,casa
+141,Belo Horizonte,Santa Cruz,3,138,908537,casa
+142,Fortaleza,Vila Nova,4,85,771960,casa
+143,Porto Alegre,Centro,4,144,639430,apartamento
+144,Belo Horizonte,Centro,4,205,1125715,apartamento
+145,Curitiba,Vila Nova,4,55,1091425,casa
+146,Curitiba,Santa Cruz,2,178,1155577,apartamento
+147,Recife,Santo Antônio,2,129,823069,apartamento
+148,Curitiba,Ponta Verde,4,167,1066500,apartamento
+149,Goiânia,Centro,4,209,917798,apartamento
+150,Porto Alegre,Ponta Verde,4,189,902427,apartamento
+151,Belo Horizonte,Centro,3,132,1005184,apartamento
+152,Porto Alegre,Centro,3,44,910690,casa
+153,Goiânia,Vila Nova,4,89,795773,apartamento
+154,Rio de Janeiro,Santa Cruz,4,147,1187766,apartamento
+155,São Paulo,Santa Cruz,2,212,878115,casa
+156,Salvador,Santo Antônio,4,52,962533,apartamento
+157,Manaus,Boa Viagem,4,165,935201,apartamento
+158,Salvador,Alvorada,2,149,1081854,apartamento
+159,Goiânia,Centro,2,172,462285,apartamento
+160,Belo Horizonte,Cidade Baixa,2,141,975990,apartamento
+161,Recife,Bela Vista,2,53,930469,apartamento
+162,Belo Horizonte,Vila Nova,4,64,301586,apartamento
+163,Recife,Santa Cruz,4,147,826220,apartamento
+164,Recife,Jardins,4,80,249985,apartamento
+165,Belo Horizonte,Boa Viagem,3,67,492986,apartamento
+166,Manaus,Santo Antônio,2,46,583003,apartamento
+167,Rio de Janeiro,Santo Antônio,1,91,802907,apartamento
+168,Belo Horizonte,Centro,2,143,1197766,casa
+169,Manaus,Centro,1,106,383341,casa
+170,Fortaleza,Alvorada,4,57,253491,apartamento
+171,Manaus,Centro,1,153,677119,apartamento
+172,Curitiba,Jardins,4,87,657296,apartamento
+173,Salvador,Centro,1,112,801637,apartamento
+174,Curitiba,Vila Nova,4,155,382455,apartamento
+175,Porto Alegre,Santo Antônio,2,66,1094947,apartamento
+176,Belo Horizonte,Boa Viagem,3,151,644275,apartamento
+177,Manaus,Centro,2,182,224090,casa
+178,Fortaleza,Santa Cruz,3,53,353864,apartamento
+179,Goiânia,Boa Viagem,3,65,922829,casa
+180,Curitiba,Boa Viagem,2,70,674460,casa
+181,Belo Horizonte,Cidade Baixa,2,176,1093011,apartamento
+182,Belo Horizonte,Boa Viagem,1,137,423002,apartamento
+183,São Paulo,Alvorada,4,53,321531,apartamento
+184,Fortaleza,Cidade Baixa,4,203,537212,apartamento
+185,Recife,Vila Nova,3,129,405386,casa
+186,Recife,Alvorada,3,43,664631,casa
+187,São Paulo,Ponta Verde,4,115,1045705,apartamento
+188,Fortaleza,Cidade Baixa,3,143,1077606,apartamento
+189,Belo Horizonte,Centro,1,208,939593,apartamento
+190,Goiânia,Vila Nova,1,80,385214,apartamento
+191,Salvador,Alvorada,2,196,224156,apartamento
+192,Porto Alegre,Ponta Verde,1,187,426108,apartamento
+193,Belo Horizonte,Santa Cruz,2,101,406310,apartamento
+194,São Paulo,Vila Nova,2,129,260501,apartamento
+195,Belo Horizonte,Santa Cruz,3,126,1084966,apartamento
+196,Rio de Janeiro,Boa Viagem,2,124,487459,apartamento
+197,São Paulo,Bela Vista,4,186,718790,casa
+198,Manaus,Alvorada,2,197,393047,apartamento
+199,Curitiba,Vila Nova,3,101,603258,apartamento
+200,Goiânia,Santo Antônio,2,39,1041281,casa
+201,São Paulo,Santa Cruz,2,69,322461,apartamento
+202,Porto Alegre,Jardins,2,186,250326,apartamento
+203,Salvador,Boa Viagem,4,118,1141764,casa
+204,Goiânia,Boa Viagem,2,52,313631,apartamento
+205,Curitiba,Cidade Baixa,4,88,268909,apartamento
+206,Recife,Alvorada,3,109,357827,apartamento
+207,São Paulo,Santo Antônio,2,190,1002514,apartamento
+208,Rio de Janeiro,Boa Viagem,2,152,548505,casa
+209,Rio de Janeiro,Boa Viagem,2,84,604736,apartamento
+210,Rio de Janeiro,Bela Vista,1,161,580465,apartamento
+211,Fortaleza,Vila Nova,4,108,686450,apartamento
+212,Belo Horizonte,Ponta Verde,4,102,591704,apartamento
+213,Belo Horizonte,Centro,4,68,660358,apartamento
+214,São Paulo,Centro,2,206,967861,casa
+215,Porto Alegre,Santa Cruz,2,107,254051,apartamento
+216,Belo Horizonte,Jardins,1,128,914653,apartamento
+217,Salvador,Santa Cruz,1,119,288657,apartamento
+218,Curitiba,Vila Nova,1,186,860928,apartamento
+219,Porto Alegre,Bela Vista,1,170,1082707,apartamento
+220,Recife,Boa Viagem,4,201,336441,apartamento
+221,Recife,Boa Viagem,2,133,916059,casa
+222,Porto Alegre,Vila Nova,2,61,716089,casa
+223,Curitiba,Alvorada,3,217,1167032,casa
+224,Rio de Janeiro,Boa Viagem,2,39,507205,casa
+225,Recife,Cidade Baixa,1,148,706643,casa
+226,Fortaleza,Boa Viagem,2,91,1113404,apartamento
+227,Belo Horizonte,Boa Viagem,4,128,289903,apartamento
+228,Goiânia,Centro,2,125,679968,casa
+229,Manaus,Alvorada,4,108,250114,casa
+230,Salvador,Ponta Verde,3,172,746169,apartamento
+231,Manaus,Vila Nova,3,217,648482,casa
+232,Recife,Vila Nova,4,82,208863,casa
+233,Manaus,Alvorada,4,161,321417,casa
+234,Goiânia,Vila Nova,3,116,1158860,apartamento
+235,Salvador,Santa Cruz,1,187,600821,apartamento
+236,Manaus,Vila Nova,2,84,1101816,apartamento
+237,São Paulo,Jardins,2,128,954764,casa
+238,Fortaleza,Vila Nova,3,152,370463,casa
+239,Fortaleza,Bela Vista,3,84,867504,apartamento
+240,Rio de Janeiro,Vila Nova,2,100,1156848,apartamento
+241,Rio de Janeiro,Alvorada,2,190,202000,apartamento
+242,Goiânia,Santo Antônio,4,81,1061865,casa
+243,Recife,Centro,2,142,607859,apartamento
+244,Porto Alegre,Santa Cruz,1,186,568857,apartamento
+245,Curitiba,Vila Nova,1,160,1066561,apartamento
+246,São Paulo,Centro,2,195,268508,apartamento
+247,Rio de Janeiro,Boa Viagem,2,100,578744,apartamento
+248,Manaus,Boa Viagem,2,72,358109,apartamento
+249,Recife,Jardins,1,189,422986,apartamento
+250,São Paulo,Centro,4,43,1167025,casa
+251,Belo Horizonte,Cidade Baixa,4,206,229082,apartamento
+252,Fortaleza,Alvorada,4,66,1158327,casa
+253,Fortaleza,Centro,4,149,1102584,apartamento
+254,Fortaleza,Alvorada,2,219,741259,casa
+255,Salvador,Centro,1,184,531379,apartamento
+256,Recife,Vila Nova,2,107,634238,apartamento
+257,Recife,Santo Antônio,2,95,896002,apartamento
+258,Curitiba,Bela Vista,4,67,203034,casa
+259,Goiânia,Alvorada,3,220,287678,apartamento
+260,Porto Alegre,Vila Nova,2,63,597989,apartamento
+261,Porto Alegre,Alvorada,1,88,672100,apartamento
+262,Recife,Cidade Baixa,4,171,569597,apartamento
+263,Fortaleza,Centro,4,215,408552,apartamento
+264,Goiânia,Alvorada,2,197,237188,apartamento
+265,Fortaleza,Jardins,4,121,1090043,apartamento
+266,Rio de Janeiro,Ponta Verde,4,43,280746,apartamento
+267,Goiânia,Boa Viagem,2,82,504341,casa
+268,Belo Horizonte,Centro,2,111,777582,apartamento
+269,Recife,Alvorada,3,106,271547,apartamento
+270,Belo Horizonte,Bela Vista,3,126,639210,apartamento
+271,Curitiba,Ponta Verde,4,184,457940,apartamento
+272,Goiânia,Centro,2,129,1106609,apartamento
+273,Manaus,Santa Cruz,2,134,1072970,apartamento
+274,Fortaleza,Ponta Verde,1,109,911645,apartamento
+275,Belo Horizonte,Bela Vista,4,218,469152,apartamento
+276,São Paulo,Centro,3,96,715189,apartamento
+277,Salvador,Cidade Baixa,3,82,285808,apartamento
+278,Porto Alegre,Bela Vista,3,189,822716,apartamento
+279,São Paulo,Boa Viagem,2,160,749552,apartamento
+280,Porto Alegre,Santo Antônio,1,116,702469,casa
+281,Fortaleza,Jardins,3,94,667742,casa
+282,Manaus,Alvorada,3,92,669237,apartamento
+283,Fortaleza,Santo Antônio,1,176,978992,apartamento
+284,Salvador,Santo Antônio,3,144,1080324,apartamento
+285,Belo Horizonte,Santo Antônio,2,141,770337,apartamento
+286,Salvador,Alvorada,1,170,580874,casa
+287,Goiânia,Boa Viagem,1,53,346397,apartamento
+288,Recife,Vila Nova,1,40,1004817,casa
+289,Porto Alegre,Santa Cruz,1,216,666496,casa
+290,Manaus,Santo Antônio,1,112,437660,apartamento
+291,Fortaleza,Santo Antônio,1,124,1133115,apartamento
+292,Curitiba,Bela Vista,4,106,1149286,apartamento
+293,Goiânia,Ponta Verde,2,92,218363,apartamento
+294,Recife,Cidade Baixa,2,43,1047130,apartamento
+295,Recife,Jardins,2,84,960593,apartamento
+296,Fortaleza,Santo Antônio,4,185,863576,apartamento
+297,Rio de Janeiro,Boa Viagem,1,169,664084,casa
+298,Manaus,Santo Antônio,3,93,716785,apartamento
+299,Goiânia,Centro,4,158,977931,apartamento
+300,Goiânia,Santo Antônio,2,115,902756,apartamento
+301,Manaus,Boa Viagem,4,140,215239,casa
+302,Salvador,Santa Cruz,1,209,857733,apartamento
+303,Goiânia,Vila Nova,2,68,918203,apartamento
+304,São Paulo,Alvorada,4,217,991995,apartamento
+305,Manaus,Santo Antônio,4,45,616911,apartamento
+306,Curitiba,Vila Nova,1,55,611757,apartamento
+307,Goiânia,Centro,4,87,1179337,casa
+308,Goiânia,Vila Nova,1,210,784175,casa
+309,Belo Horizonte,Cidade Baixa,1,181,351395,apartamento
+310,Salvador,Bela Vista,2,156,284830,apartamento
+311,São Paulo,Ponta Verde,4,116,830413,apartamento
+312,Belo Horizonte,Santo Antônio,3,78,221674,apartamento
+313,Goiânia,Ponta Verde,2,60,897339,apartamento
+314,Salvador,Alvorada,1,66,485988,apartamento
+315,Goiânia,Boa Viagem,4,153,218085,apartamento
+316,Goiânia,Vila Nova,1,195,546493,casa
+317,Recife,Bela Vista,1,132,461018,casa
+318,Manaus,Vila Nova,3,97,778682,casa
+319,Porto Alegre,Bela Vista,1,216,343824,casa
+320,Rio de Janeiro,Cidade Baixa,1,144,684378,casa
+321,São Paulo,Santo Antônio,4,202,474247,casa
+322,Curitiba,Jardins,3,203,743337,casa
+323,São Paulo,Jardins,4,204,1082248,apartamento
+324,Goiânia,Vila Nova,1,122,191544,apartamento
+325,Recife,Centro,1,159,247041,casa
+326,Belo Horizonte,Santo Antônio,3,48,657944,apartamento
+327,Curitiba,Centro,1,170,861740,apartamento
+328,Recife,Vila Nova,4,76,744373,apartamento
+329,Goiânia,Santo Antônio,2,204,1102385,apartamento
+330,Porto Alegre,Ponta Verde,3,45,882598,apartamento
+331,Recife,Vila Nova,3,182,382781,casa
+332,Recife,Alvorada,1,57,629299,casa
+333,São Paulo,Santo Antônio,1,191,1117526,apartamento
+334,Rio de Janeiro,Vila Nova,4,141,600950,apartamento
+335,São Paulo,Ponta Verde,1,173,329952,apartamento
+336,Curitiba,Boa Viagem,1,154,249578,casa
+337,Belo Horizonte,Santo Antônio,2,210,1135139,apartamento
+338,Porto Alegre,Alvorada,2,121,1032078,casa
+339,Fortaleza,Vila Nova,3,123,737273,casa
+340,Recife,Centro,1,83,201484,casa
+341,Porto Alegre,Vila Nova,3,79,879574,apartamento
+342,Curitiba,Santo Antônio,1,187,284397,apartamento
+343,Curitiba,Cidade Baixa,3,101,199389,apartamento
+344,Manaus,Alvorada,4,141,1052892,casa
+345,São Paulo,Bela Vista,4,204,988013,apartamento
+346,São Paulo,Vila Nova,3,100,583669,apartamento
+347,Belo Horizonte,Alvorada,1,128,562097,apartamento
+348,Fortaleza,Alvorada,1,217,748669,apartamento
+349,Salvador,Alvorada,1,100,1106145,apartamento
+350,Porto Alegre,Ponta Verde,2,68,559390,casa
+351,Goiânia,Cidade Baixa,4,101,732921,apartamento
+352,Porto Alegre,Santo Antônio,4,76,397183,apartamento
+353,Curitiba,Santo Antônio,1,135,612819,apartamento
+354,Goiânia,Boa Viagem,4,110,803739,apartamento
+355,Belo Horizonte,Santa Cruz,3,183,1046263,apartamento
+356,Belo Horizonte,Vila Nova,1,103,385030,casa
+357,Manaus,Santo Antônio,2,80,1197939,apartamento
+358,Goiânia,Boa Viagem,2,40,592476,apartamento
+359,Fortaleza,Jardins,4,183,801746,apartamento
+360,Belo Horizonte,Bela Vista,3,134,829917,casa
+361,Goiânia,Vila Nova,2,93,526190,casa
+362,Recife,Santo Antônio,4,219,709498,apartamento
+363,Goiânia,Vila Nova,3,149,202957,apartamento
+364,Rio de Janeiro,Bela Vista,3,172,371054,apartamento
+365,Manaus,Alvorada,2,62,533272,apartamento
+366,Goiânia,Ponta Verde,2,191,278749,apartamento
+367,Belo Horizonte,Santo Antônio,1,45,194633,apartamento
+368,Porto Alegre,Alvorada,1,205,880198,casa
+369,Recife,Santo Antônio,2,195,949564,casa
+370,Rio de Janeiro,Alvorada,2,46,1103011,apartamento
+371,Goiânia,Jardins,2,114,313950,apartamento
+372,Curitiba,Ponta Verde,4,120,349704,casa
+373,Manaus,Cidade Baixa,2,46,810166,casa
+374,Manaus,Santo Antônio,3,209,592385,apartamento
+375,Belo Horizonte,Vila Nova,3,40,535512,casa
+376,Belo Horizonte,Centro,2,97,543195,apartamento
+377,São Paulo,Boa Viagem,4,147,638902,casa
+378,Rio de Janeiro,Boa Viagem,3,181,1139741,casa
+379,Fortaleza,Vila Nova,1,204,1088951,apartamento
+380,Fortaleza,Ponta Verde,2,39,279312,apartamento
+381,Salvador,Bela Vista,1,152,835594,apartamento
+382,Fortaleza,Jardins,4,184,539391,apartamento
+383,Belo Horizonte,Alvorada,1,117,449951,apartamento
+384,Recife,Alvorada,1,219,361302,apartamento
+385,Curitiba,Jardins,2,161,882559,casa
+386,Salvador,Santo Antônio,1,41,244347,apartamento
+387,Recife,Cidade Baixa,2,202,367794,apartamento
+388,Recife,Santa Cruz,1,95,629399,apartamento
+389,Goiânia,Vila Nova,1,75,918770,apartamento
+390,Goiânia,Boa Viagem,1,189,397907,casa
+391,Recife,Bela Vista,2,155,232273,apartamento
+392,Porto Alegre,Vila Nova,3,117,478423,apartamento
+393,Porto Alegre,Ponta Verde,1,107,707348,apartamento
+394,São Paulo,Cidade Baixa,4,70,1002087,apartamento
+395,Salvador,Jardins,1,215,1067595,apartamento
+396,Fortaleza,Santa Cruz,1,193,264755,apartamento
+397,São Paulo,Ponta Verde,3,60,696799,casa
+398,Curitiba,Vila Nova,3,58,471002,apartamento
+399,Fortaleza,Bela Vista,3,47,824407,apartamento
+400,Manaus,Santa Cruz,1,126,553139,casa
+401,Rio de Janeiro,Jardins,3,153,463229,apartamento
+402,Goiânia,Santo Antônio,3,101,821533,casa
+403,Rio de Janeiro,Santo Antônio,1,203,705791,apartamento
+404,São Paulo,Centro,3,40,806386,apartamento
+405,São Paulo,Alvorada,3,117,312924,casa
+406,Porto Alegre,Centro,2,192,1157960,casa
+407,Manaus,Vila Nova,2,58,1033340,casa
+408,São Paulo,Bela Vista,4,138,996297,apartamento
+409,São Paulo,Bela Vista,3,177,771627,apartamento
+410,Porto Alegre,Centro,4,174,756739,apartamento
+411,Belo Horizonte,Santo Antônio,3,78,827618,casa
+412,Salvador,Jardins,4,110,915666,apartamento
+413,Goiânia,Bela Vista,2,98,549185,casa
+414,Fortaleza,Vila Nova,2,52,1167839,apartamento
+415,Goiânia,Cidade Baixa,3,105,1081294,apartamento
+416,Manaus,Ponta Verde,1,148,701057,apartamento
+417,Manaus,Boa Viagem,4,48,815560,apartamento
+418,São Paulo,Jardins,1,176,1069855,casa
+419,Porto Alegre,Bela Vista,1,61,399392,casa
+420,Belo Horizonte,Santo Antônio,4,63,290923,apartamento
+421,Manaus,Alvorada,3,181,239330,apartamento
+422,Belo Horizonte,Santo Antônio,2,85,880109,apartamento
+423,Rio de Janeiro,Boa Viagem,4,46,499611,apartamento
+424,Belo Horizonte,Vila Nova,1,118,426863,casa
+425,Recife,Centro,4,160,1188216,apartamento
+426,Salvador,Alvorada,3,160,951695,casa
+427,São Paulo,Ponta Verde,2,201,1128894,apartamento
+428,Rio de Janeiro,Cidade Baixa,1,112,599365,casa
+429,Rio de Janeiro,Boa Viagem,3,100,794586,apartamento
+430,Fortaleza,Cidade Baixa,4,142,328695,apartamento
+431,Belo Horizonte,Bela Vista,3,217,985810,casa
+432,Fortaleza,Centro,3,97,204270,apartamento
+433,Fortaleza,Jardins,3,42,326042,apartamento
+434,Recife,Ponta Verde,4,39,416578,apartamento
+435,Manaus,Santo Antônio,1,122,1163211,apartamento
+436,Fortaleza,Bela Vista,1,139,605036,apartamento
+437,Fortaleza,Centro,3,49,325544,casa
+438,Manaus,Jardins,4,106,1068098,apartamento
+439,Goiânia,Ponta Verde,1,40,1091336,apartamento
+440,Goiânia,Centro,1,80,251553,casa
+441,Curitiba,Centro,2,131,331825,apartamento
+442,Goiânia,Alvorada,3,78,912007,apartamento
+443,Recife,Santa Cruz,4,216,816477,apartamento
+444,Curitiba,Jardins,2,138,233683,apartamento
+445,Goiânia,Ponta Verde,4,49,329510,apartamento
+446,Salvador,Cidade Baixa,3,207,527306,apartamento
+447,Porto Alegre,Boa Viagem,2,49,524519,apartamento
+448,Manaus,Boa Viagem,3,215,489172,apartamento
+449,Curitiba,Ponta Verde,1,69,774516,apartamento
+450,Manaus,Jardins,4,127,849816,apartamento
+451,Manaus,Bela Vista,3,110,989108,apartamento
+452,Fortaleza,Santo Antônio,2,80,816123,casa
+453,Salvador,Vila Nova,1,164,836479,apartamento
+454,São Paulo,Santa Cruz,4,135,202658,apartamento
+455,Fortaleza,Jardins,4,73,514635,casa
+456,Fortaleza,Centro,4,40,500727,apartamento
+457,Belo Horizonte,Santo Antônio,4,42,327449,apartamento
+458,Salvador,Jardins,3,167,572904,apartamento
+459,Rio de Janeiro,Santa Cruz,2,212,194580,apartamento
+460,Recife,Bela Vista,1,146,711195,apartamento
+461,Salvador,Santo Antônio,1,126,742137,apartamento
+462,Goiânia,Centro,3,71,377949,apartamento
+463,Porto Alegre,Jardins,2,100,809425,apartamento
+464,Porto Alegre,Cidade Baixa,3,52,934127,apartamento
+465,Porto Alegre,Santa Cruz,2,62,903041,apartamento
+466,Recife,Boa Viagem,1,119,947786,apartamento
+467,Rio de Janeiro,Boa Viagem,1,202,1167698,casa
+468,Goiânia,Ponta Verde,4,149,969715,apartamento
+469,Fortaleza,Boa Viagem,2,147,536132,apartamento
+470,Rio de Janeiro,Ponta Verde,2,87,1113907,apartamento
+471,Goiânia,Cidade Baixa,3,198,893125,casa
+472,Recife,Santo Antônio,1,133,910020,apartamento
+473,São Paulo,Vila Nova,2,215,691501,apartamento
+474,Rio de Janeiro,Ponta Verde,3,100,1087097,apartamento
+475,Rio de Janeiro,Boa Viagem,2,79,216773,casa
+476,Salvador,Santo Antônio,4,99,417555,apartamento
+477,Belo Horizonte,Boa Viagem,4,92,1014321,casa
+478,Belo Horizonte,Bela Vista,4,112,461661,apartamento
+479,Belo Horizonte,Ponta Verde,2,120,441734,apartamento
+480,Fortaleza,Cidade Baixa,4,196,1091215,casa
+481,Belo Horizonte,Alvorada,2,150,686393,apartamento
+482,Goiânia,Vila Nova,2,174,1099604,apartamento
+483,Belo Horizonte,Centro,2,99,909334,apartamento
+484,São Paulo,Boa Viagem,1,102,912196,apartamento
+485,Rio de Janeiro,Santo Antônio,2,96,988118,apartamento
+486,Manaus,Alvorada,3,73,412736,apartamento
+487,Recife,Jardins,2,193,199534,casa
+488,Recife,Santa Cruz,3,59,534201,apartamento
+489,Salvador,Vila Nova,4,52,1149277,apartamento
+490,Salvador,Santo Antônio,1,89,767885,apartamento
+491,Rio de Janeiro,Centro,1,138,1016909,apartamento
+492,Curitiba,Bela Vista,2,85,1001028,apartamento
+493,Belo Horizonte,Vila Nova,4,153,680145,apartamento
+494,Curitiba,Bela Vista,1,144,1119775,casa
+495,Manaus,Centro,4,140,1163686,apartamento
+496,Recife,Centro,4,38,407406,casa
+497,Salvador,Centro,2,134,1026313,apartamento
+498,Salvador,Boa Viagem,3,81,844211,casa
+499,Porto Alegre,Vila Nova,3,59,953285,apartamento
+500,Recife,Alvorada,1,71,1131418,apartamento
+501,Porto Alegre,Centro,4,159,1009463,apartamento
+502,Manaus,Vila Nova,4,154,630661,apartamento
+503,Salvador,Boa Viagem,1,148,1060744,apartamento
+504,São Paulo,Centro,2,218,614503,apartamento
+505,Manaus,Santa Cruz,4,105,1181810,apartamento
+506,Rio de Janeiro,Alvorada,4,106,520365,casa
+507,Recife,Boa Viagem,2,64,738110,apartamento
+508,Goiânia,Boa Viagem,4,185,1069380,casa
+509,Porto Alegre,Boa Viagem,1,103,817826,casa
+510,Manaus,Santo Antônio,1,188,966043,casa
+511,Salvador,Santa Cruz,1,110,816225,casa
+512,Curitiba,Vila Nova,4,149,501006,apartamento
+513,Belo Horizonte,Vila Nova,2,189,459756,apartamento
+514,Rio de Janeiro,Vila Nova,1,78,943507,casa
+515,Goiânia,Ponta Verde,1,207,1099140,apartamento
+516,Salvador,Boa Viagem,3,181,1168096,apartamento
+517,Curitiba,Alvorada,1,39,923796,apartamento
+518,Belo Horizonte,Cidade Baixa,4,216,1153857,apartamento
+519,Belo Horizonte,Bela Vista,3,165,504752,apartamento
+520,Belo Horizonte,Santa Cruz,4,156,972786,casa
+521,Recife,Jardins,2,70,404989,apartamento
+522,Manaus,Ponta Verde,4,52,535849,casa
+523,Manaus,Alvorada,1,137,737520,apartamento
+524,Fortaleza,Jardins,2,216,948473,apartamento
+525,Goiânia,Santa Cruz,4,116,680249,casa
+526,Goiânia,Boa Viagem,3,138,215691,casa
+527,Salvador,Ponta Verde,4,213,655381,casa
+528,Porto Alegre,Boa Viagem,4,87,1116515,casa
+529,Manaus,Bela Vista,1,196,1089762,apartamento
+530,Belo Horizonte,Bela Vista,4,68,243157,casa
+531,São Paulo,Boa Viagem,2,144,277738,apartamento
+532,Fortaleza,Vila Nova,1,63,629033,apartamento
+533,Salvador,Santa Cruz,4,213,721174,apartamento
+534,Porto Alegre,Santa Cruz,4,208,1161808,casa
+535,Fortaleza,Santa Cruz,3,129,1121625,apartamento
+536,Salvador,Jardins,2,103,683103,apartamento
+537,Porto Alegre,Centro,1,51,595185,casa
+538,Recife,Santa Cruz,4,173,1087409,apartamento
+539,Porto Alegre,Centro,3,56,624868,apartamento
+540,Salvador,Alvorada,3,65,351382,apartamento
+541,Porto Alegre,Alvorada,3,55,997235,casa
+542,Goiânia,Boa Viagem,4,113,195178,apartamento
+543,Curitiba,Bela Vista,4,174,636484,apartamento
+544,Manaus,Bela Vista,3,158,1099391,apartamento
+545,Rio de Janeiro,Cidade Baixa,1,100,618038,apartamento
+546,São Paulo,Boa Viagem,3,106,351357,apartamento
+547,Manaus,Santo Antônio,1,82,237418,casa
+548,Salvador,Centro,2,45,828282,apartamento
+549,Rio de Janeiro,Bela Vista,3,209,796482,apartamento
+550,Goiânia,Santo Antônio,1,193,688734,casa
+551,Recife,Boa Viagem,4,72,1071537,apartamento
+552,Salvador,Vila Nova,3,66,409933,apartamento
+553,Fortaleza,Boa Viagem,3,172,203822,apartamento
+554,Salvador,Centro,4,90,561130,apartamento
+555,Recife,Alvorada,1,184,527503,apartamento
+556,Curitiba,Boa Viagem,3,211,209753,apartamento
+557,Goiânia,Ponta Verde,1,73,879817,apartamento
+558,São Paulo,Vila Nova,3,107,344286,casa
+559,São Paulo,Bela Vista,1,128,1145617,casa
+560,Goiânia,Vila Nova,3,171,483985,casa
+561,São Paulo,Cidade Baixa,2,117,351024,apartamento
+562,Curitiba,Jardins,4,208,672173,apartamento
+563,Porto Alegre,Ponta Verde,4,155,570186,casa
+564,Salvador,Jardins,3,55,728428,apartamento
+565,Porto Alegre,Ponta Verde,2,89,193872,casa
+566,Manaus,Vila Nova,3,202,735259,apartamento
+567,Manaus,Alvorada,1,184,630700,apartamento
+568,Curitiba,Bela Vista,2,147,222640,casa
+569,Salvador,Ponta Verde,4,197,983503,apartamento
+570,Belo Horizonte,Cidade Baixa,4,161,496745,casa
+571,Curitiba,Jardins,4,87,923787,apartamento
+572,Fortaleza,Santo Antônio,2,189,414014,casa
+573,Rio de Janeiro,Santa Cruz,1,173,1158174,apartamento
+574,Recife,Ponta Verde,2,113,1006777,apartamento
+575,Fortaleza,Santa Cruz,3,182,517584,apartamento
+576,Goiânia,Ponta Verde,1,145,1162922,apartamento
+577,Curitiba,Vila Nova,4,74,420753,casa
+578,Recife,Jardins,4,197,717000,casa
+579,São Paulo,Vila Nova,2,96,684431,casa
+580,Goiânia,Centro,1,219,1042021,apartamento
+581,Salvador,Alvorada,4,52,893698,casa
+582,Porto Alegre,Cidade Baixa,4,186,528648,casa
+583,Porto Alegre,Jardins,4,145,710512,apartamento
+584,Salvador,Bela Vista,1,177,757056,casa
+585,São Paulo,Cidade Baixa,2,156,729165,apartamento
+586,Salvador,Boa Viagem,1,120,708114,casa
+587,São Paulo,Ponta Verde,3,132,724698,casa
+588,Fortaleza,Vila Nova,4,178,410303,casa
+589,Porto Alegre,Ponta Verde,4,143,405338,casa
+590,São Paulo,Vila Nova,1,213,692253,apartamento
+591,Rio de Janeiro,Vila Nova,2,189,608537,casa
+592,Rio de Janeiro,Vila Nova,1,199,1014549,casa
+593,Goiânia,Centro,3,60,763761,casa
+594,Rio de Janeiro,Vila Nova,4,205,1012228,apartamento
+595,Manaus,Vila Nova,1,204,1057717,apartamento
+596,São Paulo,Santo Antônio,4,190,228428,apartamento
+597,São Paulo,Cidade Baixa,2,94,694415,apartamento
+598,Goiânia,Ponta Verde,2,137,770155,casa
+599,Curitiba,Bela Vista,3,218,726221,casa
+600,Fortaleza,Alvorada,4,49,444395,casa
+601,Salvador,Centro,4,163,533831,apartamento
+602,Manaus,Boa Viagem,4,170,1010972,casa
+603,Curitiba,Bela Vista,3,128,914059,apartamento
+604,São Paulo,Cidade Baixa,4,98,965668,apartamento
+605,Belo Horizonte,Bela Vista,1,120,535264,apartamento
+606,São Paulo,Santa Cruz,4,211,1139032,apartamento
+607,Salvador,Vila Nova,1,172,691681,casa
+608,Goiânia,Bela Vista,3,219,1052105,apartamento
+609,Porto Alegre,Centro,3,132,723830,casa
+610,Curitiba,Jardins,1,117,256994,apartamento
+611,Recife,Centro,1,77,1171686,apartamento
+612,Salvador,Centro,2,140,751778,apartamento
+613,Rio de Janeiro,Santa Cruz,4,174,820970,apartamento
+614,São Paulo,Boa Viagem,4,153,837925,apartamento
+615,Manaus,Centro,2,97,859840,apartamento
+616,Porto Alegre,Santa Cruz,4,169,496102,apartamento
+617,Fortaleza,Cidade Baixa,3,44,1149425,apartamento
+618,Fortaleza,Santo Antônio,3,43,259618,apartamento
+619,Curitiba,Vila Nova,3,160,419249,apartamento
+620,Manaus,Bela Vista,1,128,800577,apartamento
+621,Salvador,Cidade Baixa,2,191,1144216,casa
+622,Belo Horizonte,Cidade Baixa,2,64,723771,apartamento
+623,Manaus,Bela Vista,1,72,782377,apartamento
+624,Salvador,Ponta Verde,3,218,884040,apartamento
+625,Belo Horizonte,Bela Vista,2,82,504662,apartamento
+626,Fortaleza,Santa Cruz,1,178,553813,casa
+627,Porto Alegre,Ponta Verde,2,187,643887,apartamento
+628,São Paulo,Cidade Baixa,2,114,495803,apartamento
+629,Recife,Alvorada,4,83,952477,apartamento
+630,Salvador,Boa Viagem,3,177,487203,casa
+631,Rio de Janeiro,Cidade Baixa,3,194,310486,apartamento
+632,Rio de Janeiro,Cidade Baixa,1,124,203765,apartamento
+633,Belo Horizonte,Jardins,1,141,781967,casa
+634,Rio de Janeiro,Alvorada,1,96,1016000,apartamento
+635,Porto Alegre,Cidade Baixa,4,216,1122560,apartamento
+636,Goiânia,Alvorada,2,215,700502,apartamento
+637,Porto Alegre,Centro,2,189,1039729,casa
+638,Belo Horizonte,Ponta Verde,4,111,886713,casa
+639,Curitiba,Bela Vista,1,76,635385,casa
+640,Salvador,Centro,4,219,1048962,apartamento
+641,Rio de Janeiro,Ponta Verde,2,144,585430,apartamento
+642,Recife,Jardins,4,144,623966,apartamento
+643,Rio de Janeiro,Centro,2,118,972872,apartamento
+644,Curitiba,Alvorada,2,46,330957,apartamento
+645,Belo Horizonte,Bela Vista,3,195,806964,casa
+646,São Paulo,Jardins,2,150,633942,casa
+647,Curitiba,Santo Antônio,4,129,837177,casa
+648,São Paulo,Jardins,4,153,834106,apartamento
+649,Salvador,Vila Nova,3,108,1043805,apartamento
+650,Rio de Janeiro,Alvorada,3,44,836742,apartamento
+651,Curitiba,Bela Vista,3,54,670165,apartamento
+652,Fortaleza,Santa Cruz,4,116,336918,apartamento
+653,São Paulo,Jardins,4,101,703399,apartamento
+654,Fortaleza,Bela Vista,1,183,802951,apartamento
+655,Fortaleza,Boa Viagem,3,129,800950,apartamento
+656,Belo Horizonte,Cidade Baixa,4,134,1082136,apartamento
+657,Rio de Janeiro,Alvorada,1,44,416840,casa
+658,Salvador,Centro,2,123,549949,apartamento
+659,Curitiba,Alvorada,3,212,458244,casa
+660,Fortaleza,Cidade Baixa,2,84,749357,casa
+661,Curitiba,Boa Viagem,1,114,681595,apartamento
+662,Curitiba,Jardins,3,130,479399,apartamento
+663,Rio de Janeiro,Santa Cruz,4,112,798446,apartamento
+664,Belo Horizonte,Santa Cruz,1,67,463378,casa
+665,Goiânia,Cidade Baixa,4,188,1053921,apartamento
+666,Curitiba,Jardins,2,214,198469,apartamento
+667,São Paulo,Boa Viagem,3,111,445705,apartamento
+668,Recife,Santo Antônio,4,62,728792,apartamento
+669,São Paulo,Ponta Verde,3,166,244104,apartamento
+670,Rio de Janeiro,Ponta Verde,4,100,279940,apartamento
+671,Curitiba,Boa Viagem,1,121,286573,apartamento
+672,Porto Alegre,Bela Vista,4,161,750842,apartamento
+673,Belo Horizonte,Jardins,1,162,1027216,casa
+674,Rio de Janeiro,Ponta Verde,4,62,237539,casa
+675,Fortaleza,Ponta Verde,3,146,505823,apartamento
+676,Salvador,Cidade Baixa,1,142,863515,casa
+677,São Paulo,Vila Nova,4,186,878438,apartamento
+678,Curitiba,Jardins,3,105,377910,casa
+679,Curitiba,Centro,4,46,245358,apartamento
+680,Curitiba,Centro,2,166,642709,apartamento
+681,Salvador,Centro,3,73,366370,apartamento
+682,Rio de Janeiro,Jardins,3,77,218635,apartamento
+683,Fortaleza,Cidade Baixa,1,64,520340,apartamento
+684,Porto Alegre,Santa Cruz,2,42,290084,apartamento
+685,Fortaleza,Bela Vista,2,170,337481,apartamento
+686,Belo Horizonte,Vila Nova,3,47,223037,apartamento
+687,Curitiba,Boa Viagem,2,85,887134,apartamento
+688,São Paulo,Santa Cruz,4,73,876833,apartamento
+689,Rio de Janeiro,Boa Viagem,1,57,309403,apartamento
+690,Porto Alegre,Ponta Verde,3,91,424490,casa
+691,Rio de Janeiro,Bela Vista,2,202,372776,apartamento
+692,Belo Horizonte,Ponta Verde,4,67,1025303,apartamento
+693,Belo Horizonte,Bela Vista,3,123,1062838,apartamento
+694,Porto Alegre,Santa Cruz,2,93,509059,apartamento
+695,Manaus,Santo Antônio,3,114,829014,apartamento
+696,Fortaleza,Centro,2,105,802001,casa
+697,Fortaleza,Santo Antônio,2,106,372313,casa
+698,São Paulo,Boa Viagem,3,101,648506,apartamento
+699,Recife,Bela Vista,3,207,790675,casa
+700,Salvador,Vila Nova,4,97,563514,apartamento

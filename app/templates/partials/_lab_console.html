@@ -1,0 +1,14 @@
+<div class="lab-console">
+  <div class="console-head">
+    <span class="{% if result.get('ok') %}console-ok{% else %}console-err-head{% endif %}">
+      {% if result.get('timeout') %}⏱ Interrompido{% elif result.ok %}✓ Executado{% else %}✗ Erro{% endif %}
+    </span>
+    <span class="console-time">{{ elapsed_ms }}ms</span>
+  </div>
+  <pre class="console-output">{{ result.output }}</pre>
+  {% if result.get('error') %}
+  <div class="console-error"><b>{{ result.error.class }}:</b> {{ result.error.message }}
+    {% if result.error.line %} (linha {{ result.error.line }}){% endif %}</div>
+  {% endif %}
+  {% if result.get('tip') %}<div class="console-tip">💡 {{ result.tip }}</div>{% endif %}
+</div>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Mapa de habilidades — PyMaster{% endblock %}
+{% block heading %}Mapa de habilidades{% endblock %}
+{% block content %}
+<div class="map-page">
+  {% for level in registry.levels %}
+  <div class="map-level">
+    <div class="map-level-title">{{ level.title }}</div>
+    <div class="map-nodes">
+      {% for item in overview if item.concept.level == level.number %}
+      <div class="map-node">
+        {% if item.unlocked %}
+        <a class="map-node-card {{ item.status }}" href="/concept/{{ item.concept.id }}"> 
+          <div class="map-dot" style="background:{{ item.concept.color }}"></div>
+          <span class="map-name">{{ item.concept.title }}</span>
+          <span class="map-mastery">{{ item.mastery }}%</span>
+        </a>
+        {% else %}
+        <div class="map-node-card locked">
+          <div class="map-dot dim"></div>
+          <span class="map-name">{{ item.concept.title }}</span>
+          <span class="map-mastery">🔒</span>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

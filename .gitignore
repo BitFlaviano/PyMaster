@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.egg-info/
+
+# PyMaster runtime (local, gerados em execução)
+pymaster.db
+.secret
+.scratch/
+app/static/uploads/
+
+# OS
+.DS_Store
+Thumbs.db

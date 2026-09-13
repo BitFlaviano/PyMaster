@@ -1,0 +1,16 @@
+id_produto,nome,categoria,preco,custo,ativo
+0,Teclado,Periféricos,129.9,88.06,sim
+1,Mouse,Periféricos,59.9,41.83,sim
+2,Monitor,Monitores,899.0,534.58,sim
+3,Notebook,Informática,3299.0,2260.94,sim
+4,Fone Bluetooth,Áudio,199.9,133.55,sim
+5,Webcam,Câmeras,249.0,138.43,sim
+6,Impressora,Impressão,549.0,327.5,sim
+7,Cadeira Gamer,Mobiliário,1299.0,860.26,nao
+8,Mesa Compacta,Mobiliário,449.0,266.75,sim
+9,Roteador,Redes,219.9,156.54,sim
+10,Cabo HDMI,Cabos,25.9,18.18,sim
+11,SSD 512GB,Armazenamento,389.0,268.27,sim
+12,Memória RAM 16GB,Componentes,449.0,271.9,sim
+13,Carregador USB-C,Energia,79.9,59.24,sim
+14,Hub USB,Conectividade,98.0,55.9,nao
