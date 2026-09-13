@@ -8,8 +8,10 @@ tudo salvo **somente neste dispositivo** (SQLite local).
 
 ## Como rodar
 
-**Windows:** dê dois cliques em `run.bat` (cria o venv, instala dependências, gera os datasets na
-primeira vez e sobe o servidor) e abra <http://127.0.0.1:8000>.
+**Windows:** dê dois cliques em `run.bat` — se o Python não estiver no PATH nem em pastas
+padrão, o script detecta, oferece instalar o **Python 3.12 via winget** (ou aceita o caminho
+manual do `python.exe`), cria o venv, instala dependências, gera os datasets na primeira vez
+e sobe o servidor. Abra <http://127.0.0.1:8000>.
 
 **Manual:**
 
