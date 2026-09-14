@@ -22,6 +22,30 @@ py -3.12 -m venv .venv
 .venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
+## Deploy no Render
+
+O projeto inclui `Dockerfile` e `render.yaml`. Dois caminhos:
+
+**Blueprint (recomendado):**
+1. No dashboard do Render: **New → Blueprint** e aponte para este repositório.
+2. Preencha `PYMASTER_SECRET` no bloco "⚙ Environment" do serviço.
+3. Deploy. A URL gerada (ex.: `https://pymaster.onrender.com`) é o endereço do app.
+
+**Web Service Docker manual:**
+1. **New → Web Service** → conecte o repo → **Runtime: Docker**, `Dockerfile`.
+2. Em **Environment**, adicione `PYMASTER_SECRET` (qualquer sequência longa e aleatória).
+3. Espera–chave de persistência: **Add Disk** (`/var/data`, ≥1 GB) e nas variáveis use
+   `PYMASTER_DB=/var/data/pymaster.db`, `PYMASTER_UPLOADS_DIR=/var/data/uploads`,
+   `PYMASTER_SCRATCH_DIR=/var/data/scratch`.
+
+> **Atenção:** o plano gratuito do Render **não oferece Disks** — sem disco, banco,
+> avatares e cacratch são recriados a cada redeploy. Com o `render.yaml` acima, os dados
+> ficam no disco em `/var/data` (plano pago).
+>
+> **Sandbox:** o executor de código do PyMaster roda dentro do próprio container. Para
+> uso público real, prefira um serviço de execução isolado (container sem rede + limites
+> de CPU/memória) — o Render compartilha o container com o app.
+
 ## Perfis
 
 - Na primeira abertura, um questionário diagnóstico define seu nível inicial.

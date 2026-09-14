@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+.pytest_cache
+__pycache__
+*.pyc
+.scratch
+pymaster.db
+.secret
+run.bat
+tests
+scripts
+Dockerfile
+render.yaml

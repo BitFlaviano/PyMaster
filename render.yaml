@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: pymaster
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PYMASTER_SECRET
+        sync: false
+      - key: PYMASTER_DB
+        value: /var/data/pymaster.db
+      - key: PYMASTER_UPLOADS_DIR
+        value: /var/data/uploads
+      - key: PYMASTER_SCRATCH_DIR
+        value: /var/data/scratch
+    disk:
+      name: pymaster-data
+      mountPath: /var/data
+      sizeGB: 1

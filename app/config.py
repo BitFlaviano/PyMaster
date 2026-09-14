@@ -11,12 +11,12 @@ CONTENT_DIR = DATA_DIR / "content"
 DATASETS_DIR = DATA_DIR / "datasets"
 STATIC_DIR = BASE_DIR / "app" / "static"
 TEMPLATES_DIR = BASE_DIR / "app" / "templates"
-SCRATCH_ROOT = BASE_DIR / ".scratch"
+SCRATCH_ROOT = Path(os.environ.get("PYMASTER_SCRATCH_DIR", BASE_DIR / ".scratch"))
 DB_PATH = Path(os.environ.get("PYMASTER_DB", BASE_DIR / "pymaster.db"))
 SECRET_FILE = BASE_DIR / ".secret"
 
 # Avatares enviados pelo usuário (servidos como estáticos, `/static/uploads/...`)
-UPLOADS_DIR = STATIC_DIR / "uploads"
+UPLOADS_DIR = Path(os.environ.get("PYMASTER_UPLOADS_DIR", STATIC_DIR / "uploads"))
 
 SCRATCH_ROOT.mkdir(parents=True, exist_ok=True)
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
