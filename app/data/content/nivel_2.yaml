@@ -163,6 +163,78 @@ concepts:
         - A variável maior precisa iniciar com o primeiro elemento.
         common_error: Usar max([3, 8, 1, 12, 5]), o que burla o objetivo do exercício.
 
+      - id: listas_lp_append
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Lists): como as listas crescem com append? O que sera
+          exibido?'
+        code: "mylist = []\nmylist.append(1)\nmylist.append(2)\nmylist.append(3)\nprint(mylist[0])\n\
+          print(mylist[1])\nprint(mylist[2])\nfor x in mylist:\n    print(x)\n"
+        answer: '1
+
+          2
+
+          3
+
+          1
+
+          2
+
+          3
+
+          '
+        hints:
+        - A lista comeca vazia e ganha itens com append.
+        - Os indices em Python comecam em 0.
+      - id: listas_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Lists): use append para colocar os numeros
+          1, 2, 3 na lista numbers e as palavras "hello" e "world" na lista strings. Preencha
+          second_name com o segundo nome de names (indice 1) e rode o codigo de teste.'
+        solution: 'numbers = []
+
+          strings = []
+
+          names = ["John", "Eric", "Jessica"]
+
+          numbers.append(1)
+
+          numbers.append(2)
+
+          numbers.append(3)
+
+          strings.append("hello")
+
+          strings.append("world")
+
+          second_name = names[1]
+
+          print(numbers)
+
+          print(strings)
+
+          print("The second name on the names list is %s" % second_name)
+
+          '
+        tests:
+        - name: Saida esperada
+          expected: '[1, 2, 3]
+
+            [''hello'', ''world'']
+
+            The second name on the names list is Eric
+
+            '
+        must_include:
+        - append
+        hints:
+        - O segundo item (Eric) esta no indice 1, porque a contagem comeca em 0.
+
   - id: tuplas
     title: "Tuplas"
     color: "#10b981"
@@ -465,6 +537,55 @@ concepts:
         - Iterar sobre o dicionário devolve as chaves; use-as para acessar os valores.
         common_error: Somar as chaves (strings) em vez dos valores inteiros.
 
+      - id: dicionarios_lp_pop
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Dictionaries): como remover uma chave com pop? O que
+          sera exibido?'
+        code: 'phonebook = {"John": 938477566, "Jack": 938377264, "Jill": 947662781}
+
+          phonebook.pop("John")
+
+          print(phonebook)
+
+          print(len(phonebook))
+
+          '
+        answer: '{''Jack'': 938377264, ''Jill'': 947662781}
+
+          2
+
+          '
+        hints:
+        - pop remove a chave e devolve o valor.
+        - len(dicionario) conta quantas chaves restaram.
+      - id: dicionarios_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Dictionaries): adicione "Jake" com o telefone
+          938273443 ao phonebook e remova "Jill".'
+        solution: "phonebook = {\"John\": 938477566, \"Jack\": 938377264, \"Jill\": 947662781}\n\
+          phonebook[\"Jake\"] = 938273443\ndel phonebook[\"Jill\"]\nif \"Jake\" in phonebook:\n\
+          \    print(\"Jake is listed in the phonebook.\")\nif \"Jill\" not in phonebook:\n\
+          \    print(\"Jill is not listed in the phonebook.\")\n"
+        tests:
+        - name: Saida esperada
+          expected: 'Jake is listed in the phonebook.
+
+            Jill is not listed in the phonebook.
+
+            '
+        must_include:
+        - phonebook["Jake"]
+        - del phonebook["Jill"]
+        hints:
+        - phonebook[chave] = valor cria ou atualiza.
+        - del dicionario[chave] remove a entrada.
+
   - id: conjuntos
     title: "Conjuntos"
     color: "#ef4444"
@@ -602,6 +723,62 @@ concepts:
         hints:
         - A união junta sem repetir; a interseção guarda só o que existe nos dois.
         common_error: Confundir união com soma das listas, contando 3 e 4 duas vezes.
+
+      - id: conjuntos_lp_ops
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Sets): operacoes entre conjuntos. O que sera exibido?
+          (usamos sorted para ter ordem estavel)'
+        code: 'a = set(["Jake", "John", "Eric"])
+
+          b = set(["John", "Jill"])
+
+          print(sorted(a.intersection(b)))
+
+          print(sorted(a.union(b)))
+
+          print(sorted(a.difference(b)))
+
+          '
+        answer: '[''John'']
+
+          [''Eric'', ''Jake'', ''Jill'', ''John'']
+
+          [''Eric'', ''Jake'']
+
+          '
+        hints:
+        - intersection = quem esta nos dois; union = todos; difference = so de a.
+      - id: conjuntos_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Sets): use as listas dadas e exiba o conjunto
+          com todos os participantes do evento A que NAO foram ao evento B (A.difference(B)).'
+        solution: 'a = ["Jake", "John", "Eric"]
+
+          b = ["John", "Jill"]
+
+          A = set(a)
+
+          B = set(b)
+
+          print(sorted(A.difference(B)))
+
+          '
+        tests:
+        - name: Saida esperada
+          expected: '[''Eric'', ''Jake'']
+
+            '
+        must_include:
+        - difference
+        hints:
+        - A.difference(B) devolve os elementos de A que nao estao em B.
+        - sorted garante ordem estavel na saida.
 
   - id: funcoes
     title: "Funções"
@@ -749,6 +926,51 @@ concepts:
         hints:
         - As funções devem retornar o valor; chame-as dentro do print.
         common_error: Imprimir dentro da função e chamar sem print — assim exibe os valores mesmo assim, mas perde a reutilização.
+
+      - id: funcoes_lp_soma
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Functions): como usar return? O que sera exibido?'
+        code: "def sum_two_numbers(a, b):\n    return a + b\nx = sum_two_numbers(1, 2)\nprint(x)\n"
+        answer: '3
+
+          '
+        hints:
+        - return devolve o resultado para quem chamou a funcao.
+      - id: funcoes_lp_beneficios
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Functions): crie list_benefits() devolvendo
+          a lista ["More organized code", "More readable code", "Easier code reuse", "Allowing
+          programmers to share and connect code together"] e build_sentence(benefit) que devolve
+          a frase terminando com " is a benefit of functions!". A funcao name_the_benefits_of_functions
+          ja imprime tudo.'
+        solution: "def list_benefits():\n    return [\"More organized code\", \"More readable\
+          \ code\", \"Easier code reuse\", \"Allowing programmers to share and connect code\
+          \ together\"]\n\ndef build_sentence(benefit):\n    return \"%s is a benefit of functions!\"\
+          \ % benefit\n\ndef name_the_benefits_of_functions():\n    list_of_benefits = list_benefits()\n\
+          \    for benefit in list_of_benefits:\n        print(build_sentence(benefit))\n\n\
+          name_the_benefits_of_functions()\n"
+        tests:
+        - name: Saida esperada
+          expected: 'More organized code is a benefit of functions!
+
+            More readable code is a benefit of functions!
+
+            Easier code reuse is a benefit of functions!
+
+            Allowing programmers to share and connect code together is a benefit of functions!
+
+            '
+        must_include:
+        - def list_benefits
+        - def build_sentence
+        hints:
+        - Retorne a lista no list_benefits e a frase no build_sentence.
 
   - id: loops_avancados
     title: "Laços avançados"
@@ -916,4 +1138,28 @@ concepts:
         hints:
         - enumerate devolve (índice, elemento) a cada volta.
         common_error: Esquecer o segundo nome da variável do enumerate e tentar usar nome como índice.
+      - id: loops_avancados_lp_else
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Loops): o bloco else de um while roda quando a condicao
+          falha. O que sera exibido?'
+        code: "count = 0\nwhile count < 5:\n    print(count)\n    count += 1\nelse:\n    print(\"\
+          count value reached %d\" % count)\n"
+        answer: '0
 
+          1
+
+          2
+
+          3
+
+          4
+
+          count value reached 5
+
+          '
+        hints:
+        - count += 1 e o mesmo que count = count + 1.
+        - Quando count chega a 5, o while termina e o else roda.

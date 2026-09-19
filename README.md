@@ -56,8 +56,11 @@ O projeto inclui `Dockerfile` e `render.yaml`. Dois caminhos:
 
 ## Recursos
 
-- **Trilha adaptativa** — 2 níveis, 13 conceitos, 13 lições e 43 exercícios
+- **Trilha adaptativa** — 7 níveis, 89 conceitos, 100 lições e 520 exercícios
   (escolha, completar, prever saída, ordenar, achar o erro, corrigir, escrever, depurar).
+- **Trilhas por objetivo** — no onboarding você escolhe o seu foco (trabalho, faculdade,
+  dados, automação, curiosidade, carreira, kids ou outro) e o currículo se ajusta: uma base
+  comum para todos + trilhas específicas (incluindo uma introdução de programação para crianças).
 - **Laboratório real** — escreva e execute Python com pandas/lendo os datasets de exemplo,
   de forma isolada (imports sensíveis bloqueados, timeout, saída limitada, sem escrita em disco).
 - **Visualizador passo a passo** — veja seu código rodando linha a linha, com quadro de variáveis.
@@ -78,8 +81,8 @@ O projeto inclui `Dockerfile` e `render.yaml`. Dois caminhos:
 .venv\Scripts\python.exe -m pytest
 ```
 
-22+ testes de ponta a ponta: sandbox, conteúdo, perfis (independência e PIN),
-exercícios, laboratório, páginas e assets.
+37 testes de ponta a ponta: sandbox, conteúdo, filtragem por objetivo (incluindo kids),
+perfis (independência e PIN), exercícios, laboratório, páginas e assets.
 
 ## Estrutura
 

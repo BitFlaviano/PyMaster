@@ -46,9 +46,9 @@
         <button class="btn primary btn-sm btn-block" type="submit">Entrar</button>
       </form>
       {% else %}
-      <form method="post" action="/profiles/switch">
+      <form method="post" action="/profiles/switch" data-pin-id="{{ p.id }}" {% if p.pin_hash %}data-needs-pin="1"{% endif %}>
         <input type="hidden" name="profile_id" value="{{ p.id }}">
-        {% if p.pin_hash %}<input type="hidden" name="pin" value="">{% endif %}
+        <input type="hidden" name="pin" value="">
         <button class="btn primary btn-block" type="submit">{{ "Continuar" if user and user.id == p.id else "Entrar" }}</button>
       </form>
       {% endif %}
@@ -65,5 +65,22 @@
 
   <div class="landing-foot">PyMaster · Progresso individual e 100% local. Seus dados não saem deste aparelho. · <a href="/about">Sobre</a></div>
 </main>
+
+<div class="modal-mask" id="pin-modal" hidden>
+  <div class="input-modal">
+    <div class="viz-head">
+      <b>Digite o PIN</b>
+      <button class="icon-btn" id="pin-cancel" aria-label="Fechar">✕</button>
+    </div>
+    <div class="input-body">
+      <div class="input-prompt" id="pin-prompt">Este perfil é protegido por PIN. Digite-o para entrar.</div>
+      <input class="input-field" id="pin-input" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN do perfil">
+      <div class="pin-error" id="pin-error" hidden>PIN incorreto. Tente novamente.</div>
+      <div class="input-actions">
+        <button class="btn primary" id="pin-ok">Entrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 {% endblock %}

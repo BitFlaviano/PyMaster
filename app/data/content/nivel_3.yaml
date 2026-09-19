@@ -155,6 +155,108 @@ concepts:
         common_error: Esquecer os parênteses de split() e tentar fatiar a própria string.
 
   # ────────────────────────────────────────────────────────────────
+      - id: metodos_strings_lp_slicing
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Basic String Operations): indexacao e fatias de string.
+          O que sera exibido?'
+        code: 'astring = "Hello world!"
+
+          print(len(astring))
+
+          print(astring.index("o"))
+
+          print(astring.count("l"))
+
+          print(astring[3:7])
+
+          print(astring[::-1])
+
+          print(astring.upper())
+
+          print(astring.lower())
+
+          print(astring.startswith("Hello"))
+
+          print(astring.endswith("asdfasdfasdf"))
+
+          '
+        answer: '12
+
+          4
+
+          3
+
+          lo w
+
+          !dlrow olleH
+
+          HELLO WORLD!
+
+          hello world!
+
+          True
+
+          False
+
+          '
+        hints:
+        - '[3:7] pega dos indices 3 a 6 (o fim e exclusivo).'
+        - '[::-1] inverte a string.'
+      - id: metodos_strings_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Basic String Operations): troque a string s
+          para "Strings are awesome!" e rode o codigo que imprime len, indice de "a", contagem
+          de "a", fatias, maiusculas, minusculas, startswith/endswith e split.'
+        solution: "s = \"Strings are awesome!\"\nprint(\"Length of s = %d\" % len(s))\nprint(\"\
+          The first occurrence of the letter a = %d\" % s.index(\"a\"))\nprint(\"a occurs\
+          \ %d times\" % s.count(\"a\"))\nprint(\"The first five characters are '%s'\" % s[:5])\n\
+          print(\"The next five characters are '%s'\" % s[5:10])\nprint(\"The thirteenth character\
+          \ is '%s'\" % s[12])\nprint(\"The characters with odd index are '%s'\" % s[1::2])\n\
+          print(\"The last five characters are '%s'\" % s[-5:])\nprint(\"String in uppercase:\
+          \ %s\" % s.upper())\nprint(\"String in lowercase: %s\" % s.lower())\nif s.startswith(\"\
+          Str\"):\n    print(\"String starts with 'Str'. Good!\")\nif s.endswith(\"ome!\"\
+          ):\n    print(\"String ends with 'ome!'. Good!\")\nprint(\"Split the words of the\
+          \ string: %s\" % s.split(\" \"))\n"
+        tests:
+        - name: Saida esperada
+          expected: 'Length of s = 20
+
+            The first occurrence of the letter a = 8
+
+            a occurs 2 times
+
+            The first five characters are ''Strin''
+
+            The next five characters are ''gs ar''
+
+            The thirteenth character is ''a''
+
+            The characters with odd index are ''tig r wsm!''
+
+            The last five characters are ''some!''
+
+            String in uppercase: STRINGS ARE AWESOME!
+
+            String in lowercase: strings are awesome!
+
+            String starts with ''Str''. Good!
+
+            String ends with ''ome!''. Good!
+
+            Split the words of the string: [''Strings'', ''are'', ''awesome!'']
+
+            '
+        must_include:
+        - Strings are awesome
+        hints:
+        - '"Strings are awesome!" tem exatamente 20 caracteres e o "a" aparece 2 vezes.'
+
   - id: modulos
     title: "Módulos e biblioteca padrão"
     color: "#a855f7"
@@ -329,6 +431,27 @@ concepts:
         common_error: Esquecer de permitir os imports no ambiente (bloqueado por padrão).
 
   # ────────────────────────────────────────────────────────────────
+      - id: modulos_lp_re
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Modules and Packages): usando dir(re), crie
+          a lista find_members com todos os nomes do modulo re que contem a palavra "find"
+          e imprima a lista ordenada.'
+        solution: "import re\nfind_members = []\nfor member in dir(re):\n    if \"find\" in\
+          \ member:\n        find_members.append(member)\nprint(sorted(find_members))\n"
+        tests:
+        - name: Saida esperada
+          expected: '[''findall'', ''finditer'']
+
+            '
+        must_include:
+        - dir(re)
+        hints:
+        - dir(re) lista tudo que existe no modulo re.
+        - o operador in testa se "find" aparece no nome.
+
   - id: excecoes
     title: "Erros e exceções"
     color: "#f43f5e"
@@ -494,6 +617,83 @@ concepts:
         common_error: Usar except sem o tipo (bloqueio genérico) — capture específico.
 
   # ────────────────────────────────────────────────────────────────
+      - id: excecoes_lp_indexerror
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Exception Handling): o try/except captura o IndexError
+          quando o indice nao existe. O que sera exibido?'
+        code: "def do_stuff_with_number(n):\n    print(n)\n\ndef catch_this():\n    the_list\
+          \ = (1, 2, 3, 4, 5)\n    for i in range(20):\n        try:\n            do_stuff_with_number(the_list[i])\n\
+          \        except IndexError:\n            do_stuff_with_number(0)\n\ncatch_this()\n"
+        answer: '1
+
+          2
+
+          3
+
+          4
+
+          5
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          0
+
+          '
+        hints:
+        - Para i de 0 a 4 imprime a lista; depois o indice nao existe e cai no except, imprimindo
+          0.
+      - id: excecoes_lp_ator
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Exception Handling): complete get_last_name()
+          para devolver o sobrenome do ator a partir de actor["name"] ("John Cleese"), sem
+          lancar excecao.'
+        solution: "actor = {\"name\": \"John Cleese\", \"rank\": \"awesome\"}\n\ndef get_last_name():\n\
+          \    return actor[\"name\"].split()[1]\n\nget_last_name()\nprint(\"All exceptions\
+          \ caught! Good job!\")\nprint(\"The actor's last name is %s\" % get_last_name())\n"
+        tests:
+        - name: Saida esperada
+          expected: 'All exceptions caught! Good job!
+
+            The actor''s last name is Cleese
+
+            '
+        must_include:
+        - split
+        hints:
+        - split() separa "John Cleese" em palavras e [1] pega a segunda.
+
   - id: arquivos
     title: "Arquivos e dados estruturados"
     color: "#14b8a6"
@@ -831,3 +1031,202 @@ concepts:
         - self sempre é o primeiro parâmetro de métodos de instância.
         common_error: Esquecer o self nos parâmetros e receber erro de argumentos.
 
+  # ────────────────────────────────────────────────────────────────
+      - id: oop_intro_lp_classe
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Classes and Objects): cada objeto tem as proprias variaveis.
+          O que sera exibido?'
+        code: "class MyClass:\n    variable = \"blah\"\n\n    def function(self):\n      \
+          \  print(\"This is a message inside the class.\")\n\n\nmyobjectx = MyClass()\nmyobjecty\
+          \ = MyClass()\nmyobjecty.variable = \"yackity\"\n\nprint(myobjectx.variable)\nprint(myobjecty.variable)\n\
+          myobjectx.function()\n"
+        answer: 'blah
+
+          yackity
+
+          This is a message inside the class.
+
+          '
+        hints:
+        - myobjecty mudou so a propria variavel; myobjectx mantem "blah".
+      - id: oop_intro_lp_veiculo
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Classes and Objects): a classe Vehicle esta
+          pronta. Crie car1 (Fer, vermelho, convertible, 60000.00) e car2 (Jump, azul, van,
+          10000.00) e rode o codigo de teste.'
+        solution: "class Vehicle:\n    name = \"\"\n    kind = \"car\"\n    color = \"\"\n\
+          \    value = 100.00\n\n    def description(self):\n        desc_str = \"%s is a\
+          \ %s %s worth $%.2f.\" % (self.name, self.color, self.kind, self.value)\n      \
+          \  return desc_str\n\ncar1 = Vehicle()\ncar1.name = \"Fer\"\ncar1.color = \"red\"\
+          \ncar1.kind = \"convertible\"\ncar1.value = 60000.00\n\ncar2 = Vehicle()\ncar2.name\
+          \ = \"Jump\"\ncar2.color = \"blue\"\ncar2.kind = \"van\"\ncar2.value = 10000.00\n\
+          \nprint(car1.description())\nprint(car2.description())\n"
+        tests:
+        - name: Saida esperada
+          expected: 'Fer is a red convertible worth $60000.00.
+
+            Jump is a blue van worth $10000.00.
+
+            '
+        must_include:
+        - car1 = Vehicle()
+        - car2 = Vehicle()
+        hints:
+        - Preencha name, color, kind e value de cada objeto antes de chamar description().
+
+  - id: introspeccao
+    title: "Conheça o código (Introspecção)"
+    color: "#94a3b8"
+    summary: "type(), dir(), getattr() e hasattr(): perguntar ao próprio Python o que ele sabe sobre os objetos."
+    lessons:
+      - id: introspeccao_intro
+        title: "Interrogar os objetos"
+        blocks:
+          - type: text
+            body: |
+              **Introspecção** é o código olhando para si mesmo. O Python entrega esse superpoder de graça:
+
+              ```python
+              print(type([]))     # <class 'list'>
+              print(type(3.14))   # <class 'float'>
+              ```
+
+              `hasattr` pergunta se existe um atributo, e `getattr` busca/explica o atributo:
+              ```python
+              print(hasattr("abc", "upper"))    # True
+              print(getattr("oi", "upper")())   # OI
+              ```
+          - type: callout
+            body: "dir(objeto) lista tudo que ele sabe fazer. É a primeira ferramenta de quem 'trava' e quer descobrir o próximo passo."
+    exercises:
+      - id: introspeccao_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que será exibido?"
+        code: |
+          print(type([]))
+          print(type(3.14))
+        answer: |
+          <class 'list'>
+          <class 'float'>
+        hints:
+          - "type() devolve a classe do valor."
+        time_estimate: 60
+
+      - id: introspeccao_2
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          print(hasattr("abc", "upper"))
+          print(hasattr("abc", "zzz"))
+        answer: |
+          True
+          False
+        hints:
+          - "strings têm o método upper; não têm zzz."
+        time_estimate: 60
+
+      - id: introspeccao_3
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          print(getattr("oi", "upper")())
+        answer: |
+          OI
+        hints:
+          - "getattr busca o método e () o chama."
+        time_estimate: 60
+
+      - id: introspeccao_4
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual função lista todos os atributos e métodos disponíveis em um objeto?
+        options:
+        - dir()
+        - len()
+        - sorted()
+        - input()
+        answer: '0'
+        hints:
+        - '"diretório" do objeto.'
+        time_estimate: 60
+
+      - id: introspeccao_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que percorra a lista `dados = [42, 3.5, "a", []]` e exiba o NOME do tipo de cada item (int, float, str, list), um por linha.
+        tests:
+          - name: "Tipos"
+            expected: |
+              int
+              float
+              str
+              list
+        hints:
+          - "type(v).__name__ dá o nome textual do tipo."
+        solution: |
+          dados = [42, 3.5, "a", []]
+          for d in dados:
+              print(type(d).__name__)
+        must_include:
+          - type(
+        time_estimate: 180
+      - id: introspeccao_lp_dir
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Code Introspection): dir() lista os atributos de uma
+          classe. O que sera exibido?'
+        code: "class Vehicle:\n    name = \"\"\n    kind = \"car\"\n    color = \"\"\n   \
+          \ value = 100.00\n\nprint(dir(Vehicle))\n"
+        answer: '[''__class__'', ''__delattr__'', ''__dict__'', ''__dir__'', ''__doc__'',
+          ''__eq__'', ''__format__'', ''__ge__'', ''__getattribute__'', ''__getstate__'',
+          ''__gt__'', ''__hash__'', ''__init__'', ''__init_subclass__'', ''__le__'', ''__lt__'',
+          ''__module__'', ''__ne__'', ''__new__'', ''__reduce__'', ''__reduce_ex__'', ''__repr__'',
+          ''__setattr__'', ''__sizeof__'', ''__str__'', ''__subclasshook__'', ''__weakref__'',
+          ''color'', ''kind'', ''name'', ''value'']
+
+          '
+        hints:
+        - dir devolve uma lista ordenada com os atributos e metodos da classe.
+      - id: introspeccao_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Code Introspection): defina a classe Vehicle
+          abaixo e imprima (com print) a lista de todos os atributos dela usando dir.'
+        solution: "class Vehicle:\n    name = \"\"\n    kind = \"car\"\n    color = \"\"\n\
+          \    value = 100.00\n\n    def description(self):\n        desc_str = \"%s is a\
+          \ %s %s worth $%.2f.\" % (self.name, self.color, self.kind, self.value)\n      \
+          \  return desc_str\n\nprint(dir(Vehicle))\n"
+        tests:
+        - name: Saida esperada
+          expected: '[''__class__'', ''__delattr__'', ''__dict__'', ''__dir__'', ''__doc__'',
+            ''__eq__'', ''__format__'', ''__ge__'', ''__getattribute__'', ''__getstate__'',
+            ''__gt__'', ''__hash__'', ''__init__'', ''__init_subclass__'', ''__le__'', ''__lt__'',
+            ''__module__'', ''__ne__'', ''__new__'', ''__reduce__'', ''__reduce_ex__'', ''__repr__'',
+            ''__setattr__'', ''__sizeof__'', ''__str__'', ''__subclasshook__'', ''__weakref__'',
+            ''color'', ''description'', ''kind'', ''name'', ''value'']
+
+            '
+        must_include:
+        - print
+        - dir
+        hints:
+        - print(dir(Vehicle)) exibe a lista de atributos da classe.

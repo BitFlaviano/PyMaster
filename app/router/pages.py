@@ -288,7 +288,7 @@ async def concept_page(concept_id: str, request: Request, user: User | None = De
             Attempt.correct == True,  # noqa: E712
         )).first()
     ]
-    concepts_ordered = list(registry.concepts)
+    concepts_ordered = registry.concepts_for(user.goal or "outro")
     idx_concept = next((i for i, c in enumerate(concepts_ordered) if c.id == concept_id), -1)
     next_concept_id = concepts_ordered[idx_concept + 1].id if 0 <= idx_concept + 1 < len(concepts_ordered) else None
     ex_nav = {}

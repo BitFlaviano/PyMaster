@@ -17,6 +17,11 @@ WEIGHT = {"easy": 1.0, "medium": 1.5, "hard": 2.2}
 PREREQ_MASTERY = 45.0
 
 
+def _user_goal(session: Session, user_id: int) -> str:
+    user = session.exec(select(User).where(User.id == user_id)).first()
+    return (user.goal or "") if user else ""
+
+
 def get_user_concept(session: Session, user_id: int, concept_id: str) -> UserConcept:
     row = session.exec(
         select(UserConcept).where(
@@ -122,7 +127,7 @@ def is_unlocked(session: Session, user_id: int, concept_id: str) -> bool:
     if concept is None:
         return False
     previous = None
-    for c in registry.concepts:
+    for c in registry.concepts_for(_user_goal(session, user_id)):
         if c.id == concept_id:
             break
         previous = c
@@ -140,7 +145,7 @@ def is_unlocked(session: Session, user_id: int, concept_id: str) -> bool:
 def next_learning_item(session: Session, user_id: int) -> tuple | None:
     """Próximo item da trilha: conceito → lição → exercício não resolvido."""
     registry = load_content()
-    for concept in registry.concepts:
+    for concept in registry.concepts_for(_user_goal(session, user_id)):
         if not is_unlocked(session, user_id, concept.id):
             continue
         uc = session.exec(
@@ -166,7 +171,8 @@ def overview(session: Session, user_id: int) -> list[dict]:
     )
     by_id = {uc.concept_id: uc for uc in rows}
     out = []
-    for concept in registry.concepts:
+    goal = _user_goal(session, user_id)
+    for concept in registry.concepts_for(goal):
         uc = by_id.get(concept.id)
         mastery = round(uc.mastery) if uc else 0
         status = uc.status if uc else "novo"
@@ -185,12 +191,15 @@ def overview(session: Session, user_id: int) -> list[dict]:
 def due_reviews_for_user(session: Session, user_id: int) -> list[tuple]:
     """Retorna [(conceito, exercício)] para as revisões de hoje (determinístico por dia)."""
     registry = load_content()
+    goal = _user_goal(session, user_id)
     due_concepts = review.due_reviews(session, user_id)
     day_seed = datetime.now(timezone.utc).date().isoformat()
     result = []
     for uc in due_concepts:
         concept = registry.concept(uc.concept_id)
         if concept is None or not concept.exercises:
+            continue
+        if concept.goals and goal not in concept.goals:
             continue
         # seleção estável no dia: mesmo exercício até acertar
         pool = concept.exercises
@@ -208,7 +217,10 @@ def overall_learning_progress(session: Session, user_id: int, max_level: int = 1
         select(UserConcept).where(UserConcept.user_id == user_id)
     )
     by_id = {uc.concept_id: uc for uc in rows}
-    concepts = [c for c in registry.concepts if c.level <= max_level]
+    goal = _user_goal(session, user_id)
+    concepts = [
+        c for c in registry.concepts_for(goal) if c.level <= max_level
+    ]
     if not concepts:
         return 0.0
     total = sum(min(by_id[c.id].mastery, 100) if c.id in by_id else 0 for c in concepts)
@@ -218,7 +230,8 @@ def overall_learning_progress(session: Session, user_id: int, max_level: int = 1
 def total_course_progress(session: Session, user_id: int) -> float:
     """Percentual de conclusão do curso completo (exercícios resolvidos ÷ total)."""
     registry = load_content()
-    all_exercises = [e for concept in registry.concepts for e in concept.exercises]
+    goal = _user_goal(session, user_id)
+    all_exercises = [e for concept in registry.concepts_for(goal) for e in concept.exercises]
     if not all_exercises:
         return 0.0
     solved = sum(1 for e in all_exercises if exercise_solved(session, user_id, e.id))

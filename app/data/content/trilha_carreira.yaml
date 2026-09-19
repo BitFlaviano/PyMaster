@@ -1,0 +1,417 @@
+# ────────────────────────────────────────────────────────────────
+# TRILHA CARREIRA — NÍVEL 6
+# Rumo a entrevistas e portfólio: estruturas de dados, busca e
+# ordenação, complexidade e testes/qualidade.
+# ────────────────────────────────────────────────────────────────
+level: 6
+slug: "carreira"
+title: "Trilha Carreira"
+subtitle: "Rumo à vaga: estruturas, algoritmos, complexidade e qualidade de código."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: car_estruturas
+    title: "Pilhas, filas e deques"
+    color: "#f59e0b"
+    goals: ["carreira"]
+    summary: "As estruturas que entrevistas amam: LIFO, FIFO e o deque eficiente."
+    lessons:
+      - id: car_estruturas_intro
+        title: "Ordem de entrada importa"
+        blocks:
+          - type: text
+            body: |
+              **Pilha** = LIFO (último a entrar, primeiro a sair). Em Python, uma lista vira pilha com `append`/`pop`:
+
+              ```python
+              pilha = []
+              pilha.append("a"); pilha.append("b")
+              print(pilha.pop())      # b → último a entrar
+              ```
+
+              **Fila** = FIFO (primeiro a entrar, primeiro a sair). O `deque` do `collections` é eficiente nos dois lados:
+              ```python
+              from collections import deque
+
+              fila = deque(["ana", "bia"])
+              print(fila.popleft())   # ana → primeiro a entrar
+              ```
+          - type: callout
+            body: "Guarde o par: pilha = pop do fim; fila = popleft do começo. Essas duas palavras já abrem várias portas."
+    exercises:
+      - id: car_estruturas_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          pilha = []
+          pilha.append("a")
+          pilha.append("b")
+          print(pilha.pop())
+        answer: |
+          b
+        hints:
+          - "pop devolve o último que entrou (LIFO)."
+        time_estimate: 60
+
+      - id: car_estruturas_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          from collections import deque
+
+          fila = deque(["ana", "bia"])
+          print(fila.popleft())
+        answer: |
+          ana
+        hints:
+          - "popleft remove do começo (FIFO)."
+        time_estimate: 60
+
+      - id: car_estruturas_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o método que remove o item do TOPO de uma pilha (lista):
+        code: |
+          pilha = ["a", "b"]
+          pilha.____()
+        answer: 'pop'
+        hints:
+        - "pop = tirar do fim."
+        time_estimate: 45
+
+      - id: car_estruturas_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que insira "ana", "bia" e "caio" num `deque` e exiba o `popleft()` e o tamanho restante com `len`.
+        tests:
+          - name: "Fila"
+            expected: |
+              ana
+              2
+        hints:
+          - "from collections import deque; fila = deque(); fila.append(...) para cada nome."
+        solution: |
+          from collections import deque
+
+          fila = deque()
+          for nome in ["ana", "bia", "caio"]:
+              fila.append(nome)
+          print(fila.popleft())
+          print(len(fila))
+        must_include:
+          - deque
+        allow_imports:
+          - collections
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: car_busca_ordem
+    title: "Busca e ordenação"
+    color: "#22c55e"
+    goals: ["carreira"]
+    summary: "sorted() sempre certo e bisect para saber onde um número se encaixa."
+    lessons:
+      - id: car_busca_ordem_intro
+        title: "Achar rápido em dados ordenados"
+        blocks:
+          - type: text
+            body: |
+              Ordenar é `sorted` (ou `.sort()` para modificar o próprio dado):
+
+              ```python
+              print(sorted([3, 1, 2]))                # [1, 2, 3]
+              print(sorted([9, 4, 7], reverse=True))  # [9, 7, 4]
+              ```
+
+              Buscar em lista ordenada é rápido com **busca binária** — `bisect_left` diz a posição em que o valor "cabe" sem atrapalhar a ordem:
+              ```python
+              from bisect import bisect_left
+              print(bisect_left([1, 3, 5], 4))        # 1
+              ```
+          - type: callout
+            body: "Em lista ordenada de 1 milhão de itens, a busca binária chega em ~20 passos. Bisection: log batendo no mundo todo."
+    exercises:
+      - id: car_busca_ordem_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          print(sorted([3, 1, 2]))
+        answer: |
+          [1, 2, 3]
+        hints:
+          - "sorted devolve uma nova lista em ordem crescente."
+        time_estimate: 60
+
+      - id: car_busca_ordem_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          print(sorted([9, 4, 7], reverse=True))
+        answer: |
+          [9, 7, 4]
+        hints:
+          - "reverse=True inverte para decrescente."
+        time_estimate: 60
+
+      - id: car_busca_ordem_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          from bisect import bisect_left
+
+          print(bisect_left([1, 3, 5], 4))
+        answer: |
+          2
+        hints:
+          - "4 entra entre 3 (índice 1) e 5."
+        time_estimate: 90
+
+      - id: car_busca_ordem_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a função que ordena uma lista e devolve uma nova:
+        code: |
+          print(____([5, 2, 8]))
+        answer: 'sorted'
+        hints:
+        - "sort + ed."
+        time_estimate: 45
+
+      - id: car_busca_ordem_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que exiba `[5, 2, 8, 1]` ordenado com `sorted`.
+        tests:
+          - name: "Ordenado"
+            expected: |
+              [1, 2, 5, 8]
+        hints:
+          - "print(sorted([5, 2, 8, 1]))"
+        solution: |
+          numeros = [5, 2, 8, 1]
+          print(sorted(numeros))
+        must_include:
+          - sorted
+        time_estimate: 90
+
+  # ────────────────────────────────────────────────────────────────
+  - id: car_complexidade
+    title: "Complexidade e eficiência"
+    color: "#6366f1"
+    goals: ["carreira"]
+    summary: "Big-O: como o tempo cresce quando os dados crescem — a pergunta preferida da entrevista."
+    lessons:
+      - id: car_complexidade_intro
+        title: "Quando 1 milhão chega"
+        blocks:
+          - type: text
+            body: |
+              **Big-O** mede como o tempo (ou memória) cresce com o tamanho do dado:
+
+              - O(1): constante — acessar `lista[0]`.
+              - O(n): linear — procurar um item num vetor não ordenado.
+              - O(log n): rápido — busca binária.
+              - O(n²): quadrático — comparar todo par com outro.
+
+              ```python
+              # O(n²): checar duplicados na mão
+              for i in range(n):
+                  for j in range(n):
+                      ...
+              ```
+          - type: callout
+            body: "Antes de otimizar, MEÇA. Na entrevista: nomeie o Big-O, justifique e só então mexa no código."
+    exercises:
+      - id: car_complexidade_1
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: O que a notação Big-O descreve?
+        options:
+        - Como o tempo/custo cresce conforme os dados crescem.
+        - A quantidade de linhas de código.
+        - O número de bugs do programa.
+        - A velocidade do hardware.
+        answer: '0'
+        hints:
+        - "Grande-O fala de crescimento."
+        time_estimate: 60
+
+      - id: car_complexidade_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: "Dois laços aninhados sobre o mesmo dado (for i, for j) costumam ser:"
+        options:
+        - O(n²)
+        - O(1)
+        - O(log n)
+        - O(n!)
+        answer: '0'
+        hints:
+        - "n vezes n = n²."
+        time_estimate: 90
+
+      - id: car_complexidade_3
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual é a melhor forma de descobrir se um valor existe em uma lista ordenada com 1 milhão de itens?
+        options:
+        - Busca binária (bisect) — O(log n).
+        - Varrer do início ao fim — O(n).
+        - Ordenar de novo a cada consulta.
+        - Imprimir a lista inteira.
+        answer: '0'
+        hints:
+        - "Dado ordenado → log n na hora."
+        time_estimate: 90
+
+      - id: car_complexidade_4
+        type: order
+        difficulty: hard
+        xp: 30
+        prompt: Ordene para otimizar a busca por um item numa lista grande.
+        lines:
+        - Entender o tamanho real dos dados
+        - Medir o tempo atual
+        - Escolher a estrutura/algoritmo certo
+        - Validar com o mesmo comportamento
+        hints:
+        - "Entende, mede, escolhe, confere."
+        time_estimate: 120
+
+      - id: car_complexidade_5
+        type: complete
+        difficulty: medium
+        xp: 20
+        prompt: |
+          Complete com a letra da notação que descreve crescimento:
+        code: |
+          A busca binária é ____(log n).
+        answer: 'O'
+        hints:
+        - "A letra de Big-O."
+        time_estimate: 45
+
+  # ────────────────────────────────────────────────────────────────
+  - id: car_portfolio
+    title: "Projeto de portfólio"
+    color: "#ec4899"
+    goals: ["carreira"]
+    summary: "Um projeto limpo e testado que mostra quem você é — não um roteiro decorado."
+    lessons:
+      - id: car_portfolio_intro
+        title: "Código que conta história"
+        blocks:
+          - type: text
+            body: |
+              Portfólio não é "olha quanto código". É "olha este PROBLEMA que eu resolvi bem".
+
+              Estrutura boa de função (e de projeto):
+              ```python
+              def resumir(pedidos):
+                  total = 0
+                  for valor in pedidos:
+                      total += valor
+                  return total
+
+              print(resumir([10, 25, 15]))   # 50
+              ```
+          - type: callout
+            body: "1 projeto completo (escolha → problemas → lista → teste) vale mais que 10 projetos copiados. Escreva o README como você resolveria o problema em 3 parágrafos."
+    exercises:
+      - id: car_portfolio_1
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: O que um portfólio forte mostra?
+        options:
+        - Um problema real resolvido com código limpo e explicado.
+        - A maior lista possível de exercícios decorados.
+        - O nome de todas as bibliotecas que já instalou.
+        - Um README copiado de outro projeto.
+        answer: '0'
+        hints:
+        - "História > quantidade."
+        time_estimate: 60
+
+      - id: car_portfolio_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def resumir(pedidos):
+              total = 0
+              for valor in pedidos:
+                  total += valor
+              return total
+
+          print(resumir([10, 25, 15]))
+        answer: |
+          50
+        hints:
+          - "10 + 25 + 15 = 50."
+        time_estimate: 90
+
+      - id: car_portfolio_3
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene como construir o portfólio do zero.
+        lines:
+        - Escolher um problema real
+        - Dividir em funções pequenas
+        - Testar cada parte
+        - Escrever o README explicando tudo
+        hints:
+        - "Problema → estrutura → teste → narrativa."
+        time_estimate: 90
+
+      - id: car_portfolio_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 420
+        prompt: 'Chefão (escreva o código): crie a função `resumir(pedidos)` que devolve a soma dos valores e a função `maior(pedidos)` que devolve o maior com `max`. Exiba a soma e o maior de `pedidos = [10, 25, 15, 40]`, um por linha.'
+        solution: |
+          def resumir(pedidos):
+              return sum(pedidos)
+
+          def maior(pedidos):
+              return max(pedidos)
+
+          pedidos = [10, 25, 15, 40]
+          print(resumir(pedidos))
+          print(maior(pedidos))
+        must_include:
+          - def resumir
+        tests:
+        - name: Resumo
+          expected: '90
+
+            40
+
+            '
+        hints:
+        - sum() soma tudo; max() devolve o maior.
+        common_error: "Trocar a ordem: exibir o maior antes da soma."

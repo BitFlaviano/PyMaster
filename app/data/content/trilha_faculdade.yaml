@@ -1,0 +1,298 @@
+# ────────────────────────────────────────────────────────────────
+# TRILHA FACULDADE — NÍVEL 5
+# Apoio à vida acadêmica: experimentos reprodutíveis, estatística
+# para trabalhos e um mini projeto de disciplina.
+# ────────────────────────────────────────────────────────────────
+level: 5
+slug: "faculdade"
+title: "Trilha Faculdade"
+subtitle: "Do problema da disciplina ao resultado: experimentos, estatística e relatório."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: fac_ciencia
+    title: "Experimentos e determinismo"
+    color: "#8b5cf6"
+    goals: ["faculdade"]
+    summary: "Resultados que repetem: a semente do random e amostras que ninguém discute."
+    lessons:
+      - id: fac_ciencia_intro
+        title: "Ciência pede reprodutibilidade"
+        blocks:
+          - type: text
+            body: |
+              Um experimento bom **repete**. Mas o `random` gera números "ao acaso"... a menos que você fixe a **semente**:
+
+              ```python
+              import random
+
+              random.seed(7)                     # trava a sequência
+              amostra = random.sample(range(1, 21), 5)
+              print(len(amostra))                # 5
+              ```
+
+              Com a mesma semente, o mesmo código dá o mesmo resultado — em qualquer máquina, qualquer hora.
+          - type: callout
+            body: "Na faculdade, 'dá o mesmo resultado toda vez' bate de frente com 'sempre dá números diferentes'. Semente é a resposta."
+    exercises:
+      - id: fac_ciencia_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Para que serve `random.seed(...)` em um experimento?
+        options:
+        - Fazer os resultados ficarem reprodutíveis.
+        - Deixar o código mais rápido.
+        - Apagar os números.
+        - Usar números apenas pares.
+        answer: '0'
+        hints:
+        - "Mesma semente → mesma sequência."
+        time_estimate: 60
+
+      - id: fac_ciencia_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import random
+
+          random.seed(3)
+          print(len(random.sample(["a", "b", "c", "d"], 2)))
+        answer: |
+          2
+        hints:
+          - "sample de tamanho 2 tem 2 elementos."
+        time_estimate: 60
+
+      - id: fac_ciencia_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete para fixar a sequência aleatória:
+        code: |
+          import random
+          random.____(42)
+        answer: 'seed'
+        hints:
+        - "seed = semente."
+        time_estimate: 45
+
+      - id: fac_ciencia_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que fixe a semente com `random.seed(1)` e exiba o tamanho de `random.sample(["Ana", "Bia", "Caio", "Duda"], 3)`.
+        tests:
+          - name: "Amostra"
+            expected: |
+              3
+        hints:
+          - "random.seed(1); print(len(random.sample([...], 3)))"
+        solution: |
+          import random
+
+          random.seed(1)
+          amostra = random.sample(["Ana", "Bia", "Caio", "Duda"], 3)
+          print(len(amostra))
+        must_include:
+          - seed
+        allow_imports:
+          - random
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: fac_estatistica
+    title: "Estatística"
+    color: "#22c55e"
+    goals: ["faculdade"]
+    summary: "Média, mediana e desvios: os números que sustentam o seu trabalho."
+    lessons:
+      - id: fac_estatistica_intro
+        title: "Resumo da turma"
+        blocks:
+          - type: text
+            body: |
+              O módulo `statistics` entrega as medidas que a disciplina cobra sem você implementar na mão:
+
+              ```python
+              import statistics
+
+              print(statistics.mean([10, 20, 30]))      # 20
+              print(statistics.median([1, 2, 3, 100]))  # 2.5
+              ```
+
+              `mean` é a média; `median` é o valor do meio — imune a outliers como aquele 100.
+          - type: callout
+            body: "Outlier = ponto solto. Um 100 entre 1, 2, 3 destrói a média (26.5) mas não a mediana (2.5). Sempre diga qual medida você usou."
+    exercises:
+      - id: fac_estatistica_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import statistics
+
+          print(statistics.mean([10, 20, 30]))
+        answer: |
+          20
+        hints:
+          - "(10 + 20 + 30) / 3 = 20."
+        time_estimate: 60
+
+      - id: fac_estatistica_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import statistics
+
+          print(statistics.median([1, 2, 3, 100]))
+        answer: |
+          2.5
+        hints:
+          - "Mediana de 4 valores = média dos dois do meio: (2 + 3)/2."
+        time_estimate: 90
+
+      - id: fac_estatistica_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a função que calcula a MÉDIA:
+        code: |
+          import statistics
+          print(statistics.____([1, 2, 3]))
+        answer: 'mean'
+        hints:
+        - "mean = média."
+        time_estimate: 45
+
+      - id: fac_estatistica_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que calcule e exiba a média das notas `[7, 8, 9, 9]` usando `statistics.mean`.
+        tests:
+          - name: "Média"
+            expected: |
+              8.25
+        hints:
+          - "print(statistics.mean([7, 8, 9, 9]))"
+        solution: |
+          import statistics
+
+          notas = [7, 8, 9, 9]
+          print(statistics.mean(notas))
+        must_include:
+          - mean
+        allow_imports:
+          - statistics
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: fac_projeto
+    title: "Projeto de disciplina"
+    color: "#f59e0b"
+    goals: ["faculdade"]
+    summary: "Pequeno estudo: coletar amostras, resumir, comparar e apresentar."
+    lessons:
+      - id: fac_projeto_intro
+        title: "Um estudo de verdade"
+        blocks:
+          - type: text
+            body: |
+              O projeto de disciplina vira um mini-estudo:
+
+              1. **Pergunta** (ex.: as notas melhoraram?).
+              2. **Dados** (amostra com `random.sample`).
+              3. **Análise** (média/mediana com `statistics`).
+              4. **Conclusão** (o número + o porquê).
+
+              O código que resume os três passos é curto:
+              ```python
+              import statistics
+
+              notas = [7, 8, 9, 9]
+              print("media:", statistics.mean(notas))
+              ```
+          - type: callout
+            body: "A apresentação vende a história do número: método (o que fiz) → resultado (o que achei) → conclusão (o que significa)."
+    exercises:
+      - id: fac_projeto_1
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual a ordem certa de um mini-projeto de disciplina?
+        options:
+        - Pergunta, dados, análise, conclusão.
+        - Conclusão, análise, dados, pergunta.
+        - Dados, conclusão, pergunta, análise.
+        - Pergunta, conclusão, dados, análise.
+        answer: '0'
+        hints:
+        - "Começa na dúvida e termina na resposta."
+        time_estimate: 60
+
+      - id: fac_projeto_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import statistics
+
+          notas = [7, 8, 9, 9]
+          print("media:", statistics.mean(notas))
+        answer: |
+          media: 8.25
+        hints:
+          - "A média de 7, 8, 9, 9 é 8.25."
+        time_estimate: 90
+
+      - id: fac_projeto_3
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene as etapas do estudo.
+        lines:
+        - Definir a pergunta
+        - Coletar a amostra
+        - Calcular média e mediana
+        - Escrever a conclusão
+        hints:
+        - "Dúvida → dados → números → resposta."
+        time_estimate: 90
+
+      - id: fac_projeto_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 420
+        prompt: 'Chefão (escreva o código): calcule a média e a mediana das notas `[4, 7, 9, 9]` com `statistics` e exiba "media: X" e "mediana: Y", um por linha.'
+        solution: |
+          import statistics
+
+          notas = [4, 7, 9, 9]
+          print("media: " + str(statistics.mean(notas)))
+          print("mediana: " + str(statistics.median(notas)))
+        must_include:
+          - median
+        allow_imports:
+          - statistics
+        tests:
+        - name: Estudo
+          expected: 'media: 7.25
+
+            mediana: 8.0
+
+            '
+        hints:
+        - "media: (4+7+9+9)/4 = 7.25; mediana: (7+9)/2 = 8.0."
+        common_error: Esquecer de converter o número para str antes de concatenar.

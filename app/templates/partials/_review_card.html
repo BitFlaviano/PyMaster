@@ -1,6 +1,6 @@
 {% from "macros.html" import code_block %}
 <form class="review-card" id="rev-{{ ex.id }}" hx-post="/frag/review/submit"
-     hx-target="closest .review-question-card, .review-next-card" hx-swap="innerHTML">
+     hx-target="closest .review-question-card" hx-swap="innerHTML">
   <input type="hidden" name="concept_id" value="{{ ex.concept }}">
   <input type="hidden" name="exercise_id" value="{{ ex.id }}">
 

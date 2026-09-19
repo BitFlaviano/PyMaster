@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from sqlmodel import Session, select
 
-from app.models import Attempt, CodeSnippet, UserBadge, UserConcept
+from app.models import Attempt, CodeSnippet, User, UserBadge, UserConcept
 from app.engine.badges_defs import BADGES, BADGE_BY_ID
 
 
@@ -125,7 +125,11 @@ def _mastered_level_0_1(session: Session, user_id: int) -> bool:
     from app.engine.content import load_content
 
     registry = load_content()
-    concepts = [c for c in registry.concepts if c.level <= 1]
+    user = session.exec(select(User).where(User.id == user_id)).first()
+    goal = (user.goal or "") if user else ""
+    concepts = [
+        c for c in registry.concepts_for(goal) if c.level <= 1
+    ]
     if not concepts:
         return False
     ucs = session.exec(select(UserConcept).where(UserConcept.user_id == user_id))

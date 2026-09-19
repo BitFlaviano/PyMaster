@@ -333,6 +333,105 @@
     afterAnswerSwap(card.querySelector('.feedback-zone'));
   });
 
+  /* ─────────────────────── review confetti ────────────────────── */
+  function confettiBurst() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var colors = ['#f59e0b', '#22c55e', '#3b82f6', '#ec4899', '#8b5cf6', '#ef4444', '#10b981'];
+    var layer = document.createElement('div');
+    layer.className = 'confetti-layer';
+    layer.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < 90; i++) {
+      var c = document.createElement('span');
+      c.className = 'confetti';
+      c.style.left = (Math.random() * 100).toFixed(2) + '%';
+      c.style.width = (6 + Math.random() * 7).toFixed(1) + 'px';
+      c.style.height = (6 + Math.random() * 7).toFixed(1) + 'px';
+      c.style.backgroundColor = colors[i % colors.length];
+      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      c.style.animationDuration = (2200 + Math.random() * 1800).toFixed(0) + 'ms';
+      c.style.animationDelay = (Math.random() * 400).toFixed(0) + 'ms';
+      c.style.setProperty('--confetti-x', (Math.random() * 220 - 110).toFixed(0) + 'px');
+      c.style.setProperty('--confetti-r', (Math.random() * 540 - 180).toFixed(0) + 'deg');
+      layer.appendChild(c);
+    }
+    document.body.appendChild(layer);
+    setTimeout(function () {
+      if (layer && layer.parentNode) layer.parentNode.removeChild(layer);
+    }, 6000);
+  }
+  document.addEventListener('htmx:afterSwap', function (e) {
+    var el = e.target;
+    if (el && el.querySelector && el.querySelector('[data-confetti]')) confettiBurst();
+  });
+
+  /* ─────────────────────── pin modal (seletor de perfis) ─────── */
+  var pinForm = null;
+
+  function openPinModal(form, showError) {
+    var mask = document.getElementById('pin-modal');
+    if (!mask) return;
+    pinForm = form;
+    var err = document.getElementById('pin-error');
+    var field = document.getElementById('pin-input');
+    if (err) err.hidden = !showError;
+    if (field) field.value = '';
+    mask.hidden = false;
+    if (field) field.focus();
+  }
+
+  function closePinModal() {
+    var mask = document.getElementById('pin-modal');
+    if (mask) mask.hidden = true;
+  }
+
+  function submitPin() {
+    var mask = document.getElementById('pin-modal');
+    if (!mask || !pinForm) return;
+    var field = document.getElementById('pin-input');
+    var hidden = pinForm.querySelector('input[name="pin"]');
+    if (hidden && field) hidden.value = field.value;
+    mask.hidden = true;
+    pinForm.submit();
+  }
+
+  function pickerErrorMessage() {
+    var params = new URLSearchParams(location.search);
+    if (params.get('error') === 'pin' && params.get('pin')) return params.get('pin');
+    return null;
+  }
+
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (form && form.matches && form.matches('[data-needs-pin]')) {
+      e.preventDefault();
+      openPinModal(form, false);
+    }
+  }, true);
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target && e.target.closest ? e.target.closest('.pin-form button[type="submit"]') : null;
+    if (btn) {
+      e.preventDefault();
+      openPinModal(btn.closest('form'), false);
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var mask = document.getElementById('pin-modal');
+    if (!mask) return;
+    var ok = document.getElementById('pin-ok');
+    var cancel = document.getElementById('pin-cancel');
+    var field = document.getElementById('pin-input');
+    if (ok) ok.addEventListener('click', submitPin);
+    if (cancel) cancel.addEventListener('click', closePinModal);
+    if (field) field.addEventListener('keydown', function (e) { if (e.key === 'Enter') submitPin(); });
+    var pid = pickerErrorMessage();
+    if (pid) {
+      var f = document.querySelector('.pin-form') || document.querySelector('form[data-pin-id="' + pid + '"]');
+      if (f) openPinModal(f, true);
+    }
+  });
+
   /* ─────────────────────── theme / menu ────────────────────────── */
   var root = document.documentElement;
   function applyTheme() {
@@ -547,9 +646,33 @@
     if (ta) { ta.value = row.getAttribute('data-code') || ''; initEditor('lab-code', ta); }
   };
 
-  PyMaster.datasetPath = function (link) {
-    var path = link.getAttribute('href');
-    navigator.clipboard.writeText('/caminho/daos/datasets/' + path.split('/').pop());
-    var tip = link.parentElement.querySelector('.tip');
-  };
+  document.addEventListener('click', function (e) {
+    var btn = e.target && e.target.closest ? e.target.closest('.dataset-copy') : null;
+    if (!btn) return;
+    e.preventDefault();
+    var name = btn.getAttribute('data-dataset') || '';
+    var path = 'DATASETS_DIR + "/' + name + '"';
+    function copied() {
+      var old = btn.textContent;
+      btn.textContent = '\u2713';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = old;
+        btn.classList.remove('copied');
+      }, 1500);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(path).then(copied).catch(copied);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = path;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
+      copied();
+    }
+  });
 })();

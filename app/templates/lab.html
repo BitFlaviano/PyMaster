@@ -35,7 +35,10 @@
         <div class="lab-history-head">Datasets de exemplo</div>
         <div class="dataset-list">
           {% for ds in registry.datasets %}
-          <a class="dataset-item" href="/datasets/{{ ds }}" onclick="PyMaster.datasetPath(this); return false">{{ ds }}</a>
+          <div class="dataset-row">
+            <a class="dataset-item" href="/datasets/{{ ds }}">{{ ds }}</a>
+            <button type="button" class="dataset-copy" data-dataset="{{ ds }}" title="Copiar DATASETS_DIR + &quot;/{{ ds }}&quot;">⧉</button>
+          </div>
           {% endfor %}
         </div>
       </div>

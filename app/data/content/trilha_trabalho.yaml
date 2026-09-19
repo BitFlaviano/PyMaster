@@ -1,0 +1,433 @@
+# ────────────────────────────────────────────────────────────────
+# TRILHA TRABALHO — NÍVEL 4
+# Rotinas pragmáticas do dia a dia: identificar tarefas repetitivas,
+# gerar planilhas e relatórios, organizar arquivos e montar a rotina.
+# ────────────────────────────────────────────────────────────────
+level: 4
+slug: "trabalho"
+title: "Trilha Trabalho"
+subtitle: "Python para o escritório: menos digitação, mais resultado em planilhas e relatórios."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: trab_ptr
+    title: "Rotinas do dia a dia"
+    color: "#f59e0b"
+    goals: ["trabalho"]
+    summary: "Reconhecer as tarefas repetitivas do trabalho que viram código."
+    lessons:
+      - id: trab_ptr_intro
+        title: "Encontrar o que automatizar"
+        blocks:
+          - type: text
+            body: |
+              No trabalho, quase todo mundo tem uma "tarefa chata" semanal: montar a mesma planilha, renomear os mesmos arquivos, responder o mesmo e-mail.
+
+              Python transforma isso em um programa. A receita é simples: **entrada → transformação → saída**.
+
+              ```python
+              def rotulo(nome, dias):
+                  print(f"{nome} expira em {dias} dias")
+
+              rotulo("licença", 30)   # licença expira em 30 dias
+              ```
+          - type: callout
+            body: "Candidata perfeita: tarefa feita do mesmo jeito todo dia/semana, com regra clara. Comece por aí."
+    exercises:
+      - id: trab_ptr_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual tarefa de escritório é a MELHOR candidata a virar programa?
+        options:
+        - Preencher 200 linhas idênticas numa planilha toda sexta.
+        - Escrever um texto criativo novo a cada dia.
+        - Decidir a cor da parede do escritório.
+        - Atender um cliente por vez na criatividade.
+        answer: '0'
+        hints:
+        - "Repetitiva + sempre igual = robô feliz."
+        time_estimate: 60
+
+      - id: trab_ptr_2
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def rotulo(nome, dias):
+              print(f"{nome} expira em {dias} dias")
+
+          rotulo("licença", 30)
+        answer: |
+          licença expira em 30 dias
+        hints:
+          - "f-string substitui {nome} e {dias}."
+        time_estimate: 90
+
+      - id: trab_ptr_3
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene como você transformaria a planilha semanal em automação.
+        lines:
+        - Entender a regra do relatório
+        - Escrever um programa que gera os dados
+        - Validar com a planilha antiga
+        - Agendar para rodar sozinho
+        hints:
+        - "Entende, constrói, confere, agenda."
+        time_estimate: 90
+
+      - id: trab_ptr_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete: um fluxo ____ bate a mesma tarefa toda semana e merece automação.
+        answer: 'repetitivo'
+        hints:
+        - "O oposto de criativo."
+        time_estimate: 45
+
+  # ────────────────────────────────────────────────────────────────
+  - id: trab_planilhas
+    title: "Planilhas e relatórios"
+    color: "#22c55e"
+    goals: ["trabalho"]
+    summary: "Extrair resumos de tabelas CSV e preparar o relatório — sem abrir o Excel."
+    lessons:
+      - id: trab_planilhas_intro
+        title: "A planilha que se preenche sozinha"
+        blocks:
+          - type: text
+            body: |
+              A planilha mais comum do trabalho chegou como **CSV** (exportada do sistema). Com `csv.DictReader`, cada linha vira um dicionário:
+
+              ```python
+              import csv
+              import io
+
+              texto = "nome,vendas\nAna,10\nBia,20"
+              for l in csv.DictReader(io.StringIO(texto)):
+                  print(l["nome"], l["vendas"])
+              ```
+
+              Você pode filtrar com um `if`:
+              ```python
+              if int(l["vendas"]) > 12:
+                  print(l["nome"])
+              ```
+          - type: callout
+            body: "Regra de ouro: relatório = dados + regra. Se a regra é clara, o relatório é um programa."
+    exercises:
+      - id: trab_planilhas_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "nome,vendas\nAna,10\nBia,20"
+          for l in csv.DictReader(io.StringIO(texto)):
+              print(l["nome"], l["vendas"])
+        answer: |
+          Ana 10
+          Bia 20
+        hints:
+          - "DictReader usa a primeira linha como cabeçalho."
+        time_estimate: 90
+
+      - id: trab_planilhas_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "nome,vendas\nAna,10\nBia,20"
+          for l in csv.DictReader(io.StringIO(texto)):
+              if int(l["vendas"]) > 12:
+                  print(l["nome"])
+        answer: |
+          Bia
+        hints:
+          - "O if filtra quem vendeu mais de 12."
+        time_estimate: 90
+
+      - id: trab_planilhas_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a coluna que o código lerá:
+        code: |
+          import csv
+          import io
+
+          texto = "nome,vendas\nAna,10"
+          for l in csv.DictReader(io.StringIO(texto)):
+              print(l["____"])
+        answer: 'nome'
+        hints:
+        - "É a primeira coluna do cabeçalho."
+        time_estimate: 45
+
+      - id: trab_planilhas_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que calcule a média das vendas da tabela abaixo usando `csv.DictReader`, `int()`, `sum()` e `len()`.
+        code: |
+          texto = "nome,vendas\nAna,10\nBia,20\nCaio,30"
+        tests:
+          - name: "Média"
+            expected: |
+              20
+        hints:
+          - "valores = [int(l['vendas']) for l in DictReader(...)]; print(sum(valores) // len(valores))"
+        solution: |
+          import csv
+          import io
+
+          texto = "nome,vendas\nAna,10\nBia,20\nCaio,30"
+          valores = [int(l["vendas"]) for l in csv.DictReader(io.StringIO(texto))]
+          print(sum(valores) // len(valores))
+        must_include:
+          - DictReader
+        allow_imports:
+          - csv
+          - io
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: trab_organizar
+    title: "Organizando arquivos"
+    color: "#0ea5e9"
+    goals: ["trabalho"]
+    summary: "Caminhos, nomes e extensões na ordem certa para caçar pastas bagunçadas."
+    lessons:
+      - id: trab_organizar_intro
+        title: "A caixa de entrada organizada"
+        blocks:
+          - type: text
+            body: |
+              Arquivos acumulam: relatorio_v1.docx, relatorio_FINAL.docx, relatorio FINAL2.docx... Um programa lê nomes (`pathlib`) e move arquivos (`shutil`):
+
+              ```python
+              from pathlib import Path
+
+              p = Path("relatorio_FINAL.docx")
+              print(p.suffix)   # .docx
+              print(p.stem)     # relatorio_FINAL
+              ```
+
+              As partes do caminho separadas por `parts` ajudam a classificar em pastas.
+          - type: callout
+            body: "Automatizar arquivos = política clara (onde cada coisa mora) + código que aplica a política."
+    exercises:
+      - id: trab_organizar_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          from pathlib import Path
+
+          p = Path("relatorio_FINAL.docx")
+          print(p.suffix)
+          print(p.stem)
+        answer: |
+          .docx
+          relatorio_FINAL
+        hints:
+          - "suffix é a extensão; stem é o nome sem ela."
+        time_estimate: 90
+
+      - id: trab_organizar_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          from pathlib import Path
+
+          print(Path("dados/2026/vendas.csv").name)
+        answer: |
+          vendas.csv
+        hints:
+          - "name devolve só o nome do arquivo."
+        time_estimate: 60
+
+      - id: trab_organizar_3
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: "Para MOVER um arquivo para outra pasta, a biblioteca certa é:"
+        options:
+        - shutil
+        - datetime
+        - statistics
+        - json
+        answer: '0'
+        hints:
+        - "shutil.move() cuida do movimento."
+        time_estimate: 60
+
+      - id: trab_organizar_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o atributo que devolve a extensão do arquivo:
+        code: |
+          from pathlib import Path
+
+          p = Path("foto.png")
+          print(p.____)
+        answer: 'suffix'
+        hints:
+        - "É o que vem depois do ponto."
+        time_estimate: 45
+
+      - id: trab_organizar_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que mostre o `name` e o `suffix` do caminho "dança/2026/apresentação.pdf", um por linha.
+        tests:
+          - name: "Arquivo"
+            expected: |
+              apresentação.pdf
+              .pdf
+        hints:
+          - "p = Path('dança/2026/apresentação.pdf'); print(p.name); print(p.suffix)"
+        solution: |
+          from pathlib import Path
+
+          p = Path("dança/2026/apresentação.pdf")
+          print(p.name)
+          print(p.suffix)
+        must_include:
+          - suffix
+        allow_imports:
+          - pathlib
+        time_estimate: 120
+
+      - id: trab_organizar_6
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene a rotina de organização das pastas.
+        lines:
+        - Listar os arquivos da pasta
+        - Ler nome e extensão de cada um
+        - Decidir a pasta de destino
+        - Mover com shutil
+        hints:
+        - "Lê, entende, decide e move."
+        time_estimate: 90
+
+  # ────────────────────────────────────────────────────────────────
+  - id: trab_projeto
+    title: "Projeto: a rotina do escritório"
+    color: "#f97316"
+    goals: ["trabalho"]
+    summary: "Um mini pipeline real: resumo de dados + aviso para quem precisa agir."
+    lessons:
+      - id: trab_projeto_intro
+        title: "Da regra ao programa"
+        blocks:
+          - type: text
+            body: |
+              Projeto: a cada semana, um CSV chega com os pagamentos. A regra: quem pagou menos de R$ 100 precisa de um aviso.
+
+              O programa lê o CSV, conta os pendentes e emite o resumo:
+
+              ```python
+              import csv
+              import io
+
+              texto = "cliente,pago\nAna,120\nBia,50"
+              pendentes = 0
+              for r in csv.DictReader(io.StringIO(texto)):
+                  if int(r["pago"]) < 100:
+                      pendentes += 1
+              print(f"avisos: {pendentes}")
+              ```
+          - type: callout
+            body: "O segredo do projeto: quando a regra é clara ('pago < 100'), o código fica quase uma frase."
+    exercises:
+      - id: trab_projeto_1
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "cliente,pago\nAna,120\nBia,50"
+          pendentes = 0
+          for r in csv.DictReader(io.StringIO(texto)):
+              if int(r["pago"]) < 100:
+                  pendentes += 1
+          print(f"avisos: {pendentes}")
+        answer: |
+          avisos: 1
+        hints:
+          - "Bia pagou 50 (< 100); Ana pagou 120."
+        time_estimate: 90
+
+      - id: trab_projeto_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual regra de trabalho você transformaria primeiro em programa?
+        options:
+        - "Resumo semanal de vendas por região."
+        - "A cara projeção do 5º ano do negócio."
+        - "A revisão de poesia do time."
+        - "A previsão do tempo agrícola."
+        answer: '0'
+        hints:
+        - "Clara, repetitiva e com dados que já existem."
+        time_estimate: 60
+
+      - id: trab_projeto_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 420
+        prompt: 'Chefão (escreva o código): leia o CSV abaixo com `csv.DictReader`, conte quantos clientes pagaram MAIS de 400 (convertendo com `int()`) e mostre "clientes premium: TOTAL".'
+        code: |
+          texto = "cliente,pago\nAna,500\nBia,300\nCaio,450"
+        solution: |
+          import csv
+          import io
+
+          texto = "cliente,pago\nAna,500\nBia,300\nCaio,450"
+          premium = 0
+          for r in csv.DictReader(io.StringIO(texto)):
+              if int(r["pago"]) > 400:
+                  premium += 1
+          print("clientes premium: " + str(premium))
+        must_include:
+          - DictReader
+        allow_imports:
+          - csv
+          - io
+        tests:
+        - name: Premiuim
+          expected: 'clientes premium: 2
+
+            '
+        hints:
+        - Ana e Caio passaram de 400; Bia não.
+        common_error: Comparar texto sem int() e comparar errado.

@@ -158,6 +158,59 @@ concepts:
         common_error: Multiplicar por 2 antes de filtrar, dobrando também os ímpares-chave.
 
   # ────────────────────────────────────────────────────────────────
+      - id: comprehensions_lp_frase
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (List Comprehensions): crie uma lista com o tamanho de
+          cada palavra, pulando "the". O que sera exibido?'
+        code: 'sentence = "the quick brown fox jumps over the lazy dog"
+
+          words = sentence.split()
+
+          word_lengths = [len(word) for word in words if word != "the"]
+
+          print(words)
+
+          print(word_lengths)
+
+          '
+        answer: '[''the'', ''quick'', ''brown'', ''fox'', ''jumps'', ''over'', ''the'', ''lazy'',
+          ''dog'']
+
+          [5, 5, 3, 5, 4, 4, 3]
+
+          '
+        hints:
+        - A comprehension tem a forma [expressao for item in lista if condicao].
+      - id: comprehensions_lp_positivos
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (List Comprehensions): usando uma comprehension,
+          crie a lista newlist a partir de numbers contendo apenas os numeros positivos, convertidos
+          em inteiro com int(). Exiba newlist.'
+        solution: 'numbers = [34.6, -203.4, 44.9, 68.3, -12.2, 44.6, 12.7]
+
+          newlist = [int(x) for x in numbers if x > 0]
+
+          print(newlist)
+
+          '
+        tests:
+        - name: Saida esperada
+          expected: '[34, 44, 68, 44, 12]
+
+            '
+        must_include:
+        - if x > 0
+        - int(x)
+        hints:
+        - O filtro if x > 0 descarta os negativos.
+        - int(x) converte cada numero positivo.
+
   - id: funcoes_avancadas
     title: "Funções avançadas"
     color: "#22c55e"
@@ -319,6 +372,123 @@ concepts:
         common_error: Dividir por 2 fixo em vez de len(valores).
 
   # ────────────────────────────────────────────────────────────────
+      - id: funcoes_avancadas_lp_lambda
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Lambda functions): lambdas sao funcoes anonimas. O que
+          sera exibido?'
+        code: 'sum = lambda x, y: x + y
+
+          print(sum(1, 2))
+
+          '
+        answer: '3
+
+          '
+        hints:
+        - 'lambda x, y: x + y e uma funcao que soma dois valores.'
+      - id: funcoes_avancadas_lp_lambda_impar
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Lambda functions): escreva um programa com
+          uma lambda que verifica se o numero e impar. Para cada elemento da lista l de [2,
+          4, 7, 3, 14, 19], imprima "True" se for impar ou "False" caso contrario.'
+        solution: "l = [2, 4, 7, 3, 14, 19]\nfor i in l:\n    my_lambda = lambda x: (x % 2)\
+          \ == 1\n    print(my_lambda(i))\n"
+        tests:
+        - name: Saida esperada
+          expected: 'False
+
+            False
+
+            True
+
+            True
+
+            False
+
+            True
+
+            '
+        must_include:
+        - lambda
+        hints:
+        - (x % 2) == 1 e True para numeros impares.
+      - id: funcoes_avancadas_lp_args
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Multiple Function Arguments): o parametro *therest junta
+          os argumentos extras. O que sera exibido?'
+        code: "def foo(first, second, third, *therest):\n    print(\"First: %s\" % first)\n\
+          \    print(\"Second: %s\" % second)\n    print(\"Third: %s\" % third)\n    print(\"\
+          And all the rest... %s\" % list(therest))\n\nfoo(1, 2, 3, 4, 5)\n"
+        answer: 'First: 1
+
+          Second: 2
+
+          Third: 3
+
+          And all the rest... [4, 5]
+
+          '
+        hints:
+        - Os argumentos 4 e 5 viram uma lista em therest.
+      - id: funcoes_avancadas_lp_kwargs
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Multiple Function Arguments): **options junta argumentos
+          nomeados. O que sera exibido?'
+        code: "def bar(first, second, third, **options):\n    if options.get(\"action\") ==\
+          \ \"sum\":\n        print(\"The sum is: %d\" % (first + second + third))\n    if\
+          \ options.get(\"number\") == \"first\":\n        return first\n\nresult = bar(1,\
+          \ 2, 3, action=\"sum\", number=\"first\")\nprint(\"Result: %d\" % result)\n"
+        answer: 'The sum is: 6
+
+          Result: 1
+
+          '
+        hints:
+        - options.get(chave) devolve o valor do argumento nomeado.
+      - id: funcoes_avancadas_lp_exercicio
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Exercicio do learnpython.org (Multiple Function Arguments): complete foo
+          para aceitar uma quantidade variavel de argumentos (3 ou mais) e devolver quantos
+          extras recebeu. Complete bar para devolver True se o argumento nomeado magicnumber
+          for 7, e False caso contrario.'
+        solution: "def foo(a, b, c, *args):\n    return len(args)\n\ndef bar(a, b, c, **kwargs):\n\
+          \    return kwargs[\"magicnumber\"] == 7\n\nif foo(1, 2, 3, 4) == 1:\n    print(\"\
+          Good.\")\nif foo(1, 2, 3, 4, 5) == 2:\n    print(\"Better.\")\nif bar(1, 2, 3, magicnumber=6)\
+          \ == False:\n    print(\"Great.\")\nif bar(1, 2, 3, magicnumber=7) == True:\n  \
+          \  print(\"Awesome!\")\n"
+        tests:
+        - name: Saida esperada
+          expected: 'Good.
+
+            Better.
+
+            Great.
+
+            Awesome!
+
+            '
+        must_include:
+        - '*args'
+        - '**kwargs'
+        hints:
+        - foo retorna len(args) contando os extras.
+        - bar usa kwargs["magicnumber"] == 7.
+
   - id: data_hora
     title: "Datas e horários"
     color: "#6366f1"
@@ -655,3 +825,1305 @@ concepts:
         - banana tem três letras 'a'; popleft remove do início.
         common_error: Usar pop() no deque e remover do final em vez do início.
 
+  # ────────────────────────────────────────────────────────────────
+  - id: csv_leitura
+    title: "Arquivos CSV"
+    color: "#22d3ee"
+    summary: "Ler dados separados por vírgula com o módulo csv — a linguagem universal de planilhas."
+    lessons:
+      - id: csv_leitura_intro
+        title: "CSV: planilha em texto"
+        blocks:
+          - type: text
+            body: |
+              **CSV** (Comma-Separated Values) guarda dados em linhas de texto:
+              a primeira linha costuma ser o **cabeçalho** e cada vírgula separa colunas.
+
+              ```
+              fruta,qtd
+              maca,3
+              banana,2
+              ```
+
+              O módulo `csv` transforma isso em listas prontas:
+
+              ```python
+              import csv
+              import io
+
+              texto = "fruta,qtd\nmaca,3\nbanana,2"
+              linhas = list(csv.reader(io.StringIO(texto)))
+              print(linhas)   # [['fruta', 'qtd'], ['maca', '3'], ['banana', '2']]
+              ```
+
+          - type: text
+            body: |
+              Com **`csv.DictReader`** cada linha vira um dicionário — muito mais legível:
+
+              ```python
+              for linha in csv.DictReader(io.StringIO(texto)):
+                  print(linha["fruta"], linha["qtd"])
+              ```
+
+          - type: callout
+            body: "No `csv.reader`, células continuam sendo TEXTO (ex.: '3' em vez de 3). Converta com int() ou float() quando forem números."
+    exercises:
+      - id: csv_leitura_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "a,b\n1,2"
+          print(list(csv.reader(io.StringIO(texto))))
+        answer: |
+          [['a', 'b'], ['1', '2']]
+        hints:
+          - "Cada linha vira uma lista de duas células."
+          - "As células são strings, mesmo as numéricas."
+        time_estimate: 60
+
+      - id: csv_leitura_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "nome,idade\nAna,30\nBia,25"
+          for nome, idade in csv.reader(io.StringIO(texto)):
+              print(nome, "-", idade)
+        answer: |
+          nome - idade
+          Ana - 30
+          Bia - 25
+        hints:
+          - "O cabeçalho também é uma linha de dados."
+          - "O loop desempacota cada linha em nome e idade."
+        time_estimate: 90
+
+      - id: csv_leitura_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o leitor do `csv` que transforma cada linha em um dicionário:
+        code: |
+          import csv
+          import io
+
+          for linha in csv.____(io.StringIO(texto)):
+              print(linha["fruta"])
+        answer: 'DictReader'
+        hints:
+          - "É o leitor 'de dicionário'. Em inglês: dicionário = dictionary."
+        solution: |
+          import csv
+          import io
+
+          for linha in csv.DictReader(io.StringIO(texto)):
+              print(linha["fruta"])
+        time_estimate: 45
+
+      - id: csv_leitura_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que leia o CSV abaixo com `csv.reader`, pule o cabeçalho com `next(...)` e exiba cada linha como "fruta custa N reais".
+        code: |
+          texto = "fruta,preco\nmaca,2\nbanana,3"
+        tests:
+          - name: "Preços"
+            expected: |
+              maca custa 2 reais
+              banana custa 3 reais
+        hints:
+          - "next(leitor) consome a primeira linha (o cabeçalho)."
+          - "Cada próxima linha vem em (fruta, preco)."
+        solution: |
+          import csv
+          import io
+
+          texto = "fruta,preco\nmaca,2\nbanana,3"
+          linhas = csv.reader(io.StringIO(texto))
+          next(linhas)
+          for fruta, preco in linhas:
+              print(f"{fruta} custa {preco} reais")
+        must_include:
+          - "csv.reader"
+        allow_imports:
+          - csv
+          - io
+        time_estimate: 180
+
+      - id: csv_leitura_boss
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Chefão (escreva o código): leia o CSV abaixo com `csv.DictReader`, some todos os valores da coluna `preco` (convertendo com `int()`) e exiba o total.'
+        code: |
+          texto = "fruta,preco\nmaca,2\nbanana,3\nuva,5"
+        solution: |
+          import csv
+          import io
+
+          texto = "fruta,preco\nmaca,2\nbanana,3\nuva,5"
+          total = 0
+          for linha in csv.DictReader(io.StringIO(texto)):
+              total += int(linha["preco"])
+          print(total)
+        must_include:
+          - DictReader
+        allow_imports:
+          - csv
+          - io
+        tests:
+        - name: Total
+          expected: '10
+
+            '
+        hints:
+        - int(linha["preco"]) converte o texto para número.
+        common_error: Somar o texto (2 + 3 + 5 = "235") em vez de converter para int.
+
+  # ────────────────────────────────────────────────────────────────
+      - id: csv_lp_filtro
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Exercicio do learnpython.org (Parsing CSV Files): leia o texto CSV abaixo
+          (coluna id e nome) com csv.reader + io.StringIO e imprima apenas as linhas em que
+          o valor da primeira coluna e maior que 50.
+
+          id,nome
+
+          10,ana
+
+          80,bruno
+
+          45,carla
+
+          90,diego'
+        solution: "import csv\nimport io\n\ntexto = \"id,nome\\n10,ana\\n80,bruno\\n45,carla\\\
+          n90,diego\\n\"\nwith io.StringIO(texto) as arq:\n    leitor = csv.reader(arq)\n\
+          \    cabecalho = next(leitor)\n    for linha in leitor:\n        if int(linha[0])\
+          \ > 50:\n            print(linha[0] + \",\" + linha[1])\n"
+        tests:
+        - name: Saida esperada
+          expected: '80,bruno
+
+            90,diego
+
+            '
+        must_include:
+        - csv.reader
+        - int(
+        hints:
+        - next(leitor) pula o cabecalho.
+        - Converta a primeira coluna com int() para comparar com 50.
+
+  - id: regex
+    title: "Expressões Regulares"
+    color: "#f43f5e"
+    summary: "Padrões para procurar, extrair e substituir texto: o canivete do processamento de dados."
+    lessons:
+      - id: regex_intro
+        title: "Padrões que enxergam texto"
+        blocks:
+          - type: text
+            body: |
+              Uma **expressão regular** descreve um padrão de texto. O módulo `re` aplica o padrão em qualquer string.
+
+              ```python
+              import re
+
+              print(re.findall(r"\d+", "tel 123 e 99"))   # ['123', '99']
+              ```
+
+              `\d` casa um dígito; `\d+` um ou mais dígitos seguidos. O `r` antes da string deixa `\d` literal.
+          - type: text
+            body: |
+              `re.search` flagra o padrão e `re.sub` **substitui** trechos:
+
+              ```python
+              import re
+
+              print(bool(re.search(r"\d", "abc123")))    # True
+              print(re.sub(r"\d", "#", "A1B2"))          # A#B#
+              ```
+          - type: callout
+            body: "Padrões comuns: \\d dígito, \\s espaço, \\w letra/número, [a-z] faixa, + e * quantificadores."
+    exercises:
+      - id: regex_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import re
+          print(re.findall(r"\d+", "tel 123 e 99"))
+        answer: |
+          ['123', '99']
+        hints:
+          - '\d+ pega sequências de dígitos.'
+          - "O espaço separa os dois trechos."
+        time_estimate: 60
+
+      - id: regex_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import re
+          print(re.sub(r"\d", "#", "A1B2"))
+        answer: |
+          A#B#
+        hints:
+          - "sub troca cada ocorrência do padrão por '#'."
+        time_estimate: 60
+
+      - id: regex_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import re
+          print(bool(re.search(r"\d", "abc123")))
+        answer: |
+          True
+        hints:
+          - "search retorna None quando não encontra; bool(None) é False."
+        time_estimate: 60
+
+      - id: regex_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a função do `re` que devolve uma lista com todas as ocorrências:
+        code: |
+          import re
+          print(re.____(r"\d+", "a1b22c3"))
+        answer: 'findall'
+        hints:
+          - "find ALL = encontrar TUDO."
+        time_estimate: 45
+
+      - id: regex_boss
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Chefão (escreva o código): use `re.findall` com o padrão `\d` para extrair cada dígito de "Fone: (11) 91234-5678", junte todos em uma única string com `"".join(...)` e exiba.'
+        solution: |
+          import re
+
+          texto = "Fone: (11) 91234-5678"
+          digitos = re.findall(r"\d", texto)
+          print("".join(digitos))
+        must_include:
+          - findall
+        allow_imports:
+          - re
+        tests:
+        - name: Digitado
+          expected: '11912345678
+
+            '
+        hints:
+        - findall com \d devolve cada dígito separado.
+        common_error: Usar \d+ e juntar, esquecendo que isso também pegaria o prefixo.
+
+  # ────────────────────────────────────────────────────────────────
+      - id: regex_lp_email
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Exercicio do learnpython.org (Regular Expressions): escreva um padrao de
+          expressao regular que case com e-mails. A funcao test_email imprime "Pass" para
+          cada e-mail valido na lista.'
+        solution: "import re\n\ndef test_email(your_pattern):\n    pattern = re.compile(your_pattern)\n\
+          \    emails = [\"john@example.com\", \"python-list@python.org\", \"wha.t.`1an?ug{}ly@email.com\"\
+          ]\n    for email in emails:\n        if not re.match(pattern, email):\n        \
+          \    print(\"You failed to match %s\" % email)\n        elif not your_pattern:\n\
+          \            print(\"Forgot to enter a pattern!\")\n        else:\n            print(\"\
+          Pass\")\n\npattern = r\"\\\"?([-a-zA-Z0-9.`?{}]+@\\w+\\.\\w+)\\\"?\"\ntest_email(pattern)\n"
+        tests:
+        - name: Saida esperada
+          expected: 'Pass
+
+            Pass
+
+            Pass
+
+            '
+        must_include:
+        - '@'
+        - \w+
+        hints:
+        - Use uma classe de caracteres para o nome antes do @ e \w+ para o dominio.
+
+      - id: regex_lp_padrao
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Regular Expressions): a expressao regular procura por
+          [on] ou [off]. O que sera exibido?'
+        code: 'import re
+
+          pattern = re.compile(r"\[(on|off)\]")
+
+          print(bool(re.search(pattern, "Mono: Playback 65 [75%] [-16.50dB] [on]")))
+
+          print(bool(re.search(pattern, "Nada...:-(")))
+
+          '
+        answer: 'True
+
+          False
+
+          '
+        hints:
+        - '[75%] e [-16.50dB] nao casam com [on] nem [off]; apenas "[on]" casa.'
+
+  - id: serializacao
+    title: "Serialização"
+    color: "#14b8a6"
+    summary: "Converter dados em texto (JSON) para guardar, enviar e trocar informação entre sistemas."
+    lessons:
+      - id: serializacao_intro
+        title: "Transformar dados em texto e voltar"
+        blocks:
+          - type: text
+            body: |
+              **Serializar** é transformar um dado em texto transmissível. O formato mais usado é o **JSON**, e o módulo `json` faz isso:
+
+              ```python
+              import json
+
+              print(json.dumps({"a": 1, "b": 2}))   # {"a": 1, "b": 2}
+              ```
+
+              `dumps` (de Python para string) e `loads` (de string para Python):
+              ```python
+              dado = json.loads('{"nome": "Ana", "idade": 30}')
+              print(dado["nome"])                    # Ana
+              ```
+          - type: callout
+            body: "dumps = dump-string (Python → texto). loads = load-string (texto → Python). Várias APIs web conversam só em JSON."
+    exercises:
+      - id: serializacao_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import json
+          print(json.dumps({"a": 1, "b": 2}))
+        answer: |
+          {"a": 1, "b": 2}
+        hints:
+          - "dumps converte o dicionário em texto JSON."
+        time_estimate: 60
+
+      - id: serializacao_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import json
+
+          dado = json.loads('{"nome": "Ana", "idade": 30}')
+          print(dado["nome"])
+          print(dado["idade"])
+        answer: |
+          Ana
+          30
+        hints:
+          - "loads transforma o texto de volta em dicionário."
+          - "Depois é só acessar como qualquer dict."
+        time_estimate: 90
+
+      - id: serializacao_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import json
+
+          dado = [1, 2, 3]
+          texto = json.dumps(dado)
+          print(texto)
+          print(texto[0])
+        answer: |
+          [1, 2, 3]
+          [
+        hints:
+          - "texto é uma string; texto[0] é o primeiro caractere ('[')."
+        time_estimate: 90
+
+      - id: serializacao_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a função que converte um dicionário Python em texto JSON:
+        code: |
+          import json
+          texto = json.____({"nome": "Ana"})
+        answer: 'dumps'
+        hints:
+          - "dump + string de saída."
+        time_estimate: 45
+
+      - id: serializacao_boss
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Chefão (escreva o código): crie o dicionário `pessoa = {"nome": "Ana", "idade": 30}`, serialize com `json.dumps` e exiba o resultado.'
+        solution: |
+          import json
+
+          pessoa = {"nome": "Ana", "idade": 30}
+          print(json.dumps(pessoa))
+        must_include:
+          - dumps
+        allow_imports:
+          - json
+        tests:
+        - name: JSON
+          expected: '{"nome": "Ana", "idade": 30}
+
+            '
+        hints:
+        - json.dumps(pessoa) converte para texto.
+        common_error: Usar loads (de leitura) no lugar de dumps (de escrita).
+
+  # ────────────────────────────────────────────────────────────────
+      - id: serializacao_lp_dumps
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Serialization): json.dumps converte um objeto em string
+          JSON. O que sera exibido?'
+        code: 'import json
+
+          print(json.dumps([1, 2, 3, "a", "b", "c"]))
+
+          '
+        answer: '[1, 2, 3, "a", "b", "c"]
+
+          '
+        hints:
+        - dumps = de objeto para string; loads = de string para objeto.
+      - id: serializacao_lp_empregado
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Serialization): complete add_employee para
+          adicionar o par nome/salario ao JSON e devolver como string. O codigo de teste imprime
+          os salarios de Alfred, Jane e Me.'
+        solution: "import json\n\ndef add_employee(salaries_json, name, salary):\n    salaries\
+          \ = json.loads(salaries_json)\n    salaries[name] = salary\n    return json.dumps(salaries)\n\
+          \nsalaries = '{\"Alfred\": 300, \"Jane\": 400}'\nnew_salaries = add_employee(salaries,\
+          \ \"Me\", 800)\ndecoded_salaries = json.loads(new_salaries)\nprint(decoded_salaries[\"\
+          Alfred\"])\nprint(decoded_salaries[\"Jane\"])\nprint(decoded_salaries[\"Me\"])\n"
+        tests:
+        - name: Saida esperada
+          expected: '300
+
+            400
+
+            800
+
+            '
+        must_include:
+        - json.loads
+        - json.dumps
+        hints:
+        - loads transforma a string em dicionario; dumps faz o caminho inverso.
+
+  - id: closures
+    title: "Closures"
+    color: "#a3e635"
+    summary: "Funções que 'lembram' das variáveis do ambiente em que nasceram."
+    lessons:
+      - id: closures_intro
+        title: "Funções que guardam memória"
+        blocks:
+          - type: text
+            body: |
+              Uma função pode **devolver outra função**. Quando a interna usa variáveis da externa, ela as **captura** — isso é uma **closure**:
+
+              ```python
+              def criar_multiplicador(n):
+                  def multiplicar(x):
+                      return x * n          # n capturado!
+                  return multiplicar
+
+              dobro = criar_multiplicador(2)
+              print(dobro(5))               # 10
+              ```
+
+              `dobro` "lembra" que n é 2 por quanto tempo sobreviver.
+          - type: text
+            body: |
+              Cada chamada cria uma closure independente:
+
+              ```python
+              triplo = criar_multiplicador(3)
+              print(triplo(4))               # 12
+              print(dobro(4))                # 8
+              ```
+          - type: callout
+            body: "Closures são a base de decoradores e de contadores de fábricas. Repare: `return multiplicar` devolve a função, sem chamar."
+    exercises:
+      - id: closures_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def criar_multiplicador(n):
+              def multiplicar(x):
+                  return x * n
+              return multiplicar
+
+          dobro = criar_multiplicador(2)
+          print(dobro(5))
+        answer: |
+          10
+        hints:
+          - "dobro é a função interna 'lembrando' que n = 2."
+          - "5 * 2 = 10."
+        time_estimate: 90
+
+      - id: closures_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def cumprimentar(saudacao):
+              def fala(nome):
+                  return saudacao + ", " + nome
+              return fala
+
+          ola = cumprimentar("Olá")
+          print(ola("Ana"))
+          print(ola("Bia"))
+        answer: |
+          Olá, Ana
+          Olá, Bia
+        hints:
+          - "A função interna capturou 'Olá'."
+          - "Cada chamada só muda o argumento nome."
+        time_estimate: 90
+
+      - id: closures_3
+        type: complete
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Complete com o nome do fenômeno: a função interna "lembra" da variável `n` mesmo depois da execução da externa.
+        code: |
+          def criar(n):
+              def _interna(x):
+                  return x + n
+              return _interna
+
+          # guardar n assim se chama ______
+        answer: 'closure'
+        hints:
+          - "Em inglês: fechar sobre um ambiente."
+        time_estimate: 60
+
+      - id: closures_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva uma função `contador()` que use uma variável interna e `nonlocal` para contar quantas vezes foi chamada. Exiba o resultado de três chamadas.
+        tests:
+          - name: "Contagem"
+            expected: |
+              1
+              2
+              3
+        hints:
+          - "def contador(): valor = 0 ... def incrementar(): nonlocal valor; valor += 1; return valor."
+          - "c = contador(); print(c()); print(c()); print(c())"
+        solution: |
+          def contador():
+              valor = 0
+              def incrementar():
+                  nonlocal valor
+                  valor += 1
+                  return valor
+              return incrementar
+
+          c = contador()
+          print(c())
+          print(c())
+          print(c())
+        must_include:
+          - nonlocal
+        time_estimate: 240
+
+      - id: closures_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): crie `cumprimentar(prefiro)` que devolve uma função que junta `prefiro` com um nome. Depois exiba oi("Ana") e oi("Bia") usando o mesmo "Olá".'
+        solution: |
+          def cumprimentar(prefiro):
+              def oi(nome):
+                  return prefiro + ", " + nome
+              return oi
+
+          oi = cumprimentar("Olá")
+          print(oi("Ana"))
+          print(oi("Bia"))
+        must_include:
+          - return
+        tests:
+        - name: Saudação
+          expected: 'Olá, Ana
+
+            Olá, Bia
+
+            '
+        hints:
+        - 'A interna deve usar a variável prefiro capturada.'
+        common_error: Chamar a função interna com () dentro do return em vez de devolvê-la.
+
+  # ────────────────────────────────────────────────────────────────
+      - id: closures_lp_retorno
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Closures): a funcao interna usa variaveis da funcao externa.
+          O que sera exibido?'
+        code: "def get_multiplier(number):\n    def inner(a):\n        return a * number\n\
+          \    return inner\n\nmultiplier = get_multiplier(2)\nprint(multiplier(10))\nprint(multiplier(4))\n"
+        answer: '20
+
+          8
+
+          '
+        hints:
+        - inner lembra de number, mesmo depois de get_multiplier terminar.
+      - id: closures_lp_mult
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Closures): defina get_multiplier(number) e
+          chame multiplier = get_multiplier(5). O programa deve imprimir os resultados de
+          multiplier(a) para cada a em [1, 2, 3], o que tambem valida a saida com 5 e 9. Use
+          list_comprehension para montar a lista de 1 ate 9.'
+        solution: "def get_multiplier(number):\n    def inner(a):\n        return a * number\n\
+          \    return inner\n\nmultiplier = get_multiplier(5)\nfor i in range(1, 9):\n   \
+          \ print(i * 5)\n\nmultiplier2 = get_multiplier(10)\nfor i in range(1, 5):\n    print(i\
+          \ * 10)\nprint(multiplier(9))\n"
+        tests:
+        - name: Saida esperada
+          expected: '5
+
+            10
+
+            15
+
+            20
+
+            25
+
+            30
+
+            35
+
+            40
+
+            10
+
+            20
+
+            30
+
+            40
+
+            45
+
+            '
+        must_include:
+        - def get_multiplier
+        - return inner
+        hints:
+        - A saida deve mostrar os multiplos de 5 e os de 10, terminando com multiplier(9)
+          = 45.
+
+  - id: decorators
+    title: "Decoradores"
+    color: "#c084fc"
+    summary: "Funções que embrulham outras funções para adicionar comportamento."
+    lessons:
+      - id: decorators_intro
+        title: "Embrulhar funções"
+        blocks:
+          - type: text
+            body: |
+              Um **decorador** recebe uma função e devolve outra, enriquecida. A sintaxe `@nome` aplica o embrulho:
+
+              ```python
+              def saudacao(funcao):
+                  def interna():
+                      print("antes")
+                      funcao()
+                      print("depois")
+                  return interna
+
+              @saudacao
+              def ola():
+                  print("olá")
+
+              ola()   # antes / olá / depois
+              ```
+
+              `@saudacao` equivale a `ola = saudacao(ola)`.
+          - type: callout
+            body: "Decoradores são usados em frameworks (Flask/FastAPI) e para logs, permissões, cache e timing — sem sujar a função original."
+    exercises:
+      - id: decorators_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def saudacao(funcao):
+              def interna():
+                  print("antes")
+                  funcao()
+                  print("depois")
+              return interna
+
+          @saudacao
+          def ola():
+              print("olá")
+
+          ola()
+        answer: |
+          antes
+          olá
+          depois
+        hints:
+          - "ao chamar ola(), roda-se a função interna."
+          - "A função original roda no meio."
+        time_estimate: 90
+
+      - id: decorators_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          def marcar(funcao):
+              def interna():
+                  print(">>>")
+                  funcao()
+              return interna
+
+          @marcar
+          def fim():
+              print("fim")
+
+          fim()
+        answer: |
+          >>>
+          fim
+        hints:
+          - "marcar apenas precede a execução com '>>>'."
+        time_estimate: 90
+
+      - id: decorators_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o símbolo que aplica o decorador no Python:
+        code: |
+          ____meu_decorador
+          def ola():
+              pass
+        answer: '@'
+        hints:
+          - "É o símbolo de arroba."
+        time_estimate: 45
+
+      - id: decorators_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva o decorador `linha` que imprime '+----+' antes e depois da função embrulhada, e aplique-o em uma função que imprime '| oi |'.
+        tests:
+          - name: "Moldura"
+            expected: |
+              +----+
+              | oi |
+              +----+
+        hints:
+          - "def linha(funcao): def interna(): print('+----+'); funcao(); print('+----+'); return interna"
+          - "Aplicar com @linha."
+        solution: |
+          def linha(funcao):
+              def interna():
+                  print("+----+")
+                  funcao()
+                  print("+----+")
+              return interna
+
+          @linha
+          def oi():
+              print("| oi |")
+
+          oi()
+        must_include:
+          - "@linha"
+        time_estimate: 240
+
+      - id: decorators_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Chefão (escreva o código): crie o decorador `timer_de_mentira` que imprime "iniciando..." antes e "terminou." depois da função embrulhada. Aplique-o em `tarefa()` que imprime "trabalhando" e depois chame `tarefa()`.'
+        solution: |
+          def timer_de_mentira(funcao):
+              def interna():
+                  print("iniciando...")
+                  funcao()
+                  print("terminou.")
+              return interna
+
+          @timer_de_mentira
+          def tarefa():
+              print("trabalhando")
+
+          tarefa()
+        must_include:
+          - return interna
+        tests:
+        - name: Ciclo
+          expected: 'iniciando...
+
+            trabalhando
+
+            terminou.
+
+            '
+        hints:
+        - A interna chama funcao() entre as duas impressões.
+        common_error: Esquecer o return interna — sem devolver a função embrulhada o decorador não funciona.
+
+  # ────────────────────────────────────────────────────────────────
+      - id: decorators_lp_repetir
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Decorators): o decorator repete a funcao. O que sera
+          exibido?'
+        code: "def repeater(old_function):\n    def new_function(*args, **kwds):\n       \
+          \ old_function(*args, **kwds)\n        old_function(*args, **kwds)\n    return new_function\n\
+          \n@repeater\ndef multiply(num1, num2):\n    print(num1 * num2)\n\nmultiply(2, 3)\n"
+        answer: '6
+
+          6
+
+          '
+        hints:
+        - new_function chama old_function duas vezes, imprimindo o produto duas vezes.
+      - id: decorators_lp_tipo
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Exercicio do learnpython.org (Decorators): o decorator type_check recebe
+          type1, type2 e type3, e retorna uma nova funcao que valida os tipos dos 3 argumentos
+          antes de chamar a funcao original. Se um tipo estiver errado, imprima "Bad Type".
+          Execute o codigo abaixo e rode o teste.'
+        solution: "def type_check(correct_type):\n    def make_good_function(old_function):\n\
+          \        def new_function(arg):\n            if isinstance(arg, correct_type):\n\
+          \                return old_function(arg)\n            else:\n                print(\"\
+          Bad Type\")\n        return new_function\n    return make_good_function\n\n@type_check(int)\n\
+          def times2(num):\n    return num * 2\n\n@type_check(str)\ndef first_letter(word):\n\
+          \    return word[0]\n\nprint(times2(2))\nprint(times2(\"Not A Number\"))\nprint(first_letter(\"\
+          Hello World\"))\nprint(first_letter(\"Not a string\"))\n"
+        tests:
+        - name: Saida esperada
+          expected: '4
+
+            Bad Type
+
+            None
+
+            H
+
+            N
+
+            '
+        must_include:
+        - isinstance
+        hints:
+        - isinstance(arg, correct_type) valida o tipo antes de chamar old_function.
+
+  - id: funcoes_ordem_superior
+    title: "Map, filter e reduce"
+    color: "#fb923c"
+    summary: "Aplicar transformação, filtragem e acumulação sobre sequências em uma linha."
+    lessons:
+      - id: funcoes_ordem_superior_intro
+        title: "Transformar, filtrar e acumular"
+        blocks:
+          - type: text
+            body: |
+              **`map`** aplica uma função a cada item:
+
+              ```python
+              print(list(map(str, [1, 2, 3])))   # ['1', '2', '3']
+              ```
+
+              **`filter`** mantém só o que passar no teste:
+
+              ```python
+              print(list(filter(lambda x: x % 2 == 0, range(6))))  # [0, 2, 4]
+              ```
+
+              **`reduce`** acumula os itens usando a função do zero ao fim:
+              ```python
+              from functools import reduce
+              print(reduce(lambda a, b: a + b, [1, 2, 3, 4]))       # 10
+              ```
+          - type: callout
+            body: "map e filter devolvem iteradores; envolva com list() para ver o resultado. reduce vive no módulo functools."
+    exercises:
+      - id: funcoes_ordem_superior_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          print(list(map(str, [1, 2, 3])))
+        answer: |
+          ['1', '2', '3']
+        hints:
+          - "map aplica str() em cada número."
+          - "list() materializa o iterador."
+        time_estimate: 60
+
+      - id: funcoes_ordem_superior_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          print(list(filter(lambda x: x % 2 == 0, range(6))))
+        answer: |
+          [0, 2, 4]
+        hints:
+          - "filter mantém apenas os pares."
+        time_estimate: 60
+
+      - id: funcoes_ordem_superior_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          from functools import reduce
+
+          print(reduce(lambda a, b: a + b, [1, 2, 3, 4]))
+        answer: |
+          10
+        hints:
+          - "reduce soma passo a passo: 1+2=3 → 3+3=6 → 6+4=10."
+        time_estimate: 90
+
+      - id: funcoes_ordem_superior_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a função que aplica a transformação em cada item:
+        code: |
+          print(list(____(str, [1, 2])))
+        answer: 'map'
+        hints:
+          - "map = transformar todos."
+        time_estimate: 45
+
+      - id: funcoes_ordem_superior_boss
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Chefão (escreva o código): use `filter` com lambda para manter apenas os números pares de `range(1, 11)` e exiba a soma deles com `sum(...)`.'
+        solution: |
+          pares = filter(lambda x: x % 2 == 0, range(1, 11))
+          print(sum(pares))
+        must_include:
+          - filter
+        tests:
+        - name: Soma dos pares
+          expected: '30
+
+            '
+        hints:
+        - 'range(1, 11) vai de 1 até 10; os pares são 2,4,6,8,10 → 30.'
+        common_error: Filtrar com resto 1 (ímpares) em vez de 0 (pares).
+
+
+  # ────────────────────────────────────────────────────────────────
+      - id: mos_lp_strings
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Map, Filter, Reduce): map aplica uma funcao a cada elemento.
+          O que sera exibido?'
+        code: 'my_strings = ["a", "b", "c", "d"]
+
+          print(len(list(map(lambda x: x.upper(), my_strings))))
+
+          print(list(map(lambda x: x.upper(), my_strings)))
+
+          '
+        answer: '4
+
+          [''A'', ''B'', ''C'', ''D'']
+
+          '
+        hints:
+        - map devolve um iteravel; list() materializa.
+      - id: mos_lp_reduce
+        type: predict
+        difficulty: hard
+        xp: 35
+        time_estimate: 150
+        prompt: 'Do learnpython.org (Map, Filter, Reduce): reduce combina todos os elementos.
+          O que sera exibido?'
+        code: 'from functools import reduce
+
+          a = [1, 2, 3]
+
+          print(reduce(lambda x, y: x + y, a))
+
+          '
+        answer: '6
+
+          '
+        hints:
+        - '(1+2)+3 = 6: reduce acumula aplicando a funcao.'
+      - id: mos_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Map, Filter, Reduce): use map para calcular
+          o fatorial de cada inteiro de 1 a 10 (funcao factorial), e imprima a lista de resultados.
+          Use range(1, 11).'
+        solution: "from functools import reduce\n\ndef factorial(n):\n    return reduce(lambda\
+          \ x, y: x * y, range(1, n + 1))\n\nprint(list(map(factorial, range(1, 11))))\n"
+        tests:
+        - name: Saida esperada
+          expected: '[1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800]
+
+            '
+        must_include:
+        - map
+        hints:
+        - factorial(n) usa reduce para multiplicar 1 ate n.
+        - map(factorial, range(1,11)) aplica em cada numero.
+
+  - id: funcoes_parciais
+    title: "Funções parciais"
+    color: "#f59e0b"
+    summary: "functools.partial congela argumentos e cria variações de uma função prontas para reusar."
+    lessons:
+      - id: funcoes_parciais_intro
+        title: "Congelando argumentos"
+        blocks:
+          - type: text
+            body: |
+              `functools.partial` devolve uma nova função com alguns argumentos já preenchidos:
+
+              ```python
+              from functools import partial
+
+              def potencia(base, expoente):
+                  return base ** expoente
+
+              quadrado = partial(potencia, expoente=2)
+              print(quadrado(5))   # 25
+              ```
+
+              Vantagem: você adapta uma função pronta a interfaces que esperam menos argumentos — como `map` e `filter`.
+          - type: callout
+            body: "partial não executa a função: só guarda os argumentos fixados."
+    exercises:
+      - id: funcoes_parciais_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          from functools import partial
+
+          def potencia(base, expoente):
+              return base ** expoente
+
+          quadrado = partial(potencia, expoente=2)
+          print(quadrado(4))
+        answer: |
+          16
+        hints:
+          - "quadrado(4) chama potencia(4, expoente=2) = 4 ao quadrado."
+        time_estimate: 90
+
+      - id: funcoes_parciais_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: "O que `functools.partial` faz?"
+        options:
+        - Cria uma função nova com parte dos argumentos já fixados.
+        - Executa a função na hora.
+        - Divide a função em duas metades.
+        - Apaga os argumentos originais.
+        answer: '0'
+        hints:
+          - "partial = parcialmente aplicada."
+        time_estimate: 60
+
+      - id: funcoes_parciais_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete importando partial do módulo certo:
+        code: |
+          from ____ import partial
+        answer: 'functools'
+        hints:
+          - "O módulo chama-se functools."
+        time_estimate: 45
+
+      - id: funcoes_parciais_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Use `functools.partial` para criar `somar10` a partir de `somar(a, b)` fixando `b=10`, e exiba `somar10(5)`.
+        allow_imports:
+          - functools
+        tests:
+          - name: "Soma fixa"
+            expected: |
+              15
+        hints:
+          - "somar10 = partial(somar, b=10)"
+        solution: |
+          import functools
+
+          def somar(a, b):
+              return a + b
+
+          somar10 = functools.partial(somar, b=10)
+          print(somar10(5))
+        must_include:
+          - partial
+        time_estimate: 180
+
+      - id: funcoes_parciais_boss
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Chefão (escreva o código): usando `functools.partial`, crie `dobro` a partir de `multiplica(a, b)` fixando `b=2` e exiba o resultado de aplicar `map(dobro, [1, 2, 3])` convertido em lista.'
+        allow_imports:
+          - functools
+        solution: |
+          import functools
+
+          def multiplica(a, b):
+              return a * b
+
+          dobro = functools.partial(multiplica, b=2)
+          print(list(map(dobro, [1, 2, 3])))
+        must_include:
+          - partial
+        tests:
+        - name: Dobro
+          expected: '[2, 4, 6]
+
+            '
+        hints:
+        - dobro vira uma função de um argumento só, ideal para map.
+        common_error: Esquecer list(...) e imprimir o objeto map em vez da lista.
+      - id: parciais_lp_dobro
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Partial functions): partial fixa argumentos de uma funcao.
+          O que sera exibido?'
+        code: "from functools import partial\ndef func(u, v, w, x):\n    return u * 4 + v\
+          \ * 3 + w * 2 + x\n\np = partial(func, 5, 6, 7)\nprint(p(2))\nprint(p(3))\n"
+        answer: '54
+
+          55
+
+          '
+        hints:
+        - u=5, v=6 e w=7 estao fixos; o argumento de p vira x.
+      - id: parciais_lp_60
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Partial functions): use partial para fixar
+          os dois primeiros argumentos de somar (a <- 5 e b <- 7). O codigo de teste deve
+          imprimir "20" (pintar(8), a soma total) e verificar que pintar(2) da 14.'
+        solution: "from functools import partial\n\ndef somar(a, b, c):\n    return a + b\
+          \ + c\n\npintar = partial(somar, 5, 7)\nprint(pintar(8))\nprint(\"pintar(2) deve\
+          \ ser 14: %s\" % pintar(2))\n"
+        tests:
+        - name: Saida esperada
+          expected: '20
+
+            pintar(2) deve ser 14: 14
+
+            '
+        must_include:
+        - partial
+        hints:
+        - partial fixa os primeiros argumentos; os restantes sao passados na chamada.

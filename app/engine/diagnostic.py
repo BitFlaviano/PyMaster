@@ -109,7 +109,8 @@ def bootstrap_user(session: Session, user: User, diagnosed_level: int) -> None:
     from app.engine.content import load_content
 
     registry = load_content()
-    for concept in registry.concepts:
+    goal = user.goal or "outro"
+    for concept in registry.concepts_for(goal):
         if concept.level < diagnosed_level:
             existing = session.exec(select_uc(user.id, concept.id)).first()
             if existing is None:

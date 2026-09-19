@@ -324,6 +324,78 @@ concepts:
         hints:
         - A condição vem antes do primeiro bloco; o else vem depois.
 
+      - id: decisao_lp_indent
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Exemplo classico do learnpython.org: Python usa indentacao em vez de chaves.
+          O que sera exibido?'
+        code: "x = 1\nif x == 1:\n    # indentado com quatro espacos\n    print(\"x is 1.\"\
+          )\n"
+        answer: 'x is 1.
+
+          '
+        hints:
+        - A linha com print so roda se x for igual a 1, porque ela esta dentro do bloco.
+      - id: decisao_lp_is
+        type: predict
+        difficulty: medium
+        xp: 25
+        time_estimate: 90
+        prompt: 'Do learnpython.org: compare valores e instancias. O que sera exibido?'
+        code: 'x = [1, 2, 3]
+
+          y = [1, 2, 3]
+
+          print(x == y)
+
+          print(x is y)
+
+          print(not False)
+
+          '
+        answer: 'True
+
+          False
+
+          True
+
+          '
+        hints:
+        - == compara valores; is compara a identidade do objeto.
+        - not inverte o valor booleano.
+      - id: decisao_lp_truthy
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org: troque as variaveis do inicio para que cada
+          bloco if seja verdadeiro, fazendo o programa imprimir os numeros de 1 a 6.'
+        solution: "number = 16\nsecond_number = 0\nfirst_array = [1, 2, 3]\nsecond_array =\
+          \ [1, 2]\nif number > 15:\n    print(\"1\")\nif first_array:\n    print(\"2\")\n\
+          if len(second_array) == 2:\n    print(\"3\")\nif len(first_array) + len(second_array)\
+          \ == 5:\n    print(\"4\")\nif first_array and first_array[0] == 1:\n    print(\"\
+          5\")\nif not second_number:\n    print(\"6\")\n"
+        tests:
+        - name: Saida esperada
+          expected: '1
+
+            2
+
+            3
+
+            4
+
+            5
+
+            6
+
+            '
+        hints:
+        - Lista vazia, 0, None e False contam como falso.
+        - number maior que 15 e second_number igual a 0.
+
   - id: repeticao
     title: "Repetição: laços"
     color: "#ef4444"
@@ -422,6 +494,109 @@ concepts:
         - '    contador = contador + 1'
         hints:
         - Sem incrementar o contador o laço nunca termina.
+
+      - id: repeticao_lp_range
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org: como o range funciona? O que sera exibido?'
+        code: "for x in range(5):\n    print(x)\nfor x in range(3, 6):\n    print(x)\nfor\
+          \ x in range(3, 8, 2):\n    print(x)\n"
+        answer: '0
+
+          1
+
+          2
+
+          3
+
+          4
+
+          3
+
+          4
+
+          5
+
+          3
+
+          5
+
+          7
+
+          '
+        hints:
+        - range(5) vai de 0 ate 4.
+        - range(inicio, fim) exclui o fim; range(inicio, fim, passo) pula de passo em passo.
+      - id: repeticao_lp_237
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 300
+        prompt: 'Exercicio do learnpython.org (Loops): percorra a lista numbers e imprima
+          so os numeros pares que vem ANTES do 237. Pare ao chegar no 237 e nao imprima nada
+          depois dele.'
+        solution: "numbers = [951, 402, 984, 651, 360, 69, 408, 319, 601, 485, 980, 507, 725,\
+          \ 547, 544, 615, 83, 165, 141, 501, 263, 617, 865, 575, 219, 390, 984, 592, 236,\
+          \ 105, 942, 941, 386, 462, 47, 418, 907, 344, 236, 375, 823, 566, 597, 978, 328,\
+          \ 615, 953, 345, 399, 162, 758, 219, 918, 237, 412, 566, 826, 248, 866, 950, 626,\
+          \ 949, 687, 217, 815, 67, 104, 58, 512, 24, 892, 894, 767, 553, 81, 379, 843, 831,\
+          \ 445, 742, 717, 958, 609, 842, 451, 688, 753, 854, 685, 93, 857, 440, 380, 126,\
+          \ 721, 328, 753, 470, 743, 527]\nfor number in numbers:\n    if number == 237:\n\
+          \        break\n    if number % 2 == 1:\n        continue\n    print(number)\n"
+        tests:
+        - name: Saida esperada
+          expected: '402
+
+            984
+
+            360
+
+            408
+
+            980
+
+            544
+
+            390
+
+            984
+
+            592
+
+            236
+
+            942
+
+            386
+
+            462
+
+            418
+
+            344
+
+            236
+
+            566
+
+            978
+
+            328
+
+            162
+
+            758
+
+            918
+
+            '
+        must_include:
+        - break
+        hints:
+        - Use break para parar ao encontrar o 237.
+        - Um numero e impar se number % 2 == 1; pule com continue.
 
   - id: decomposicao
     title: "Decomposição"

@@ -3,42 +3,48 @@
 </div>
 <span id="review-badge-slot" hx-swap-oob="true">{% if due_reviews > 0 %}<span class="badge">{{ due_reviews }}</span>{% endif %}</span>
 <span id="review-pending-slot" hx-swap-oob="true">{{ due_reviews }} pendente(s) hoje</span>
+
 {% if check.correct %}
-<div class="feedback feedback-ok">
+<div class="feedback feedback-ok review-feedback" data-confetti>
   <div class="fb-head">
     <span class="fb-ico">✓</span>
-    <div><b>Você lembrou!</b> <span class="fb-detail">Revisão correta — recuperar isso agora vale ainda mais.</span></div>
+    <div><b>Você lembrou!</b>
+      <span class="fb-detail">Revisão correta — recuperar isso agora vale ainda mais.</span></div>
     <span class="fb-xp">+{{ xp_earned }} XP</span>
   </div>
-  {% if check.actual_output %}
-  <div class="fb-run"><div><b>Saída:</b><pre class="fb-pre">{{ check.actual_output }}</pre></div></div>
-  {% endif %}
 </div>
 {% else %}
-<div class="feedback feedback-wrong">
+<div class="feedback feedback-wrong review-feedback">
   <div class="fb-head">
     <span class="fb-ico">↻</span>
-    <div><b>Esqueceu um pouco.</b> <span class="fb-detail">Isso é normal — a revisão existe exatamente para isso. O intervalo será reduzido para reforçar.</span></div>
+    <div><b>Não foi dessa vez.</b>
+      <span class="fb-detail">Tudo bem — é agora, na revisão, que o conhecimento fica.</span></div>
   </div>
-  {% if check.feedback %}<div class="fb-tip">{{ check.feedback }}</div>{% endif %}
-  {% if check.run_error %}<div class="fb-tip"><b>{{ check.run_error.get('class') }}:</b>{{ check.run_error.get('message','') }}</div>{% endif %}
+  <div class="review-explain">
+    {% if user_answer and user_answer.strip() %}
+    <p class="rv-line"><b>O que você respondeu:</b><pre class="fb-pre">{{ user_answer }}</pre></p>
+    {% endif %}
+    {% if check.feedback %}
+    <p class="rv-line"><b>Por quê:</b> {{ check.feedback }}</p>
+    {% elif check.message %}
+    <p class="rv-line"><b>Por quê:</b> {{ check.message }}</p>
+    {% endif %}
+    {% if check.actual_output %}
+    <p class="rv-line"><b>O que o Python exibe:</b><pre class="fb-pre">{{ check.actual_output }}</pre></p>
+    {% endif %}
+    {% if expected_text %}
+    <p class="rv-line"><b>Esperado:</b><pre class="fb-pre">{{ expected_text }}</pre></p>
+    {% endif %}
+    {% if review_concept and review_concept.summary %}
+    <p class="rv-line concept-line"><b>O conceito:</b> {{ review_concept.summary }}</p>
+    {% endif %}
+  </div>
 </div>
 {% endif %}
 
-{% if next_item %}
-<div class="review-next">
-  <div class="review-next-label">Próxima revisão</div>
-  <div class="review-next-card">
-    <span class="concept-badge" style="background:{{ next_concept.color }}">{{ next_concept.title }}</span>
-    <p>{{ next_item.prompt.split('\n')[0] }}</p>
-    {% with ex = next_item, solved = false, seed = 'review' %}
-      {% include "partials/_review_card.html" %}
-    {% endwith %}
-  </div>
+<div class="review-actions">
+  <button class="btn primary" type="button" hx-get="/frag/review/next"
+          hx-target="closest .review-question-card" hx-swap="innerHTML">
+    Próxima revisão →
+  </button>
 </div>
-{% else %}
-<div class="review-done">
-  🎉 Review completo para hoje! Seu conhecimento de longo prazo agradece.
-  <a class="btn primary" href="/dashboard">Voltar ao início</a>
-</div>
-{% endif %}

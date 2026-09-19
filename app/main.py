@@ -90,7 +90,7 @@ def _xp_level(xp: int) -> int:
 def _xp_progress_pct(xp: int) -> float:
     from app.engine.xp import xp_progress
 
-    return xp_progress(xp)[2]
+    return round(xp_progress(xp)[2] * 100, 1)
 
 
 templates.env.globals["xp_level_for"] = _xp_level

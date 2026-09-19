@@ -1,0 +1,306 @@
+# ────────────────────────────────────────────────────────────────
+# TRILHA CURIOSIDADE — NÍVEL 4
+# Diversão com Python: jogos de terminal, arte ASCII e um projeto
+# criativo livre.
+# ────────────────────────────────────────────────────────────────
+level: 4
+slug: "curiosidade"
+title: "Trilha Curiosidade"
+subtitle: "Brincar é aprender: jogos no terminal, arte com caracteres e ideias malucas."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: cur_jogos
+    title: "Jogos de terminal"
+    color: "#a855f7"
+    goals: ["curiosidade"]
+    summary: "Advinhação, forca e quiz: a diversão cabe em 10 linhas de print e input."
+    lessons:
+      - id: cur_jogos_intro
+        title: "O jogo cabe no terminal"
+        blocks:
+          - type: text
+            body: |
+              Um jogo de terminal segue o loop: **mostrar → perguntar → decidir → repetir**. Até um "quente ou frio" usa isso:
+
+              ```python
+              def dica(segredo):
+                  print(f"o segredo tem {len(segredo)} letras")
+
+              dica("python")   # o segredo tem 6 letras
+              ```
+
+              O laço `while` é o queridinho de jogos — rodar até o jogador acertar:
+              ```python
+              jogando = True
+              while jogando:
+                  palpite = input("sua vez: ")
+                  # decide...
+              ```
+          - type: callout
+            body: "Regra de ouro do jogo de terminal: cada print conta uma parte da história, cada input é uma escolha do jogador."
+    exercises:
+      - id: cur_jogos_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def dica(segredo):
+              print(f"o segredo tem {len(segredo)} letras")
+
+          dica("python")
+        answer: |
+          o segredo tem 6 letras
+        hints:
+          - "len('python') = 6."
+        time_estimate: 90
+
+      - id: cur_jogos_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual laço é o mais natural para um jogo de "adivinhe o número"?
+        options:
+        - while (rodar até acertar/sair).
+        - for fixo de 3 iterações.
+        - Nenhum laço, só um if.
+        - Um laço que nunca testa condição.
+        answer: '0'
+        hints:
+        - "while repete enquanto a condição valer."
+        time_estimate: 60
+
+      - id: cur_jogos_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o laço que repete enquanto a condição for verdadeira:
+        code: |
+          jogando = True
+          ____ jogando:
+              palpite = input("sua vez: ")
+        answer: 'while'
+        hints:
+        - "while = enquanto."
+        time_estimate: 45
+
+      - id: cur_jogos_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que mostre quantas letras a palavra secreta tem, usando `len`, e mostre as chances "3", na forma "_ _ _ _ _ _" e "chances: texto".
+        code: |
+          palavra = "python"
+          tentativas = 3
+        tests:
+          - name: "Mesa do jogo"
+            expected: |
+              _ _ _ _ _ _ 
+              chances: 3
+        hints:
+          - "print('_ ' * len(palavra)) mostra uma linha por letra."
+        solution: |
+          palavra = "python"
+          tentativas = 3
+          print("_ " * len(palavra))
+          print("chances: " + str(tentativas))
+        must_include:
+          - len(palavra)
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: cur_arte_ascii
+    title: "Arte ASCII"
+    color: "#38bdf8"
+    goals: ["curiosidade"]
+    summary: "Desenhos feitos de caracteres: multiplicar strings e montar padrões."
+    lessons:
+      - id: cur_arte_ascii_intro
+        title: "O pincel é um caractere"
+        blocks:
+          - type: text
+            body: |
+              Multiplicar strings é desenhar: `"*" * 8` vira `********`. Combinar multiplicação com laço cria formas:
+
+              ```python
+              for i in range(1, 4):
+                  print("*" * i)
+              # *
+              # **
+              # ***
+              ```
+
+              Arte ASCII é leve, roda em qualquer lugar e treina a lógica de padrões.
+          - type: callout
+            body: "Padrão = repetição. Todo desenho em ASCII é um for com a matemática certa de multiplicação."
+    exercises:
+      - id: cur_arte_ascii_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          linha = "*" * 8
+          print(linha)
+        answer: |
+          ********
+        hints:
+          - "Multiplicar string repete ela."
+        time_estimate: 60
+
+      - id: cur_arte_ascii_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          for i in range(1, 4):
+              print("*" * i)
+        answer: |
+          *
+          **
+          ***
+        hints:
+          - "i cresce de 1 a 3 e repete o asterisco."
+        time_estimate: 90
+
+      - id: cur_arte_ascii_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete para que a linha tenha 5 asteriscos:
+        code: |
+          print("*" ____ 5)
+        answer: '*'
+        hints:
+        - "O símbolo de multiplicação."
+        time_estimate: 45
+
+      - id: cur_arte_ascii_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que desenhe um triângulo com um `for` de 1 a 5, imprimindo `"*" * i` por linha.
+        tests:
+          - name: "Triângulo"
+            expected: |
+              *
+              **
+              ***
+              ****
+              *****
+        hints:
+          - "for i in range(1, 6): print('*' * i)"
+        solution: |
+          for i in range(1, 6):
+              print("*" * i)
+        must_include:
+          - range
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: cur_projeto
+    title: "Projeto criativo livre"
+    color: "#f9a8d4"
+    goals: ["curiosidade"]
+    summary: "Sua ideia, seu código: um mini-projeto que roda sem erro e com personalidade."
+    lessons:
+      - id: cur_projeto_intro
+        title: "Da faísca ao programa"
+        blocks:
+          - type: text
+            body: |
+              Curiosidade é combustível. Junte o que você já sabe — print, funções, listas, laços — numa ideia sua: um quiz, uma poesia gerada, um texto gigante de arte ASCII, uma calculadora de piadas.
+
+              https://learnpython.org/ traz dezenas de ideias; o segredo é começar pequeno e rodar:
+              ```python
+              def poesia(palavra):
+                  print(palavra + ", " + palavra + "!")
+                  print("sempre " + palavra + ".")
+
+              poesia("python")
+              ```
+          - type: callout
+            body: "Quanto mais diverte, mais instintos de programador exercita. Termine um — depois otimize."
+    exercises:
+      - id: cur_projeto_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def poesia(palavra):
+              print(palavra + ", " + palavra + "!")
+              print("sempre " + palavra + ".")
+
+          poesia("python")
+        answer: |
+          python, python!
+          sempre python.
+        hints:
+          - "A função repete a palavra escolhida."
+        time_estimate: 90
+
+      - id: cur_projeto_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual destas é a melhor estratégia para um PRIMEIRO projeto criativo?
+        options:
+        - Uma ideia pequena que dá para terminar hoje.
+        - Um sistema operacional completo.
+        - Um jogo 3D com física realista.
+        - Um app de banco com multa.
+        answer: '0'
+        hints:
+        - "Terminar pequeno ensina mais que começar gigante."
+        time_estimate: 60
+
+      - id: cur_projeto_3
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que mostre um rótulo de boas-vindas usando multiplicação de string: "=====", "Bem-vindo!" e "=====", um por linha.
+        tests:
+          - name: "Placa"
+            expected: |
+              =====
+              Bem-vindo!
+              =====
+        hints:
+          - "print('=' * 5)"
+        solution: |
+          print("=" * 5)
+          print("Bem-vindo!")
+          print("=" * 5)
+        must_include:
+          - print
+        time_estimate: 120
+
+      - id: cur_projeto_boss
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 420
+        prompt: 'Chefinho (escreva o código): crie uma função `eco(texto)` que mostra `texto` repetido 3 vezes (use multiplicação de string, com um espaço de separação), e exiba o eco de "oi".'
+        solution: |
+          def eco(texto):
+              print(" ".join([texto] * 3))
+
+          eco("oi")
+        must_include:
+          - def eco
+        tests:
+        - name: Eco
+          expected: 'oi oi oi
+
+            '
+        hints:
+        - (texto + " ") * 3 repete com espaço.
+        common_error: Multiplicar só o texto e esquecer o espaço de separação.

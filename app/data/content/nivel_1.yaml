@@ -157,6 +157,41 @@ concepts:
         - Cada print() imprime uma linha.
         common_error: Colocar as duas mensagens no mesmo print sem o caractere de quebra.
 
+      - id: primeiro_codigo_lp_hello
+        type: write
+        difficulty: easy
+        xp: 15
+        time_estimate: 90
+        prompt: 'Exercicio do learnpython.org (Hello, World!): use a funcao print para exibir
+          a linha "Hello, World!".'
+        solution: 'print("Hello, World!")
+
+          '
+        tests:
+        - name: Saida esperada
+          expected: 'Hello, World!
+
+            '
+        must_include:
+        - print
+        hints:
+        - print("...") exibe uma linha, adicionando uma quebra de linha no final.
+      - id: primeiro_codigo_lp_python3
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org: no Python 3 o print e uma funcao e usa parenteses. O
+          que sera exibido?'
+        code: 'print("This line will be printed.")
+
+          '
+        answer: 'This line will be printed.
+
+          '
+        hints:
+        - O texto entre parenteses e exibido literalmente.
+
   - id: variaveis
     title: "Variáveis"
     color: "#10b981"
@@ -326,6 +361,69 @@ concepts:
         hints:
         - A atribuição múltipla avalia o lado direito antes de guardar.
         common_error: Trocar com três linhas usando uma variável temporária e errar a ordem.
+
+      - id: variaveis_lp_valores
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Variables and Types): o que sera exibido?'
+        code: 'myint = 7
+
+          myfloat = float(7)
+
+          mystring = "hello"
+
+          one, two = 1, 2
+
+          print(myint)
+
+          print(myfloat)
+
+          print(mystring)
+
+          print(one + two)
+
+          '
+        answer: '7
+
+          7.0
+
+          hello
+
+          3
+
+          '
+        hints:
+        - float(7) converte o 7 em 7.0.
+        - a, b = 1, 2 atribui os dois valores de uma vez.
+      - id: variaveis_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Variables and Types): crie mystring = "hello"
+          (string), myfloat = 10.0 (float) e myint = 20 (inteiro) e rode o codigo de teste.'
+        solution: "mystring = \"hello\"\nmyfloat = 10.0\nmyint = 20\nif mystring == \"hello\"\
+          :\n    print(\"String: %s\" % mystring)\nif isinstance(myfloat, float) and myfloat\
+          \ == 10.0:\n    print(\"Float: %f\" % myfloat)\nif isinstance(myint, int) and myint\
+          \ == 20:\n    print(\"Integer: %d\" % myint)\n"
+        tests:
+        - name: Saida esperada
+          expected: 'String: hello
+
+            Float: 10.000000
+
+            Integer: 20
+
+            '
+        must_include:
+        - myfloat = 10.0
+        - myint = 20
+        - mystring = "hello"
+        hints:
+        - 'myfloat precisa ser um float: 10.0.'
+        - 'myint precisa ser int: 20.'
 
   - id: tipos_dados
     title: "Tipos de dados"
@@ -592,6 +690,56 @@ concepts:
         - A indexação começa em 0, então a última letra está no índice 5.
         common_error: Usar nome[6] para a última letra e estourar o índice (IndexError).
 
+      - id: strings_lp_apostrofo
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Strings): aspas duplas facilitam usar apostrofos. O que
+          sera exibido?'
+        code: 'mystring = "Don''t worry about apostrophes"
+
+          print(mystring)
+
+          hello = "hello"
+
+          world = "world"
+
+          print(hello + " " + world)
+
+          '
+        answer: 'Don''t worry about apostrophes
+
+          hello world
+
+          '
+        hints:
+        - + junta strings; " " e um espaco entre as palavras.
+      - id: strings_lp_format_string
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (String Formatting): escreva o format_string
+          que, ao aplicar com %, exibe "Hello John Doe. Your current balance is $53.44." usando
+          a tupla data.'
+        solution: 'data = ("John", "Doe", 53.44)
+
+          format_string = "Hello %s %s. Your current balance is $%s."
+
+          print(format_string % data)
+
+          '
+        tests:
+        - name: Saida esperada
+          expected: 'Hello John Doe. Your current balance is $53.44.
+
+            '
+        must_include:
+        - '%s'
+        hints:
+        - '%s coloca um valor no lugar; cada %s corresponde a um elemento da tupla.'
+
   - id: numeros
     title: "Números e operações"
     color: "#8b5cf6"
@@ -750,6 +898,93 @@ concepts:
         hints:
         - A divisão pelo número de provas vem depois da soma.
         common_error: Somar sem os parênteses, obtendo 8 + 9 + (10/3) em vez de (8+9+10)/3.
+
+      - id: numeros_lp_ordem
+        type: predict
+        difficulty: easy
+        xp: 15
+        time_estimate: 60
+        prompt: 'Do learnpython.org (Basic Operators): Python segue a ordem das operacoes.
+          O que sera exibido?'
+        code: 'print(1 + 2 * 3 / 4.0)
+
+          print(11 % 3)
+
+          print(7 ** 2)
+
+          print(2 ** 3)
+
+          '
+        answer: '2.5
+
+          2
+
+          49
+
+          8
+
+          '
+        hints:
+        - Multiplicacao e divisao antes da soma.
+        - '% e o resto da divisao; ** e potencia.'
+      - id: numeros_lp_str_list
+        type: predict
+        difficulty: easy
+        xp: 20
+        time_estimate: 90
+        prompt: 'Do learnpython.org (Basic Operators): os operadores + e * funcionam com strings
+          e listas. O que sera exibido?'
+        code: 'helloworld = "hello" + " " + "world"
+
+          print(helloworld)
+
+          print("hello" * 2)
+
+          print([1, 2, 3] * 3)
+
+          '
+        answer: 'hello world
+
+          hellohello
+
+          [1, 2, 3, 1, 2, 3, 1, 2, 3]
+
+          '
+        hints:
+        - + concatena; * repete a sequencia.
+      - id: numeros_lp_exercicio
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Basic Operators): crie x_list com 10 copias
+          de x, y_list com 10 copias de y e big_list concatenando as duas listas (x_list +
+          y_list).'
+        solution: "x = object()\ny = object()\nx_list = [x] * 10\ny_list = [y] * 10\nbig_list\
+          \ = x_list + y_list\nprint(\"x_list contains %d objects\" % len(x_list))\nprint(\"\
+          y_list contains %d objects\" % len(y_list))\nprint(\"big_list contains %d objects\"\
+          \ % len(big_list))\nif x_list.count(x) == 10 and y_list.count(y) == 10:\n    print(\"\
+          Almost there...\")\nif big_list.count(x) == 10 and big_list.count(y) == 10:\n  \
+          \  print(\"Great!\")\n"
+        tests:
+        - name: Saida esperada
+          expected: 'x_list contains 10 objects
+
+            y_list contains 10 objects
+
+            big_list contains 20 objects
+
+            Almost there...
+
+            Great!
+
+            '
+        must_include:
+        - '* 10'
+        - + y_list
+        hints:
+        - '[x] * 10 cria a lista com 10 copias.'
+        - big_list = x_list + y_list une as duas.
 
   - id: comparacoes
     title: "Comparações"
@@ -1058,4 +1293,30 @@ concepts:
         hints:
         - Inteiros entram como texto; converta com int() antes de somar.
         common_error: Somar as strings, exibindo "46" em vez de 10.
+      - id: entrada_dados_lp_soma
+        type: write
+        difficulty: medium
+        xp: 40
+        time_estimate: 240
+        prompt: 'Exercicio do learnpython.org (Input and Output): leia tres inteiros da mesma
+          linha (entrada "1 2 3"), converta cada um com int() e exiba a soma como "sum is
+          6".'
+        solution: 'a, b, c = map(int, input().split())
 
+          print("sum is", a + b + c)
+
+          '
+        tests:
+        - name: Entrada 1 2 3
+          input: '1 2 3
+
+            '
+          expected: 'sum is 6
+
+            '
+        must_include:
+        - map
+        - input
+        hints:
+        - input().split() separa os valores da linha.
+        - map(int, ...) converte cada um para inteiro.

@@ -19,6 +19,10 @@ VALID_DIFFICULTY = {"easy", "medium", "hard"}
 VALID_BLOCK_TYPES = {
     "text", "code", "visual", "exercise_ref", "callout", "dataset_note",
 }
+VALID_GOALS = {
+    "trabalho", "faculdade", "dados", "automacao",
+    "curiosidade", "carreira", "kids", "outro",
+}
 
 DIFFICULTY_LABEL = {"easy": "Fácil", "medium": "Médio", "hard": "Difícil"}
 DIFFICULTY_XP = {"easy": 15, "medium": 25, "hard": 40}
@@ -80,6 +84,7 @@ class Concept:
     color: str = "#3b82f6"
     lessons: list = field(default_factory=list)      # list[Lesson]
     exercises: list = field(default_factory=list)    # list[Exercise]
+    goals: list = field(default_factory=list)        # trilhas (objetivos) em que aparece
 
 
 @dataclass
@@ -140,12 +145,20 @@ class ContentRegistry:
             raise ValueError(f"{path.name} sem nível")
 
     def _parse_concept(self, cdef: dict, level_no: int) -> Concept:
+        goals = [str(g) for g in cdef.get("goals", [])]
+        invalid = [g for g in goals if g not in VALID_GOALS]
+        if invalid:
+            raise ValueError(
+                f"objetivos inválidos {invalid} em {cdef.get('id')} "
+                f"(permitidos: {sorted(VALID_GOALS)})"
+            )
         concept = Concept(
             id=str(cdef["id"]),
             level=level_no,
             title=str(cdef["title"]),
             summary=str(cdef.get("summary", "")),
             color=str(cdef.get("color", "#3b82f6")),
+            goals=goals,
         )
         for ldef in cdef.get("lessons", []):
             lesson = self._parse_lesson(ldef, concept.id)
@@ -253,6 +266,22 @@ class ContentRegistry:
 
     def concepts_of_level(self, level_no: int) -> list[Concept]:
         return [c for c in self.concepts if c.level == level_no]
+
+    def concepts_for(self, goal: str | None = None) -> list[Concept]:
+        """Conceitos visíveis para um objetivo do onboarding.
+
+        Conceitos sem `goals` são comuns (todas as trilhas). Conceitos com
+        `goals` só aparecem para quem escolheu um daqueles objetivos. A trilha
+        'kids' recebe o currículo comum básico (níveis 0-1) mais os próprios
+        temas de programação para crianças.
+        """
+        g = goal or ""
+        if g == "kids":
+            return [
+                c for c in self.concepts
+                if (c.level <= 1 and not c.goals) or c.goals == ["kids"]
+            ]
+        return [c for c in self.concepts if not c.goals or g in c.goals]
 
     def level(self, level_no: int) -> Level | None:
         for lv in self.levels:

@@ -38,6 +38,30 @@ def _daily_pick(pool, concept_id: str):
     return random.Random(seed).choice(pool) if pool else None
 
 
+def _review_expected(exercise) -> str | None:
+    """Texto do que era esperado, para o feedback de revisão."""
+    et = exercise.type
+    if et in {"choice", "explain"} and exercise.options and exercise.answer is not None:
+        try:
+            idx = int(exercise.answer)
+        except (TypeError, ValueError):
+            idx = -1
+        return exercise.options[idx] if 0 <= idx < len(exercise.options) else None
+    if et == "complete":
+        return exercise.answer
+    if et == "order" and exercise.lines:
+        return "\n".join(exercise.lines)
+    if et == "find_error" and exercise.lines and exercise.error_line is not None:
+        if 0 <= exercise.error_line < len(exercise.lines):
+            return exercise.lines[exercise.error_line]
+        return None
+    if et in {"write", "fix", "debug"}:
+        return (exercise.solution or "").rstrip("\n") or None
+    if et == "predict":
+        return exercise.answer
+    return None
+
+
 # ── Exercício: executar código dentro do enunciado ────────────
 @router.post("/frag/exercise/{exercise_id}/run", response_class=HTMLResponse)
 async def frag_exercise_run(
@@ -177,17 +201,42 @@ async def frag_review_submit(
     certificate.issue_certificate_if_ready(session, user)
 
     due = review.due_reviews(session, user.id)
-    next_item, next_concept = None, None
+    concept = registry.concept(concept_id) if concept_id else None
+    ctx = template_context(request, session, user)
+    ctx.update({
+        "check": check, "xp_earned": xp, "user": user,
+        "review_concept": concept,
+        "review_exercise": exercise,
+        "review_due": due,
+        "user_answer": payload,
+        "expected_text": _review_expected(exercise),
+    })
+    return request.app.state.templates.TemplateResponse(request, "partials/_review_feedback.html", ctx)
+
+
+# ── Revisão: carregar próxima pergunta ──────────────────────────
+@router.get("/frag/review/next", response_class=HTMLResponse)
+async def frag_review_next(
+    request: Request,
+    session: Session = Depends(get_session),
+):
+    user = _user(request, session)
+    if not user:
+        return HTMLResponse("<div class='msg-err'>Faça login.</div>")
+    registry = load_content()
+    due = review.due_reviews(session, user.id)
     if due:
         nuc = due[0]
-        next_concept = registry.concept(nuc.concept_id)
+        concept = registry.concept(nuc.concept_id)
         pool = registry.exercises_of(nuc.concept_id)
-        if pool:
-            next_item = _daily_pick(pool, nuc.concept_id)
+        item = _daily_pick(pool, nuc.concept_id) if pool else None
+        if item:
+            ctx = template_context(request, session, user)
+            ctx.update({"next_item": item, "next_concept": concept, "user": user})
+            return request.app.state.templates.TemplateResponse(request, "partials/_review_next.html", ctx)
     ctx = template_context(request, session, user)
-    ctx.update({"check": check, "xp_earned": xp, "next_item": next_item,
-                "next_concept": next_concept, "user": user})
-    return request.app.state.templates.TemplateResponse(request, "partials/_review_feedback.html", ctx)
+    ctx.update({"user": user})
+    return request.app.state.templates.TemplateResponse(request, "partials/_review_done.html", ctx)
 
 
 # ── Laboratório: executar ──────────────────────────────────────

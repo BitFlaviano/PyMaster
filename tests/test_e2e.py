@@ -59,13 +59,13 @@ def test_onboarding_get(client):
     assert "diagnóstico" in r.text.lower()
 
 
-def create_profile(client, name, pin="", avatar="🎓"):
+def create_profile(client, name, pin="", avatar="🎓", goal="dados"):
     return client.post("/onboarding", data={
         "name": name,
         "avatar": avatar,
         "pin": pin,
         "prior_level": "nunca",
-        "goal": "dados",
+        "goal": goal,
         "q_logica_1": "1", "q_sequencia_1": "1", "q_variavel_1": "1",
         "q_condicao_1": "1", "q_loop_1": "1", "q_dados_1": "0",
     }, follow_redirects=True)
@@ -275,6 +275,98 @@ def test_content_loaded():
     assert len(registry.concepts) >= 41
     assert len(all_exercises(registry)) >= 222
     assert len(registry.datasets) >= 10
+
+
+GOALS = ["outro", "kids", "automacao", "trabalho", "dados", "faculdade", "carreira", "curiosidade"]
+
+
+def test_onboarding_offers_kids_goal(client):
+    body = client.get("/onboarding").text
+    assert "kids" in body
+    assert "Crianças" in body
+
+
+def test_goal_filters_registry():
+    from app.engine.content import VALID_GOALS, load_content
+
+    registry = load_content()
+    for goal in GOALS:
+        assert goal in VALID_GOALS
+
+    kids = [c for c in registry.concepts if c.goals == ["kids"]]
+    auto = [c for c in registry.concepts if c.goals == ["automacao"]]
+    assert kids and auto
+
+    common = [c for c in registry.concepts if not c.goals]
+    common_basic = {c.id for c in common if c.level <= 1}
+
+    kids_visible = {c.id for c in registry.concepts_for("kids")}
+    assert kids_visible == common_basic | {c.id for c in kids}
+    assert not ({c.id for c in auto} & kids_visible), "kids não deve ver a trilha de automação"
+
+    auto_visible = {c.id for c in registry.concepts_for("automacao")}
+    assert {c.id for c in auto} <= auto_visible
+    assert {c.id for c in common} <= auto_visible
+    assert not ({c.id for c in kids} & auto_visible), "automação não deve ver a trilha kids"
+
+
+def test_goal_filters_progression_overview(client):
+    from app.db import engine
+    from app.engine.content import load_content
+    from app.engine.progression import overview
+    from app.models import User
+    from sqlmodel import Session, select
+
+    registry = load_content()
+    for idx, goal in enumerate(GOALS):
+        name = f"Goal {idx}"
+        create_profile(client, name, goal=goal)
+        client.post("/logout")
+        with Session(engine) as session:
+            uid = session.exec(select(User).where(User.name == name)).first().id
+            seen = {item["concept"].id for item in overview(session, uid)}
+        expected = {c.id for c in registry.concepts_for(goal)}
+        assert seen == expected, f"overview divergiu para goal={goal}"
+
+    # perfil kids: mapa mostra só conceitos da trilha kids/comuns e não os das outras
+    client.post("/logout")
+    create_profile(client, "Goal Kids Map", goal="kids")
+    kids_first = registry.concepts_for("kids")[0]
+    auto_first = next(c for c in registry.concepts if c.goals == ["automacao"])
+    body = client.get("/map").text
+    assert kids_first.title in body
+    assert auto_first.title not in body
+
+
+def test_kids_hides_empty_levels(client):
+    from app.db import engine
+    from app.engine import certificate as cert_engine
+    from app.models import User
+    from sqlmodel import Session, select
+
+    create_profile(client, "Kids Levels", goal="kids")
+    for path in ("/map", "/learn"):
+        body = client.get(path).text
+        assert "Nível 0 –" in body or "Nível 0 —" in body
+        assert "Estruturas de dados" not in body
+        assert "Código Profissional" not in body
+        assert "Python Produtivo" not in body
+        assert "Análise de Dados" not in body
+        assert "Integração" not in body
+    with Session(engine) as session:
+        uid = session.exec(select(User).where(User.name == "Kids Levels")).first().id
+        levels = [m["number"] for m in cert_engine.module_progress(session, uid)]
+    assert levels == [0, 1]
+
+
+def test_invalid_goal_rejected_in_content():
+    import pytest as _pytest
+
+    from app.engine.content import load_content
+
+    registry = load_content()
+    with _pytest.raises(ValueError):
+        registry._parse_concept({"id": "x", "title": "X", "goals": ["nao_existe"]}, 0)
 
 
 def test_datasets_page_exists():

@@ -553,6 +553,57 @@ concepts:
         time_estimate: 420
 
   # ────────────────────────────────────────────────────────────────
+      - id: geradores_lp_fib
+        type: predict
+        difficulty: hard
+        xp: 35
+        time_estimate: 150
+        prompt: 'Do learnpython.org (Generators): os 7 primeiros numeros de Fibonacci. O que
+          sera exibido?'
+        code: "def fibonacci():\n    a, b = 0, 1\n    while True:\n        a, b = b, a + b\n\
+          \        yield a\n\nf = fibonacci()\nfor i in range(7):\n    print(next(f))\n"
+        answer: '1
+
+          1
+
+          2
+
+          3
+
+          5
+
+          8
+
+          13
+
+          '
+        hints:
+        - 'Cada next avanca o gerador: 1, 1, 2, 3, 5, 8, 13.'
+      - id: geradores_lp_fibonacci
+        type: write
+        difficulty: hard
+        xp: 50
+        time_estimate: 360
+        prompt: 'Exercicio do learnpython.org (Generators): escreva uma funcao geradora fibonacci()
+          com yield, crie f = fibonacci() e rode o codigo de teste que verifica os primeiros
+          números.'
+        solution: "def fibonacci():\n    a, b = 0, 1\n    while True:\n        a, b = b, a\
+          \ + b\n        yield a\n\nf = fibonacci()\nfib = []\nfor i in range(10):\n    fib.append(next(f))\n\
+          print(fib)\nif fib == [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]:\n    print(\"Ganhou a\
+          \ sequencia de Fibonacci!\")\n"
+        tests:
+        - name: Saida esperada
+          expected: '[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+            Ganhou a sequencia de Fibonacci!
+
+            '
+        must_include:
+        - yield
+        hints:
+        - A troca a, b = b, a + b avanca a sequencia.
+        - next(f) puxa o proximo valor do gerador.
+
   - id: recursao
     title: "Recursão"
     color: "#dc2626"

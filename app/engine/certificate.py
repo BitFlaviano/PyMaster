@@ -46,6 +46,8 @@ def unlocked_badges(session: Session, user_id: int) -> set[str]:
 def module_progress(session: Session, user_id: int) -> list[dict]:
     """Progresso por módulo: conclusão (% conceitos com status 'dominado') e domínio médio."""
     registry = load_content()
+    user = session.exec(select(User).where(User.id == user_id)).first()
+    goal = (user.goal or "") if user else ""
     concepts_by_id = {
         uc.concept_id: uc
         for uc in session.exec(select(UserConcept).where(UserConcept.user_id == user_id))
@@ -53,21 +55,23 @@ def module_progress(session: Session, user_id: int) -> list[dict]:
     have = unlocked_badges(session, user_id)
     out: list[dict] = []
     for level in registry.levels:
-        concepts = registry.concepts_of_level(level.number)
+        concepts = [
+            c for c in registry.concepts_for(goal) if c.level == level.number
+        ]
+        if not concepts:
+            continue
         total = len(concepts)
         dominated = sum(
             1 for c in concepts
             if (uc := concepts_by_id.get(c.id)) is not None and uc.status == "dominado"
         )
-        completion = round(dominated / total * 100, 1) if total else 0.0
-        mastery = 0.0
-        if concepts:
-            mastery = round(
-                sum(min(concepts_by_id[c.id].mastery, 100) if c.id in concepts_by_id else 0
-                    for c in concepts)
-                / len(concepts),
-                1,
-            )
+        completion = round(dominated / total * 100, 1)
+        mastery = round(
+            sum(min(concepts_by_id[c.id].mastery, 100) if c.id in concepts_by_id else 0
+                for c in concepts)
+            / total,
+            1,
+        )
         out.append({
             "number": level.number,
             "title": level.title,

@@ -4,10 +4,12 @@
 {% block content %}
 <div class="map-page">
   {% for level in registry.levels %}
+  {% set _items = overview | selectattr('concept.level', 'equalto', level.number) | list %}
+  {% if _items %}
   <div class="map-level">
     <div class="map-level-title">{{ level.title }}</div>
     <div class="map-nodes">
-      {% for item in overview if item.concept.level == level.number %}
+      {% for item in _items %}
       <div class="map-node">
         {% if item.unlocked %}
         <a class="map-node-card {{ item.status }}" href="/concept/{{ item.concept.id }}"> 
@@ -26,6 +28,7 @@
       {% endfor %}
     </div>
   </div>
+  {% endif %}
   {% endfor %}
 </div>
 {% endblock %}

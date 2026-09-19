@@ -118,7 +118,7 @@
       <button class="btn primary" type="submit">Salvar perfil</button>
     </form>
     <dl class="settings-info about-info">
-      <dt>Objetivo</dt><dd>{{ {'trabalho':'Trabalho','faculdade':'Faculdade','dados':'Análise de dados','automacao':'Automação','curiosidade':'Curiosidade','carreira':'Transição de carreira','outro':'Outro'}.get(user.goal, user.goal or '—') }}</dd>
+      <dt>Objetivo</dt><dd>{{ {'trabalho':'Trabalho','faculdade':'Faculdade','dados':'Análise de dados','automacao':'Automação','curiosidade':'Curiosidade','carreira':'Transição de carreira','kids':'Crianças','outro':'Outro'}.get(user.goal, user.goal or '—') }}</dd>
       <dt>Nível inicial apontado</dt><dd>{{ user.diagnosed_level }}</dd>
     </dl>
   </div>

@@ -1,0 +1,417 @@
+# ────────────────────────────────────────────────────────────────
+# TRILHA DADOS — NÍVEL 5
+# Análise de dados: limpeza, exploração, correlação e relatório.
+# Constrói sobre numpy/pandas já vistos no nível comum.
+# ────────────────────────────────────────────────────────────────
+level: 5
+slug: "dados"
+title: "Trilha Análise de Dados"
+subtitle: "Do CSV cru ao insight: limpar, explorar, correlacionar e comunicar."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: dados_limpeza
+    title: "CSV: limpeza e tipos"
+    color: "#14b8a6"
+    goals: ["dados"]
+    summary: "Primeiro passo de toda análise: ler os dados e acertar os tipos dos números."
+    lessons:
+      - id: dados_limpeza_intro
+        title: "Dados crus precisam de banho"
+        blocks:
+          - type: text
+            body: |
+              Dados do mundo real chegam **crus**: números com vírgula, espaço, "N/A"... A primeira etapa da análise é a **limpeza** (tipos e formato).
+
+              ```python
+              def limpar(valor):
+                  return float(valor.replace(",", "."))
+
+              print(limpar("12,5"))   # 12.5
+              ```
+
+              Com `csv.DictReader`, converta cada coluna numérica:
+              ```python
+              for r in csv.DictReader(...):
+                  total += int(r["pop"])
+              ```
+          - type: callout
+            body: "Regra: antes de somar/multiplicar dados de CSV, confira o tipo. Número com vírgula é texto até você converter."
+    exercises:
+      - id: dados_limpeza_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def limpar(valor):
+              return float(valor.replace(",", "."))
+
+          print(limpar("12,5"))
+        answer: |
+          12.5
+        hints:
+          - "replace troca ',' por '.' e float converte."
+        time_estimate: 90
+
+      - id: dados_limpeza_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "cidade,pop\nSao Paulo,12300\nRio,6800"
+          total = 0
+          for r in csv.DictReader(io.StringIO(texto)):
+              total += int(r["pop"])
+          print(total)
+        answer: |
+          19100
+        hints:
+          - "12300 + 6800 = 19100."
+        time_estimate: 90
+
+      - id: dados_limpeza_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a função que converte "7" (texto) para o número 7:
+        code: |
+          total += ____(r["nota"])
+        answer: 'int'
+        hints:
+        - "int = inteiro."
+        time_estimate: 45
+
+      - id: dados_limpeza_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que leia o CSV abaixo, some as notas (com `int()`) e exiba a soma.
+        code: |
+          texto = "nota\n7\n8\n9"
+        tests:
+          - name: "Soma"
+            expected: |
+              24
+        hints:
+          - "for r in csv.DictReader(io.StringIO(texto)): total += int(r['nota'])"
+        solution: |
+          import csv
+          import io
+
+          texto = "nota\n7\n8\n9"
+          total = 0
+          for r in csv.DictReader(io.StringIO(texto)):
+              total += int(r["nota"])
+          print(total)
+        must_include:
+          - int(
+        allow_imports:
+          - csv
+          - io
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: dados_exploratoria
+    title: "Análise exploratória"
+    color: "#8b5cf6"
+    goals: ["dados"]
+    summary: "Conhecer o DataFrame: shape, soma, média e primeiras perguntas sobre os dados."
+    lessons:
+      - id: dados_exploratoria_intro
+        title: "Primeiras perguntas"
+        blocks:
+          - type: text
+            body: |
+              Com o **pandas**, uma tabela vira um **DataFrame**. A exploração começa com perguntas simples:
+
+              ```python
+              import pandas as pd
+
+              df = pd.DataFrame({"nome": ["Ana", "Bia"], "idade": [30, 25]})
+              print(df.shape)                 # (2, 2)
+              print(df["idade"].mean())       # 27.5
+              ```
+
+              `.shape` = linhas e colunas. `df["coluna"]` seleciona a coluna e aplica métodos como `.sum()`, `.mean()`, `.max()`.
+          - type: callout
+            body: "Explorar = fazer 10 perguntas óbvias (quantas linhas? soma? média?) e seguir as respostas estranhas."
+    exercises:
+      - id: dados_exploratoria_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.DataFrame({"nome": ["Ana", "Bia"], "idade": [30, 25]})
+          print(df.shape)
+        answer: |
+          (2, 2)
+        hints:
+          - "shape é (linhas, colunas)."
+        time_estimate: 90
+
+      - id: dados_exploratoria_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.DataFrame({"nota": [7, 8, 9]})
+          print(df["nota"].mean())
+        answer: |
+          8.0
+        hints:
+          - "(7 + 8 + 9) / 3 = 8.0."
+        time_estimate: 90
+
+      - id: dados_exploratoria_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete: o pandas carrega um CSV com a função ____.
+        answer: 'read_csv'
+        hints:
+        - "read + csv."
+        time_estimate: 45
+
+      - id: dados_exploratoria_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que crie o DataFrame abaixo, exiba a soma de `vendas` com `.sum()` (converta com `int()`) e a média com `.mean()`.
+        code: |
+          df = pd.DataFrame({"vendas": [10, 20, 30, 40]})
+        tests:
+          - name: "Resumo"
+            expected: |
+              100
+              25.0
+        hints:
+          - "print(int(df['vendas'].sum())); print(df['vendas'].mean())"
+        solution: |
+          import pandas as pd
+
+          df = pd.DataFrame({"vendas": [10, 20, 30, 40]})
+          print(int(df["vendas"].sum()))
+          print(df["vendas"].mean())
+        must_include:
+          - mean
+        allow_imports:
+          - pandas
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: dados_correlacao
+    title: "Correlação e agregação"
+    color: "#6366f1"
+    goals: ["dados"]
+    summary: "Agrupar por categoria e medir como duas colunas andam juntas."
+    lessons:
+      - id: dados_correlacao_intro
+        title: "Agrupar e correlacionar"
+        blocks:
+          - type: text
+            body: |
+              **Agregar** é resumir grupos: total de horas por setor, média por cidade. `groupby` faz isso:
+
+              ```python
+              import pandas as pd
+
+              df = pd.DataFrame({"setor": ["vendas", "vendas", "ti"], "h": [1, 2, 3]})
+              print(df.groupby("setor")["h"].sum().to_dict())
+              # {'ti': 3, 'vendas': 3}
+              ```
+
+              **Correlação** diz se duas colunas caminham juntas (de -1 a 1):
+              ```python
+              df2 = pd.DataFrame({"a": [1, 2, 3], "b": [2, 4, 6]})
+              print(df2["a"].corr(df2["b"]))   # 1.0
+              ```
+          - type: callout
+            body: "Correlação NÃO é causa: as duas colunas podem subir juntas por acaso. Use como pista, não como prova."
+    exercises:
+      - id: dados_correlacao_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.DataFrame({"a": [1, 2, 3], "b": [2, 4, 6]})
+          print(df["a"].corr(df["b"]))
+        answer: |
+          1.0
+        hints:
+          - "b é exatamente 2 vezes a → correlação perfeita."
+        time_estimate: 90
+
+      - id: dados_correlacao_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.DataFrame({"setor": ["vendas", "vendas", "ti"], "h": [1, 2, 3]})
+          print(df.groupby("setor")["h"].sum().to_dict())
+        answer: |
+          {'ti': 3, 'vendas': 3}
+        hints:
+          - "Agrupa por setor e soma as horas."
+        time_estimate: 120
+
+      - id: dados_correlacao_3
+        type: complete
+        difficulty: medium
+        xp: 20
+        prompt: |
+          Complete com a metodologia que agrupa linhas por categoria no pandas:
+        code: |
+          df.____("setor")["h"].sum()
+        answer: 'groupby'
+        hints:
+        - "grupo + por."
+        time_estimate: 45
+
+      - id: dados_correlacao_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que crie o DataFrame abaixo e exiba a correlação entre `a` e `b`.
+        code: |
+          df = pd.DataFrame({"a": [1, 2, 3, 4], "b": [4, 3, 2, 1]})
+        tests:
+          - name: "Correlação"
+            expected: |
+              -1.0
+        hints:
+          - "b só vai para baixo quando a sobe → -1."
+        solution: |
+          import pandas as pd
+
+          df = pd.DataFrame({"a": [1, 2, 3, 4], "b": [4, 3, 2, 1]})
+          print(df["a"].corr(df["b"]))
+        must_include:
+          - corr
+        allow_imports:
+          - pandas
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: dados_relatorio
+    title: "Relatório e visualização"
+    color: "#ec4899"
+    goals: ["dados"]
+    summary: "Comunicar o resultado: resumos numéricos e gráficos elegantes."
+    lessons:
+      - id: dados_relatorio_intro
+        title: "O insight que se conta"
+        blocks:
+          - type: text
+            body: |
+              Uma análise só vale se **comunica**. Resumos numéricos (média, soma, máximo) viram reação; gráficos viram história.
+
+              O pandas calcula resumos na coluna:
+              ```python
+              import pandas as pd
+
+              df = pd.DataFrame({"n": [1, 2, 3]})
+              print(list(df["n"].values))     # [1, 2, 3]
+              print(df["n"].max())            # 3
+              ```
+
+              Para gráficos, `matplotlib` transforma os números em imagem (no servidor web o gráfico sai offline; aqui focamos nos resumos que o alimentaram).
+          - type: callout
+            body: "Resumo para chefe: 1 métrica + 1 número + 1 ação. O gráfico é o apoio, o número é a decisão."
+    exercises:
+      - id: dados_relatorio_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.DataFrame({"n": [1, 2, 3]})
+          print(df["n"].tolist())
+        answer: |
+          [1, 2, 3]
+        hints:
+          - "tolist() devolve os valores como uma lista Python."
+        time_estimate: 90
+
+      - id: dados_relatorio_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import pandas as pd
+
+          df = pd.DataFrame({"n": [4, 7, 1, 9]})
+          print(df["n"].max())
+          print(df["n"].min())
+        answer: |
+          9
+          1
+        hints:
+          - "max = maior; min = menor."
+        time_estimate: 90
+
+      - id: dados_relatorio_3
+        type: complete
+        difficulty: medium
+        xp: 20
+        prompt: |
+          Complete com a biblioteca mais usada para gráficos no Python:
+        code: |
+          import ____.pyplot as plt
+        answer: 'matplotlib'
+        hints:
+        - "mat + plot + lib."
+        time_estimate: 60
+
+      - id: dados_relatorio_4
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que crie o DataFrame abaixo e exiba a média, o máximo e o mínimo da coluna `n`, um por linha.
+        code: |
+          df = pd.DataFrame({"n": [2, 8, 5]})
+        tests:
+          - name: "Resumo"
+            expected: |
+              5.0
+              8
+              2
+        hints:
+          - "print(df['n'].mean()); print(df['n'].max()); print(df['n'].min())"
+        solution: |
+          import pandas as pd
+
+          df = pd.DataFrame({"n": [2, 8, 5]})
+          print(df["n"].mean())
+          print(df["n"].max())
+          print(df["n"].min())
+        must_include:
+          - mean
+        allow_imports:
+          - pandas
+        time_estimate: 180

@@ -1,0 +1,1104 @@
+# ────────────────────────────────────────────────────────────────
+# TRILHA CRIANÇAS — NÍVEL 1
+# Temas de "Programação para Crianças" adaptados ao console:
+# Começando, Movimento com funções, Colecionando itens, Empurrando
+# objetos, Impressão na tela, Construindo objetos e o projeto final.
+# ────────────────────────────────────────────────────────────────
+level: 1
+slug: "kids"
+title: "Trilha Crianças"
+subtitle: "Uma aventura no mundo da programação, passo a passo, brincando com texto."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: kids_inicio
+    title: "Começando"
+    color: "#fbbf24"
+    goals: ["kids"]
+    summary: "Diga oi para o computador e entenda como ele mostra textos na tela."
+    lessons:
+      - id: kids_inicio_intro
+        title: "Primeira mensagem"
+        blocks:
+          - type: text
+            body: |
+              Para o computador **mostrar** alguma coisa, usamos o comando `print`. Ele imprime o que estiver entre aspas:
+
+              ```python
+              print("Oi, mundo!")
+              print("Eu sou um programador")
+              ```
+
+              O resultado aparece na tela, uma mensagem por vez.
+          - type: code
+            code: |
+              print("Bem-vindo à aventura!")
+              print("Digitar aqui é legal.")
+          - type: callout
+            body: "Tudo que o programa mostra na tela passa por print. Guarde bem esse comando!"
+    exercises:
+      - id: kids_inicio_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          print("Oi, mundo!")
+        answer: |
+          Oi, mundo!
+        hints:
+          - "O print mostra o que está entre aspas."
+        time_estimate: 60
+
+      - id: kids_inicio_2
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar? (duas linhas)"
+        code: |
+          print("primeira")
+          print("segunda")
+        answer: |
+          primeira
+          segunda
+        hints:
+          - "Cada print gera uma linha nova."
+        time_estimate: 60
+
+      - id: kids_inicio_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a palavra mágica que mostra algo na tela:
+        code: |
+          ____("Oi, mundo!")
+        answer: 'print'
+        hints:
+          - "print = imprimir."
+        time_estimate: 45
+
+      - id: kids_inicio_4
+        type: write
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Escreva um programa que mostre duas linhas: a primeira "Sou um aventureiro" e a segunda "Viajo com Python".
+        tests:
+          - name: "Dois prints"
+            expected: |
+              Sou um aventureiro
+              Viajo com Python
+        hints:
+          - "Use print duas vezes."
+        solution: |
+          print("Sou um aventureiro")
+          print("Viajo com Python")
+        must_include:
+          - print
+        time_estimate: 120
+
+      - id: kids_inicio_boss
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 180
+        prompt: 'Chefinho (escreva o código): mostre três linhas: "A floresta", "o mapa" e "a saída", uma em cada linha.'
+        solution: |
+          print("A floresta")
+          print("o mapa")
+          print("a saída")
+        must_include:
+          - print
+        tests:
+        - name: Linhas
+          expected: 'A floresta
+
+            o mapa
+
+            a saída
+
+            '
+        hints:
+        - Um print para cada frase.
+        common_error: Juntar tudo em um print só e misturar as linhas.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: kids_movimento
+    title: "Movimento com funções"
+    color: "#4ade80"
+    goals: ["kids"]
+    summary: "Ensine o personagem a andar usando uma função que repete o movimento."
+    lessons:
+      - id: kids_movimento_intro
+        title: "Um bloco de movimento"
+        blocks:
+          - type: text
+            body: |
+              Uma **função** é um bloco de passos com nome. Quando você chama o nome, o bloco roda. Vamos dar um nome de movimento:
+
+              ```python
+              def andar():
+                  print("andou 1 passo")
+
+              andar()
+              andar()
+              ```
+
+              Chamar `andar()` duas vezes faz o personagem andar duas vezes!
+          - type: text
+            body: |
+              Dá para escolher quantos passos usando uma **entrada** (parâmetro):
+
+              ```python
+              def andar(passos):
+                  print("andou", passos, "passos")
+
+              andar(3)    # andou 3 passos
+              ```
+          - type: callout
+            body: "Função = um bloco com nome. Para usar, é só chamar o nome — quantas vezes quiser."
+    exercises:
+      - id: kids_movimento_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          def andar():
+              print("andou 1 passo")
+
+          andar()
+          andar()
+        answer: |
+          andou 1 passo
+          andou 1 passo
+        hints:
+          - "Cada chamada andar() roda o bloco."
+        time_estimate: 90
+
+      - id: kids_movimento_2
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          def andar(passos):
+              print("andou", passos, "passos")
+
+          andar(3)
+        answer: |
+          andou 3 passos
+        hints:
+          - "3 vai para o lugar de passos."
+        time_estimate: 90
+
+      - id: kids_movimento_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete para mostrar a frase dentro da função:
+        code: |
+          def dançar():
+              ____("o personagem dançou")
+
+          dançar()
+        answer: 'print'
+        hints:
+          - "A palavra que mostra na tela."
+        time_estimate: 45
+
+      - id: kids_movimento_4
+        type: write
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Escreva uma função `mover` que mostre "Max andou 3 passos". Use `def mover(passos):` e chame com `mover(3)`.
+        tests:
+          - name: "Movimento"
+            expected: |
+              Max andou 3 passos
+        hints:
+          - 'Dentro da função: print("Max andou", passos, "passos").'
+        solution: |
+          def mover(passos):
+              print("Max andou", passos, "passos")
+
+          mover(3)
+        must_include:
+          - def mover
+        time_estimate: 180
+
+      - id: kids_movimento_boss
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 240
+        prompt: 'Chefinho (escreva o código): crie a função `pular` que mostra "pulou!" e chame ela 2 vezes.'
+        solution: |
+          def pular():
+              print("pulou!")
+
+          pular()
+          pular()
+        must_include:
+          - def pular
+        tests:
+        - name: Pulos
+          expected: 'pulou!
+
+            pulou!
+
+            '
+        hints:
+        - Crie com def, depois chame duas vezes.
+        common_error: Esquecer de chamar a função (sem as duas linhas pular()).
+
+  # ────────────────────────────────────────────────────────────────
+  - id: kids_coleta
+    title: "Colecionando itens"
+    color: "#60a5fa"
+    goals: ["kids"]
+    summary: "Guardar objetos numa bolsa especial chamada lista."
+    lessons:
+      - id: kids_coleta_intro
+        title: "A mochila do herói"
+        blocks:
+          - type: text
+            body: |
+              Uma **lista** é uma bolsa que guarda vários itens em ordem. Abrimos com `[` e `]`:
+
+              ```python
+              itens = ["mapa", "chave", "corda"]
+              print(itens[0])   # mapa — primeiro item!
+              print(len(itens)) # 3 — quantos itens tem
+              ```
+
+              O primeiro item é o **0** (zero). Coisas novas entram com `append`:
+              ```python
+              itens.append("lanterna")
+              ```
+          - type: callout
+            body: "len(lista) diz quantos itens há. append adiciona um item no final da bolsa."
+    exercises:
+      - id: kids_coleta_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          itens = ["mapa", "chave", "corda"]
+          print(itens[0])
+        answer: |
+          mapa
+        hints:
+          - "O primeiro item é o número 0."
+        time_estimate: 60
+
+      - id: kids_coleta_2
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          itens = ["mapa", "lanterna"]
+          itens.append("corda")
+          print(len(itens))
+        answer: |
+          3
+        hints:
+          - "append adicionou a corda, agora são 3 itens."
+        time_estimate: 90
+
+      - id: kids_coleta_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a palavra que adiciona um item no final da lista:
+        code: |
+          itens = ["mapa"]
+          itens.____("corda")
+        answer: 'append'
+        hints:
+          - "append = colocar no final."
+        time_estimate: 45
+
+      - id: kids_coleta_4
+        type: write
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Escreva um programa que crie a lista `itens = ["mapa", "lanterna"]`, adicione "corda" com `append` e mostre quantos itens tem usando `len`.
+        tests:
+          - name: "Quantidade"
+            expected: |
+              3
+        hints:
+          - "print(len(itens))."
+        solution: |
+          itens = ["mapa", "lanterna"]
+          itens.append("corda")
+          print(len(itens))
+        must_include:
+          - append
+        time_estimate: 180
+
+      - id: kids_coleta_boss
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 240
+        prompt: 'Chefinho (escreva o código): crie uma lista vazia `itens = []`, adicione com `append` as palavras "chave", "mapa" e "cantil", e mostre as três num laço `for` mostrando "pegou: ITEM" para cada uma.'
+        solution: |
+          itens = []
+          itens.append("chave")
+          itens.append("mapa")
+          itens.append("cantil")
+          for item in itens:
+              print("pegou: " + item)
+        must_include:
+          - for item
+        tests:
+        - name: Pegou tudo
+          expected: 'pegou: chave
+
+            pegou: mapa
+
+            pegou: cantil
+
+            '
+        hints:
+        - Use um `for` para passar por todos os itens.
+        common_error: Esquecer o for e imprimir só um item.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: kids_empurrar
+    title: "Empurrando objetos"
+    color: "#a78bfa"
+    goals: ["kids"]
+    summary: "Funções que recebem um objeto e o empurram para dentro da mochila."
+    lessons:
+      - id: kids_empurrar_intro
+        title: "Guardar pedindo ajuda"
+        blocks:
+          - type: text
+            body: |
+              Nossas funções podem **guardar itens na mochila**. Primeiro criamos a mochila vazia:
+
+              ```python
+              mochila = []
+
+              def guardar(algo):
+                  mochila.append(algo)
+
+              guardar("maçã")
+              guardar("pão")
+              print(mochila)   # ['maçã', 'pão']
+              ```
+
+              Cada `guardar(...)` empurra um objeto para dentro da lista.
+          - type: callout
+            body: "for + guardar é como encher a mochila em um passeio: passe pelos itens do chão e coloque cada um na lista."
+    exercises:
+      - id: kids_empurrar_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          mochila = []
+
+          def guardar(algo):
+              mochila.append(algo)
+
+          guardar("maçã")
+          print(mochila)
+        answer: |
+          ['maçã']
+        hints:
+          - "guardar colocou 'maçã' dentro da mochila."
+        time_estimate: 90
+
+      - id: kids_empurrar_2
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          mochila = []
+
+          def guardar(algo):
+              mochila.append(algo)
+
+          guardar("chave")
+          guardar("mapa")
+          print(len(mochila))
+        answer: |
+          2
+        hints:
+          - "Dois guardar() = dois itens na bolsa."
+        time_estimate: 90
+
+      - id: kids_empurrar_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete a chamada da função para guardar "fogão" na mochila:
+        code: |
+          mochila = []
+
+          def guardar(algo):
+              mochila.append(algo)
+
+          guardar("fogão")
+        answer: 'guardar("fogão")'
+        hints:
+          - "A função se chama guardar e leva o item entre aspas."
+        time_estimate: 60
+
+      - id: kids_empurrar_4
+        type: write
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Escreva um programa com a função `guardar(algo)` que adiciona ao fim da `mochila = []`. Guarde "chave" e "mapa", depois mostre o tamanho da mochila com `len`.
+        tests:
+          - name: "Mochila"
+            expected: |
+              2
+        hints:
+          - "Duas chamadas guardar(...). Depois print(len(mochila))."
+        solution: |
+          mochila = []
+
+          def guardar(algo):
+              mochila.append(algo)
+
+          guardar("chave")
+          guardar("mapa")
+          print(len(mochila))
+        must_include:
+          - append
+        time_estimate: 240
+
+      - id: kids_empurrar_boss
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 300
+        prompt: 'Chefinho (escreva o código): crie a função `coletar(lista, achado)` que faz `lista.append(achado)`. Com a `caixa = []`, colete "pedra" e "fruta" e mostre a caixa usando `print(caixa)`.'
+        solution: |
+          def coletar(lista, achado):
+              lista.append(achado)
+
+          caixa = []
+          coletar(caixa, "pedra")
+          coletar(caixa, "fruta")
+          print(caixa)
+        must_include:
+          - coletar
+        tests:
+        - name: Caixa cheia
+          expected: "['pedra', 'fruta']\n"
+        hints:
+        - A função recebe dois valores: a lista e o que vai dentro.
+        common_error: Adicionar direto sem chamar a função coletar.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: kids_impressao
+    title: "Impressão na tela"
+    color: "#2dd4bf"
+    goals: ["kids"]
+    summary: "Caprichar no que aparece na tela: separador e um print logo após outro."
+    lessons:
+      - id: kids_impressao_intro
+        title: "Tela bonita"
+        blocks:
+          - type: text
+            body: |
+              Dá para juntar várias coisas em um **mesmo print** e escolher o separador com `sep`:
+
+              ```python
+              print("A", "B", sep="-")   # A-B
+              print("1", "2", "3")       # 1 2 3
+              ```
+
+              E um print vazio faz uma **linha em branco**:
+              ```python
+              print("título")
+              print()
+              print("texto")
+              ```
+          - type: callout
+            body: "sep serve para separar os pedaços de um mesmo print. Sem sep o Python usa um espaço."
+    exercises:
+      - id: kids_impressao_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          print("A", "B", sep="-")
+        answer: |
+          A-B
+        hints:
+          - "sep troca o espaço por '-'."
+        time_estimate: 60
+
+      - id: kids_impressao_2
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que a tela vai mostrar? (com uma linha em branco no meio)"
+        code: |
+          print("título")
+          print()
+          print("texto")
+        answer: |
+          título
+
+          texto
+        hints:
+          - "O print vazio deixa uma linha em branco."
+        time_estimate: 90
+
+      - id: kids_impressao_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete para que a tela mostre "A-B":
+        code: |
+          print("A", "B", ____="-")
+        answer: 'sep'
+        hints:
+          - "sep = separador."
+        time_estimate: 60
+
+      - id: kids_impressao_4
+        type: write
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Escreva um programa que mostre "1-2-3" usando um único `print` com `sep`.
+        tests:
+          - name: "Separado"
+            expected: |
+              1-2-3
+        hints:
+          - 'print("1", "2", "3", sep="-").'
+        solution: |
+          print("1", "2", "3", sep="-")
+        must_include:
+          - sep
+        time_estimate: 120
+
+      - id: kids_impressao_boss
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 240
+        prompt: 'Chefinho (escreva o código): mostre "10 + 20" do jeito que a tela deve exibir: primeiro a conta "10 + 20 =", depois, em uma linha abaixo, o resultado "30". Dica: use um print para a conta e outro para o resultado.'
+        solution: |
+          print("10 + 20 =")
+          print("30")
+        must_include:
+          - print
+        tests:
+        - name: Conta
+          expected: '10 + 20 =
+
+            30
+
+            '
+        hints:
+        - Dois prints: a pergunta e a resposta.
+        common_error: Tentar somar dentro do print sem aspas e misturar tudo.
+
+  # ────────────────────────────────────────────────────────────────
+  - id: kids_construir
+    title: "Construindo objetos"
+    color: "#f472b6"
+    goals: ["kids"]
+    summary: "Criar seus próprios objetos: personagens com nome e cor!"
+    lessons:
+      - id: kids_construir_intro
+        title: "Personagens personalizados"
+        blocks:
+          - type: text
+            body: |
+              Uma **classe** é a planta de um objeto. Com ela criamos quantos personagens quisermos:
+
+              ```python
+              class Personagem:
+                  def __init__(self, nome, cor):
+                      self.nome = nome
+                      self.cor = cor
+
+              max = Personagem("Max", "azul")
+              print(max.nome)   # Max
+              print(max.cor)    # azul
+              ```
+
+              `__init__` é o construtor: ele prepara o novo objeto quando usamos `Personagem(...)`.
+          - type: callout
+            body: "self é o próprio objeto. Guardamos cada característica num atributo (self.nome, self.cor)."
+    exercises:
+      - id: kids_construir_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          class Personagem:
+              def __init__(self, nome):
+                  self.nome = nome
+
+          p = Personagem("Max")
+          print(p.nome)
+        answer: |
+          Max
+        hints:
+          - "self.nome guarda o que foi passado."
+        time_estimate: 90
+
+      - id: kids_construir_2
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          class Personagem:
+              def __init__(self, nome, cor):
+                  self.nome = nome
+                  self.cor = cor
+
+          a = Personagem("Ana", "rosa")
+          b = Personagem("Leo", "verde")
+          print(a.nome, a.cor)
+          print(b.nome, b.cor)
+        answer: |
+          Ana rosa
+          Leo verde
+        hints:
+          - "Cada personagem guarda seus próprios atributos."
+        time_estimate: 120
+
+      - id: kids_construir_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a palavra que cria uma classe:
+        code: |
+          ____ Personagem:
+              def __init__(self, nome):
+                  self.nome = nome
+        answer: 'class'
+        hints:
+          - "class = classe."
+        time_estimate: 45
+
+      - id: kids_construir_4
+        type: write
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Escreva a classe `Robo` com `__init__(self, nome)` guardando `self.nome`. Crie um robô chamado "R2" e mostre o nome dele.
+        tests:
+          - name: "Robô"
+            expected: |
+              R2
+        hints:
+          - "class Robo: def __init__(self, nome): self.nome = nome"
+        solution: |
+          class Robo:
+              def __init__(self, nome):
+                  self.nome = nome
+
+          r = Robo("R2")
+          print(r.nome)
+        must_include:
+          - __init__
+        time_estimate: 240
+
+      - id: kids_construir_boss
+        type: write
+        difficulty: medium
+        xp: 30
+        time_estimate: 300
+        prompt: 'Chefinho (escreva o código): crie a classe `Dragao` com `__init__(self, nome, cor)` guardando os dois atributos. Crie `d = Dragao("Fogo", "vermelho")` e mostre `d.nome` e `d.cor`, um por linha.'
+        solution: |
+          class Dragao:
+              def __init__(self, nome, cor):
+                  self.nome = nome
+                  self.cor = cor
+
+          d = Dragao("Fogo", "vermelho")
+          print(d.nome)
+          print(d.cor)
+        must_include:
+          - self.cor
+        tests:
+        - name: Dragão
+          expected: 'Fogo
+
+            vermelho
+
+            '
+        hints:
+        - Guarde nome e cor com self no construtor.
+        common_error: Esquecer um dos atributos (aí d.cor não existe).
+
+  # ────────────────────────────────────────────────────────────────
+  - id: kids_projeto
+    title: "Aplique o que aprendeu"
+    color: "#f97316"
+    goals: ["kids"]
+    summary: "Junte print, lista, função e classe num pequeno projeto de aventura de texto."
+    lessons:
+      - id: kids_projeto_intro
+        title: "Sua aventura"
+        blocks:
+          - type: text
+            body: |
+              Hora de usar TUDO junto! Uma aventura de texto é um programa que conta uma história e reage ao que o jogador digita.
+
+              ```python
+              nome = input("Qual o seu nome? ")
+              print("Oi, " + nome)
+              ```
+
+              `input` mostra uma pergunta e guarda a resposta. O programa continua depois disso.
+          - type: text
+            body: |
+              Passos do projeto:
+              1. Apresente a história com `print`.
+              2. Guarde a resposta do jogador com `input`.
+              3. Decida o final com `if`.
+              4. Mostre o fim.
+          - type: callout
+            body: "Um jogo de aventura = print (mostrar) + input (perguntar) + if (decidir). Você aprendeu tudo isso!"
+    exercises:
+      - id: kids_projeto_1
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          nome = "Lia"
+          print("Oi, " + nome)
+        answer: |
+          Oi, Lia
+        hints:
+          - "A variável nome já guarda o texto 'Lia'."
+        time_estimate: 90
+
+      - id: kids_projeto_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual destas opções é a melhor ideia para um PRIMEIRO projeto de aventura?
+        options:
+        - Uma história curta com uma escolha no final.
+        - Um aplicativo de banco com senhas.
+        - Um jogo 3D com milhares de telas.
+        - Um sistema que conversa sozinho.
+        answer: '0'
+        hints:
+        - Comece pequeno: uma escolha já é um jogo!
+        time_estimate: 60
+
+      - id: kids_projeto_3
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene os passos para montar a sua aventura.
+        lines:
+        - Apresentar a história com print
+        - Fazer uma pergunta com input
+        - Guardar a resposta em uma variável
+        - Decidir o final com if
+        - Mostrar o fim da história
+        hints:
+        - Primeiro a história, a pergunta, e o desfecho por último.
+        time_estimate: 120
+
+      - id: kids_projeto_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva uma aventura simples em duas linhas de print: "Você entrou na caverna." e "O caminho termina aqui."
+        tests:
+          - name: "Início"
+            expected: |
+              Você entrou na caverna.
+              O caminho termina aqui.
+        hints:
+          - "Dois prints, um em cada linha."
+        solution: |
+          print("Você entrou na caverna.")
+          print("O caminho termina aqui.")
+        must_include:
+          - print
+        time_estimate: 120
+
+      - id: kids_projeto_boss
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 480
+        prompt: 'Chefinho (escreva o código): o programa pergunta "Qual o seu nome? ", guarda a resposta e mosta "Bem-vindo, NOME, à floresta mágica!". Se o nome for "Max", mostre também "Max é o herói!" (use if nome == "Max":).'
+        solution: |
+          nome = input("Qual o seu nome? ")
+          print("Bem-vindo, " + nome + ", à floresta mágica!")
+          if nome == "Max":
+              print("Max é o herói!")
+        must_include:
+          - input
+        tests:
+        - name: Nome comum
+          input: "Lia\n"
+          expected: 'Bem-vindo, Lia, à floresta mágica!
+
+            '
+        - name: Herói
+          input: "Max\n"
+          expected: 'Bem-vindo, Max, à floresta mágica!
+
+            Max é o herói!
+
+            '
+        hints:
+        - O input devolve o texto digitado; junte com +.
+        common_error: Esquecer o if para o caso especial de Max.
+# ────────────────────────────────────────────────────────────────
+  - id: kids_jogo
+    title: "O herói e os comandos do jogo"
+    color: "#eab308"
+    goals: ["kids"]
+    summary: "Comandos mágicos do tipo player.move_forward(): mover, virar, empurrar, falar e construir."
+    lessons:
+      - id: kids_jogo_intro
+        title: "Comandos do herói"
+        blocks:
+          - type: text
+            body: |
+              O personagem do jogo se chama `player`. Para dar um comando, escrevemos `player`, um ponto, o nome do comando e os parênteses — como em `player.move_forward(3)`.
+
+              ```python
+              class player:
+                  def move_forward(self, passos):
+                      print("andou", passos, "passos")
+
+              player = player()
+              player.move_forward(3)   # andou 3 passos
+              ```
+
+              O número dentro dos parênteses é um **argumento**: ele muda o comportamento do comando.
+          - type: text
+            body: |
+              Os comandos rodam **um depois do outro, de cima para baixo** — a ordem importa:
+
+              ```python
+              class player:
+                  def turn_left(self):
+                      print("virou à esquerda")
+
+                  def move_forward(self, passos):
+                      print("andou", passos, "passos")
+
+              player = player()
+              player.turn_left()
+              player.move_forward(2)
+              ```
+
+              Comandos do herói: `move_forward(passos)`, `turn_left()`, `turn_right()`, `push()`, `speak(texto)` e `build(peca)`.
+          - type: callout
+            body: "player.move_forward() é uma função do objeto player: primeiro o objeto, depois um ponto, depois o comando."
+    exercises:
+      - id: kids_jogo_1
+        type: predict
+        difficulty: easy
+        xp: 15
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          class player:
+              def move_forward(self, passos):
+                  print("andou", passos, "passos")
+
+          player = player()
+          player.move_forward(2)
+        answer: |
+          andou 2 passos
+        hints:
+          - "O número 2 vai para o lugar de passos."
+        time_estimate: 90
+
+      - id: kids_jogo_2
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que a tela vai mostrar? (a ordem importa!)"
+        code: |
+          class player:
+              def move_forward(self, passos):
+                  print("andou", passos, "passos")
+
+              def turn_left(self):
+                  print("virou à esquerda")
+
+          player = player()
+          player.turn_left()
+          player.move_forward(1)
+        answer: |
+          virou à esquerda
+          andou 1 passos
+        hints:
+          - "Os comandos rodam de cima para baixo: primeiro vira, depois anda."
+        time_estimate: 120
+
+      - id: kids_jogo_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete para dar o comando speak com a palavra "Olá":
+        code: |
+          class player:
+              def speak(self, texto):
+                  print(texto)
+
+          player = player()
+          player.____("Olá")
+        answer: 'speak'
+        hints:
+          - "speak = falar."
+        time_estimate: 60
+
+      - id: kids_jogo_4
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete para construir uma ponte:
+        code: |
+          class player:
+              def build(self, peca):
+                  print("construiu", peca)
+
+          player = player()
+          player.____("bridge")
+        answer: 'build'
+        hints:
+          - "build = construir."
+        time_estimate: 60
+
+      - id: kids_jogo_5
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: "O que acontece se chamarmos `player.move_forward(4)`?"
+        options:
+        - O herói anda 4 passos.
+        - O herói anda 1 passo.
+        - O herói fala "4".
+        - O jogo para.
+        answer: '0'
+        hints:
+          - "O argumento decide quantos passos."
+        time_estimate: 60
+
+      - id: kids_jogo_6
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que a tela vai mostrar?"
+        code: |
+          class player:
+              def push(self):
+                  print("empurrou a pedra")
+
+              def speak(self, texto):
+                  print(texto)
+
+          player = player()
+          player.push()
+          player.speak("Olá")
+        answer: |
+          empurrou a pedra
+          Olá
+        hints:
+          - "push empurra; speak fala o texto."
+        time_estimate: 120
+
+      - id: kids_jogo_7
+        type: write
+        difficulty: medium
+        xp: 25
+        prompt: |
+          Escreva um programa que cria o herói (classe `player` com `turn_left()` e `move_forward(passos)`), e depois vira à esquerda e anda 3 passos.
+        tests:
+          - name: "Caminho"
+            expected: |
+              virou à esquerda
+              andou 3 passos
+        hints:
+          - "Crie a classe, depois player = player() e chame os dois comandos."
+        solution: |
+          class player:
+              def turn_left(self):
+                  print("virou à esquerda")
+
+              def move_forward(self, passos):
+                  print("andou", passos, "passos")
+
+          player = player()
+          player.turn_left()
+          player.move_forward(3)
+        must_include:
+          - turn_left
+          - move_forward
+        time_estimate: 300
+
+      - id: kids_jogo_boss
+        type: write
+        difficulty: hard
+        xp: 45
+        time_estimate: 420
+        prompt: 'Chefinho (escreva o código): junte tudo! Crie a classe `player` com `push()`, `speak(texto)` e `build(peca)`. Depois chame, nessa ordem: empurrar a pedra, falar "Olá" e construir uma ponte "bridge".'
+        solution: |
+          class player:
+              def push(self):
+                  print("empurrou a pedra")
+
+              def speak(self, texto):
+                  print(texto)
+
+              def build(self, peca):
+                  print("construiu", peca)
+
+          player = player()
+          player.push()
+          player.speak("Olá")
+          player.build("bridge")
+        must_include:
+          - push
+          - speak
+          - build
+        tests:
+        - name: Aventura
+          expected: 'empurrou a pedra
+
+            Olá
+
+            construiu bridge
+
+            '
+        hints:
+        - Crie a classe com os três comandos e chame um após o outro.
+        common_error: Chamar os comandos antes de criar player = player().

@@ -1037,8 +1037,16 @@ blockquote {
 .snippet-meta { color: var(--text-faint); font-size: .72rem; }
 .lab-datasets { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; }
 .dataset-list { display: flex; flex-direction: column; gap: 5px; max-height: 180px; overflow: auto; }
+.dataset-row { display: flex; align-items: center; gap: 6px; }
+.dataset-row .dataset-item { flex: 1; }
 .dataset-item { font-size: .82rem; color: var(--text-dim); padding: 3px 6px; border-radius: 5px; }
 .dataset-item:hover { background: var(--panel-2); color: var(--text); }
+.dataset-copy {
+  background: none; border: none; cursor: pointer; color: var(--text-dim);
+  font-size: .82rem; padding: 2px 4px; border-radius: 4px; line-height: 1;
+}
+.dataset-copy:hover { background: var(--panel-2); color: var(--text); }
+.dataset-copy.copied { color: var(--ok, #22c55e); }
 .lab-console-script { font-size: .75rem; color: var(--text-faint); }
 
 /* ── Visualizer modal ── */
@@ -1123,6 +1131,23 @@ blockquote {
 .review-card { display: flex; flex-direction: column; gap: 10px; }
 .review-card .ex-body { margin-top: 4px; }
 .review-done { text-align: center; padding: 30px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.review-feedback { margin-top: 12px; }
+.review-explain { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.rv-line { margin: 0; font-size: .88rem; color: var(--text-dim); }
+.rv-line b { color: var(--text); }
+.rv-line .fb-pre { margin-top: 4px; }
+.rv-line.concept-line { font-style: italic; }
+.review-actions { margin-top: 14px; display: flex; justify-content: flex-end; }
+
+/* ── Confete (feedback de revisão correta) ── */
+.confetti-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
+.confetti { position: absolute; top: -14px; opacity: .95;
+  animation-name: confetti-fall; animation-timing-function: linear; animation-iteration-count: 1; }
+@keyframes confetti-fall {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: .95; }
+  90%  { opacity: .9; }
+  100% { transform: translate3d(var(--confetti-x), 105vh, 0) rotate(var(--confetti-r)); opacity: 0; }
+}
 
 /* ── Mapa ── */
 .map-level { margin-bottom: 28px; }
@@ -1247,7 +1272,7 @@ blockquote {
 .profile-xp { color: var(--text-faint); }
 .profile-last { font-size: .74rem; color: var(--text-faint); }
 .profile-bar { width: 100%; height: 7px; background: var(--panel-2); border-radius: 6px; overflow: hidden; }
-.profile-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 6px; }
+.profile-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 6px; min-width: 2px; }
 .pin-form { width: 100%; display: flex; flex-direction: column; gap: 8px; }
 .pin-form .pin-input {
   width: 100%;
@@ -1261,6 +1286,12 @@ blockquote {
   font-size: 1.05rem;
 }
 .pin-form .pin-input:focus { outline: 2px solid var(--primary); }
+.pin-error {
+  color: var(--danger, #d64545);
+  font-weight: 600;
+  text-align: center;
+}
+.pin-form .pin-error { margin-top: -2px; }
 .profile-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
 
 /* ── Menu de perfil (topbar) ── */

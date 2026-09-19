@@ -17,13 +17,15 @@
   </div>
 
   {% for level in registry.levels %}
+  {% set _items = overview | selectattr('concept.level', 'equalto', level.number) | list %}
+  {% if _items %}
   <section class="level-block">
     <div class="level-head">
       <h2>{{ level.title }}</h2>
       <p class="level-sub">{{ level.subtitle }}</p>
     </div>
     <div class="concept-grid">
-      {% for item in overview if item.concept.level == level.number %}
+      {% for item in _items %}
       <a class="concept-card {{ item.status }}" href="/concept/{{ item.concept.id }}">
         <div class="concept-top">
           <span class="concept-badge" style="background:{{ item.concept.color }}">{{ item.concept.title }}</span>
@@ -43,6 +45,7 @@
       {% endfor %}
     </div>
   </section>
+  {% endif %}
   {% endfor %}
 
   <div class="learn-hint">

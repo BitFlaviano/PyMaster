@@ -1,0 +1,1589 @@
+# ────────────────────────────────────────────────────────────────
+# TRILHA AUTOMAÇÃO — NÍVEL 4
+# Conteúdo inspirado na Apostila de Automação com Python:
+# fundamentos, arquivos, CSV/JSON, planilhas, documentos, e-mail,
+# APIs, scraping, navegador, agendamento, erros e boas práticas.
+# (Módulos que exigem rede/imports restritos no sandbox são
+#  apresentados de forma conceitual + réplicas em memória.)
+# ────────────────────────────────────────────────────────────────
+level: 4
+slug: "automacao"
+title: "Trilha Automação"
+subtitle: "Ensine a máquina fazer o seu trabalho repetitivo: arquivos, planilhas, relatórios e pipelines."
+
+concepts:
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_fundamentos
+    title: "Fundamentos da automação"
+    color: "#f59e0b"
+    goals: ["automacao"]
+    summary: "Entrada, processamento, saída e exceções: o ciclo de qualquer tarefa que roda sozinha."
+    lessons:
+      - id: auto_fundamentos_intro
+        title: "O ciclo da tarefa automática"
+        blocks:
+          - type: text
+            body: |
+              Toda automação repete o mesmo ciclo **entrada → processamento → saída**, mas sem você na frente do computador:
+
+              1. **Coletar** os dados (arquivos, planilhas, sites).
+              2. **Processar** (limpar, calcular, transformar).
+              3. **Validar** (confere se deu certo).
+              4. **Entregar** (guardar, enviar, avisar).
+
+              Uma função simples ilustra cada etapa:
+              ```python
+              def processar(nome, arquivo):
+                  print(f"{nome}: processando {arquivo}")
+              ```
+          - type: text
+            body: |
+              **Exceções** são o que impede o robô de parar no meio da noite quando algo sai do esperado (arquivo faltando, dado errado). Tratar erro é parte da automação, não um detalhe.
+          - type: callout
+            body: "Comece pela tarefa que mais dói: repetitiva e sempre igual. Primeiro entenda, depois automatize."
+    exercises:
+      - id: auto_fundamentos_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual é a melhor candidata para automatizar primeiro?
+        options:
+        - Uma tarefa manual, repetitiva e sempre igual.
+        - Uma tarefa criativa que muda toda hora.
+        - Uma tarefa feita uma única vez no ano.
+        - Uma tarefa que você já faz sem esforço.
+        answer: '0'
+        hints:
+        - "Automático brilha no repetitivo."
+        time_estimate: 60
+
+      - id: auto_fundamentos_2
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def processar(nome, arquivo):
+              print(f"{nome}: processando {arquivo}")
+
+          processar("backup", "clientes.csv")
+        answer: |
+          backup: processando clientes.csv
+        hints:
+          - "f-string coloca os valores dentro do texto."
+        time_estimate: 60
+
+      - id: auto_fundamentos_3
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene o ciclo de uma tarefa automática.
+        lines:
+        - Coletar os dados
+        - Processar
+        - Validar o resultado
+        - Entregar/avisar
+        hints:
+        - "Primeiro entra, depois transforma, confere e entrega."
+        time_estimate: 90
+
+      - id: auto_fundamentos_4
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Por que uma automação deve tratar ERROS (exceções)?
+        options:
+        - Para o robô não parar no meio da tarefa quando algo der errado.
+        - Para ficar mais bonita.
+        - Para rodar mais rápido.
+        - Para não precisar de dados.
+        answer: '0'
+        hints:
+        - "Um erro não tratado derruba o processo inteiro."
+        time_estimate: 90
+
+      - id: auto_fundamentos_5
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete: o processo automático precisa tratar ____ para não parar sozinho na madrugada.
+        answer: 'erros'
+        hints:
+        - "Para cada imprevisto deve existir um plano B."
+        time_estimate: 45
+
+      - id: auto_fundamentos_6
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que mostre as três fases do pipeline: "1. coletar dados", "2. processar" e "3. gerar relatorio", cada uma em uma linha.
+        tests:
+          - name: "Pipeline"
+            expected: |
+              1. coletar dados
+              2. processar
+              3. gerar relatorio
+        hints:
+          - "Um print por fase."
+        solution: |
+          print("1. coletar dados")
+          print("2. processar")
+          print("3. gerar relatorio")
+        must_include:
+          - coletar dados
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_caminhos
+    title: "Arquivos, pastas e caminhos"
+    color: "#84cc16"
+    goals: ["automacao"]
+    summary: "Navegar por caminhos com pathlib sem se perder entre barras e extensões."
+    lessons:
+      - id: auto_caminhos_intro
+        title: "O endereço do arquivo"
+        blocks:
+          - type: text
+            body: |
+              Todo arquivo tem um **caminho**. O módulo `pathlib` transforma caminhos em objetos com nome, extensão e partes:
+
+              ```python
+              from pathlib import Path
+
+              p = Path("dados/2026/vendas.csv")
+              print(p.name)      # vendas.csv
+              print(p.suffix)    # .csv
+              print(p.stem)      # vendas
+              print(p.parts)     # ('dados', '2026', 'vendas.csv')
+              ```
+
+              Ler partes do caminho evita erros de digitação em texto puro.
+          - type: text
+            body: |
+              Para **mover, copiar e renomear** arquivos a automação usa `shutil` (no sandbox web o acesso é restrito — aqui focamos em ler nomes e caminhos com segurança):
+
+              ```python
+              import shutil
+              shutil.move("origem.txt", "pasta_destino/")
+              ```
+          - type: callout
+            body: "Estratégia clássica: Downloads → pastas por tipo/ano. pathlib lê o caminho, shutil move o arquivo."
+    exercises:
+      - id: auto_caminhos_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          from pathlib import Path
+
+          p = Path("planilha.xlsx")
+          print(p.name)
+          print(p.suffix)
+          print(p.stem)
+        answer: |
+          planilha.xlsx
+          .xlsx
+          planilha
+        hints:
+          - "name tem extensão; suffix é só a extensão; stem é o nome sem extensão."
+        time_estimate: 90
+
+      - id: auto_caminhos_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          from pathlib import Path
+
+          p = Path("caixa/entrada/fotos")
+          print(p.parts)
+        answer: |
+          ('caixa', 'entrada', 'fotos')
+        hints:
+          - "parts separa o caminho em uma tupla."
+        time_estimate: 60
+
+      - id: auto_caminhos_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o atributo do `pathlib` que devolve a extensão do arquivo:
+        code: |
+          from pathlib import Path
+
+          p = Path("nota.txt")
+          print(p.____)
+        answer: 'suffix'
+        hints:
+          - "Em inglês, 'sufixo'."
+        time_estimate: 45
+
+      - id: auto_caminhos_4
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual módulo move, copia e renomeia arquivos em uma automação?
+        options:
+        - pathlib
+        - shutil
+        - datetime
+        - random
+        answer: '1'
+        hints:
+        - "Path lê caminhos; shutil mexe nos arquivos."
+        time_estimate: 60
+
+      - id: auto_caminhos_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que crie o caminho `Path("dados/2026/vendas.csv")` e exiba as partes dele com `parts`.
+        tests:
+          - name: "Partes"
+            expected: |
+              ('dados', '2026', 'vendas.csv')
+        hints:
+          - "from pathlib import Path; print(Path('dados/2026/vendas.csv').parts)"
+        solution: |
+          from pathlib import Path
+
+          caminho = Path("dados/2026/vendas.csv")
+          print(caminho.parts)
+        must_include:
+          - parts
+        allow_imports:
+          - pathlib
+        time_estimate: 120
+
+      - id: auto_caminhos_6
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene os passos de uma rotina que organiza a pasta Downloads por tipo.
+        lines:
+        - Ler o nome de cada arquivo
+        - Descobrir a extensão (suffix)
+        - Criar pastas por tipo
+        - Mover cada arquivo para a sua pasta
+        hints:
+        - "Primeiro descobrir, depois criar e mover."
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_texto
+    title: "Leitura e escrita de dados"
+    color: "#14b8a6"
+    goals: ["automacao"]
+    summary: "Textos em arquivos: abrir com `with`, definir o encoding e processar o conteúdo."
+    lessons:
+      - id: auto_texto_intro
+        title: "Trabalhar com textos"
+        blocks:
+          - type: text
+            body: |
+              No Python, o bloco `with open(...) as f` abre um arquivo e **garante que ele seja fechado** — mesmo se algo der erro no meio:
+
+              ```python
+              with open("dados.txt", "r", encoding="utf-8") as f:
+                  conteudo = f.read()
+              ```
+
+              Modos: `"r"` leitura, `"w"` escrita, `"a"` adicionar. (No sandbox web a escrita em arquivos é bloqueada; pensamos a leitura e o processamento.)
+          - type: text
+            body: |
+              O **encoding** define como os caracteres são codificados. Quase tudo hoje usa **UTF-8** — sem ele, acentos viram símbolos estranhos.
+
+              Processar conteúdo em memória é o mesmo conceito:
+              ```python
+              texto = "maca,3\nbanana,2"
+              for linha in texto.splitlines():
+                  print(linha.replace(",", ":"))
+              ```
+          - type: callout
+            body: "with fecha o arquivo sozinho. Depois do bloco with, o arquivo já pode ser movido/renomeado por outro programa."
+    exercises:
+      - id: auto_texto_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Para que serve o bloco `with ... as f` ao abrir um arquivo?
+        options:
+        - Garantir que o arquivo seja fechado, mesmo com erro.
+        - Deixar o código mais lento.
+        - Impedir a leitura.
+        - Trocar o nome do arquivo.
+        answer: '0'
+        hints:
+        - "O with cuida da limpeza automaticamente."
+        time_estimate: 60
+
+      - id: auto_texto_2
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o modo de abertura (letra) para apenas LER o arquivo:
+        code: |
+          with open("dados.txt", "____", encoding="utf-8") as f:
+              conteudo = f.read()
+        answer: 'r'
+        hints:
+        - "r de read."
+        time_estimate: 45
+
+      - id: auto_texto_3
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          texto = "maca,3\nbanana,2"
+          for linha in texto.splitlines():
+              print(linha.replace(",", ":"))
+        answer: |
+          maca:3
+          banana:2
+        hints:
+          - "splitlines separa por linha; replace troca ',' por ':'."
+        time_estimate: 90
+
+      - id: auto_texto_4
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual encoding usar para acentuação (ã, ç, é) parar de virar lixo?
+        options:
+        - utf-8
+        - ascii
+        - base64
+        - binário puro
+        answer: '0'
+        hints:
+        - "UTF-8 cobre os caracteres do português."
+        time_estimate: 60
+
+      - id: auto_texto_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que receba o texto abaixo e o exiba transformado em MAIÚSCULAS, linha por linha (use `splitlines` e `upper`).
+        code: |
+          texto = "primeira linha\nsegunda linha"
+        tests:
+          - name: "Caixa alta"
+            expected: |
+              PRIMEIRA LINHA
+              SEGUNDA LINHA
+        hints:
+          - "for linha in texto.splitlines(): print(linha.upper())"
+        solution: |
+          texto = "primeira linha\nsegunda linha"
+          for linha in texto.splitlines():
+              print(linha.upper())
+        must_include:
+          - splitlines
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_csv_json
+    title: "CSV e JSON"
+    color: "#0ea5e9"
+    goals: ["automacao"]
+    summary: "Os dois formatos universais: tabelas (CSV) e documentos (JSON) num pipeline."
+    lessons:
+      - id: auto_csv_json_intro
+        title: "Do CSV ao JSON"
+        blocks:
+          - type: text
+            body: |
+              Planilhas exportam **CSV**; sistemas conversam em **JSON**. Uma automação clássica: ler CSV, somar, converter para JSON.
+
+              Ler linha por linha com dicionário:
+              ```python
+              import csv
+              import io
+
+              texto = "fruta,qtd\nmaca,2\nbanana,3"
+              for l in csv.DictReader(io.StringIO(texto)):
+                  print(l["fruta"], l["qtd"])
+              ```
+
+              Converter o resumo para JSON:
+              ```python
+              import json
+              print(json.dumps({"total": 5}))   # {"total": 5}
+              ```
+          - type: callout
+            body: "Pipeline padrão: dados → CSV/DictReader → processamento → dict → json.dumps → API/planilha. Nunca edite a planilha na mão duas vezes."
+    exercises:
+      - id: auto_csv_json_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "fruta,qtd\nmaca,2\nbanana,3"
+          for linha in csv.DictReader(io.StringIO(texto)):
+              print(linha["fruta"], linha["qtd"])
+        answer: |
+          maca 2
+          banana 3
+        hints:
+          - "DictReader trata a primeira linha como cabeçalho."
+        time_estimate: 90
+
+      - id: auto_csv_json_2
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o leitor que transforma cada linha de CSV em um dicionário:
+        code: |
+          import csv
+          import io
+
+          for l in csv.____(io.StringIO(texto)):
+              print(l["fruta"])
+        answer: 'DictReader'
+        hints:
+        - "Dicionário = dict em inglês."
+        time_estimate: 45
+
+      - id: auto_csv_json_3
+        type: predict
+        difficulty: medium
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import json
+
+          print(json.dumps({"total": 5}))
+        answer: |
+          {"total": 5}
+        hints:
+          - "dumps converte dict para texto JSON."
+        time_estimate: 60
+
+      - id: auto_csv_json_4
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene o pipeline CSV → JSON.
+        lines:
+        - Ler o CSV com DictReader
+        - Somar os valores das linhas
+        - Montar o dicionário de resumo
+        - Converter com json.dumps
+        - Salvar/enviar o JSON
+        hints:
+        - "Primeiro os dados, o cálculo, e por fim o formato de saída."
+        time_estimate: 120
+
+      - id: auto_csv_json_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que leia o CSV abaixo com `csv.DictReader`, some os valores da coluna `qtd` (com `int()`) e exiba o total.
+        code: |
+          texto = "fruta,qtd\nmaca,2\nbanana,3"
+        tests:
+          - name: "Total"
+            expected: |
+              5
+        hints:
+          - "total = 0; para cada linha: total += int(linha['qtd'])."
+        solution: |
+          import csv
+          import io
+
+          texto = "fruta,qtd\nmaca,2\nbanana,3"
+          total = 0
+          for linha in csv.DictReader(io.StringIO(texto)):
+              total += int(linha["qtd"])
+          print(total)
+        must_include:
+          - DictReader
+        allow_imports:
+          - csv
+          - io
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_excel
+    title: "Planilhas Excel"
+    color: "#22c55e"
+    goals: ["automacao"]
+    summary: "Ler, transformar e escrever .xlsx com openpyxl — sem abrir o Excel."
+    lessons:
+      - id: auto_excel_intro
+        title: "Excel com código"
+        blocks:
+          - type: text
+            body: |
+              O módulo **openpyxl** lê e escreve arquivos `.xlsx` direto no código:
+
+              ```python
+              from openpyxl import load_workbook
+
+              planilha = load_workbook("vendas.xlsx")     # abre o arquivo
+              aba = planilha.active                        # aba ativa
+              ```
+
+              Você percorre as células, calcula e salva:
+              ```python
+              planilha.save("vendas_resumo.xlsx")
+              ```
+          - type: text
+            body: |
+              **Por que automatizar planilhas?** Relatórios de 200 linhas que saem toda sexta podem ser gerados em segundos — sem erro de copiar-e-colar e sem alguém 'mexer' na fórmula.
+          - type: callout
+            body: "No sandbox web o pacote e a escrita não estão disponíveis; o conceito (ler → transformar → salvar) é o mesmo de CSV, mas com formatação e fórmulas."
+    exercises:
+      - id: auto_excel_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual biblioteca Python lê e escreve arquivos Excel (.xlsx)?
+        options:
+        - openpyxl
+        - numpy
+        - datetime
+        - re
+        answer: '0'
+        hints:
+        - "open + py - xl (Excel)."
+        time_estimate: 60
+
+      - id: auto_excel_2
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a extensão dos arquivos criados pelo Excel moderno:
+        code: |
+          planilha.save("relatorio.____")
+        answer: 'xlsx'
+        hints:
+        - "Três letras, termina com x."
+        time_estimate: 45
+
+      - id: auto_excel_3
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Ao automatizar uma planilha, qual é o maior RISCO do mundo real?
+        options:
+        - A pessoa que preenche na mão se engana ou muda a estrutura.
+        - O arquivo fica muito bonito.
+        - O Excel deixa de existir.
+        - O código roda rápido demais.
+        answer: '0'
+        hints:
+        - "Automação protege justamente de erro humano e mudança manual."
+        time_estimate: 90
+
+      - id: auto_excel_4
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene a automação de um relatório Excel mensal.
+        lines:
+        - Abrir a planilha com load_workbook
+        - Acessar a aba ativa
+        - Percorrer as células e calcular
+        - Salvar o novo arquivo
+        hints:
+        - "Abre, lê, calcula, salva."
+        time_estimate: 90
+
+      - id: auto_excel_5
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual destas é uma BOA automação de planilhas?
+        options:
+        - Ler 200 linhas do CSV/programa e gerar o resumo pronto.
+        - Abrir o Excel manualmente toda semana.
+        - Digitar uma a uma as células.
+        - Copiar a tela e colar num e-mail.
+        answer: '0'
+        hints:
+        - "Tudo pronto, sem toque na mão."
+        time_estimate: 60
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_documentos
+    title: "Automação de documentos"
+    color: "#f97316"
+    goals: ["automacao"]
+    summary: "Gerar dezenas de documentos iguais trocando só os dados no meio."
+    lessons:
+      - id: auto_documentos_intro
+        title: "Modelos que se preenchem"
+        blocks:
+          - type: text
+            body: |
+              Relatórios, contratos e faturas seguem um **modelo** (template) com buracos que o código preenche:
+
+              ```python
+              modelo = "Ola {nome}, sua fatura vence em {data}."
+              texto = modelo.replace("{nome}", "Ana").replace("{data}", "10/03")
+              print(texto)
+              # Ola Ana, sua fatura vence em 10/03.
+              ```
+
+              Com um laço você gera **N documentos** a partir da mesma plantilha:
+              ```python
+              for cliente in clientes:
+                  gerar_fatura(cliente)
+              ```
+          - type: callout
+            body: "Se você repete 'preencher o mesmo documento' todo dia, você tem um modelo esperando por um for."
+    exercises:
+      - id: auto_documentos_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          modelo = "Ola {nome}, sua fatura vence em {data}."
+          print(modelo.replace("{nome}", "Ana").replace("{data}", "10/03"))
+        answer: |
+          Ola Ana, sua fatura vence em 10/03.
+        hints:
+          - "replace troca cada trecho marcado."
+        time_estimate: 90
+
+      - id: auto_documentos_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Como gerar 50 faturas a partir do mesmo modelo, só trocando o cliente?
+        options:
+        - Um laço (for) que preenche o modelo para cada cliente.
+        - Digitando as 50 na mão.
+        - Copiando e colando com Ctrl+C/Ctrl+V.
+        - Reinstalando o Word 50 vezes.
+        answer: '0'
+        hints:
+        - "for cliente in clientes: modelo.preencher(cliente)."
+        time_estimate: 60
+
+      - id: auto_documentos_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com o método que troca um trecho de texto por outro:
+        code: |
+          texto.____("{nome}", "Ana")
+        answer: 'replace'
+        hints:
+        - "replace = substituir."
+        time_estimate: 45
+
+      - id: auto_documentos_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Complete o modelo para exibir "Fatura de Bia = 120 reais" usando `replace`.
+        code: |
+          modelo = "Fatura de {nome} = {valor} reais"
+          print(____)
+        tests:
+          - name: "Fatura"
+            expected: |
+              Fatura de Bia = 120 reais
+        hints:
+          - "modelo.replace('{nome}', 'Bia').replace('{valor}', '120')"
+        solution: |
+          modelo = "Fatura de {nome} = {valor} reais"
+          print(modelo.replace("{nome}", "Bia").replace("{valor}", "120"))
+        must_include:
+          - replace
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_email
+    title: "E-mail e notificações"
+    color: "#ef4444"
+    goals: ["automacao"]
+    summary: "Avisar quando um processo termina: relatórios, erros e resumos por e-mail."
+    lessons:
+      - id: auto_email_intro
+        title: "Emails que saem sozinhos"
+        blocks:
+          - type: text
+            body: |
+              O módulo `smtplib` + `email.message` monta e enviam e-mails de dentro do Python:
+
+              ```python
+              import smtplib
+              from email.message import EmailMessage
+
+              msg = EmailMessage()
+              msg["Subject"] = "Backup terminou"
+              msg.set_content("Tudo certo!")
+              smtp = smtplib.SMTP("smtp.exemplo.com", 587)
+              smtp.send_message(msg)
+              ```
+
+              Na prática, uma função que "envia" resume a ideia (no sandbox a rede é bloqueada):
+              ```python
+              def enviar(dest, assunto, corpo):
+                  print("Para: " + dest)
+                  print("Assunto: " + assunto)
+              ```
+          - type: callout
+            body: "Notificação automática = avisar alguém quando a tarefa terminou (ou falhou). E-mail, mensagem e push são o mesmo conceito."
+    exercises:
+      - id: auto_email_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def enviar(dest, assunto, corpo):
+              print("Para: " + dest)
+              print("Assunto: " + assunto)
+
+          enviar("ana@ex.com", "Backup terminou", "tudo ok")
+        answer: |
+          Para: ana@ex.com
+          Assunto: Backup terminou
+        hints:
+          - "A função só imprime os destinatários do e-mail."
+        time_estimate: 90
+
+      - id: auto_email_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual módulo do padrão do Python envia e-mails (protocolo SMTP)?
+        options:
+        - smtplib
+        - csv
+        - pygame
+        - turtle
+        answer: '0'
+        hints:
+        - "smtp + lib (biblioteca)."
+        time_estimate: 60
+
+      - id: auto_email_3
+        type: complete
+        difficulty: medium
+        xp: 20
+        prompt: |
+          Complete com o método do objeto SMTP que realmente entrega a mensagem:
+        code: |
+          smtp = smtplib.SMTP("smtp.exemplo.com", 587)
+          smtp.____(msg)
+        answer: 'send_message'
+        hints:
+        - "send + message."
+        time_estimate: 60
+
+      - id: auto_email_4
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene a rotina de "e-mail de fim de processo".
+        lines:
+        - Rodar o processo
+        - Montar a mensagem-resumo
+        - Conectar ao servidor SMTP
+        - Enviar o e-mail
+        hints:
+        - "Faz a tarefa, monta, conecta, envia."
+        time_estimate: 120
+
+      - id: auto_email_5
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: "Para um e-mail automático não cair no spam e não ser bloqueado, o ideal é:"
+        options:
+        - Usar uma conta de aplicativo com permissão específica.
+        - Enviar com a senha do e-mail pessoal no código.
+        - Enviar 200 e-mails por minuto.
+        - Escrever o assunto igual todos os dias.
+        answer: '0'
+        hints:
+        - "Senha no código = risco; conta de app = controle."
+        time_estimate: 90
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_apis
+    title: "APIs e integração"
+    color: "#6366f1"
+    goals: ["automacao"]
+    summary: "Conversar com outros sistemas: pedir dados e receber JSON, sem navegador."
+    lessons:
+      - id: auto_apis_intro
+        title: "Falar com outro sistema"
+        blocks:
+          - type: text
+            body: |
+              Uma **API** é a interface que um sistema oferece. Você chama um endereço e recebe a resposta quase sempre em **JSON**:
+
+              ```python
+              import requests
+              resposta = requests.get("https://api.exemplo.com/cotacao")
+              dados = resposta.json()
+              ```
+
+              No sandbox a rede é bloqueada, mas o padrão é o mesmo — simular a resposta:
+              ```python
+              import json
+              resposta = '{"cotacao": {"usd": 5.2}}'
+              dados = json.loads(resposta)
+              print(dados["cotacao"]["usd"])   # 5.2
+              ```
+          - type: callout
+            body: "GET busca dados, POST envia. A resposta JSON vira um dict Python e o resto é código normal."
+    exercises:
+      - id: auto_apis_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import json
+
+          resposta = '{"cotacao": {"usd": 5.2}}'
+          dados = json.loads(resposta)
+          print(dados["cotacao"]["usd"])
+        answer: |
+          5.2
+        hints:
+          - "loads transforma o texto em dict aninhado."
+        time_estimate: 90
+
+      - id: auto_apis_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Em qual formato a maioria das APIs web devolve os dados?
+        options:
+        - JSON
+        - MP3
+        - PDF
+        - XLSX
+        answer: '0'
+        hints:
+        - "Mesmo formato que o módulo json entende."
+        time_estimate: 45
+
+      - id: auto_apis_3
+        type: complete
+        difficulty: medium
+        xp: 20
+        prompt: |
+          Complete com o método HTTP usado para BUSCAR dados de uma API:
+        code: |
+          resposta = requests.____("https://api.exemplo.com/dados")
+        answer: 'GET'
+        hints:
+        - "GET = buscar. As letras podem ser minúsculas."
+        time_estimate: 60
+
+      - id: auto_apis_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que carregue com `json.loads` a string abaixo e exiba a moeda e o preço, cada um em uma linha.
+        code: |
+          resposta = '{"moeda": "BTC", "preco": 50000}'
+        tests:
+          - name: "Resposta"
+            expected: |
+              BTC
+              50000
+        hints:
+          - "dados = json.loads(resposta); print(dados['moeda']); print(dados['preco'])"
+        solution: |
+          import json
+
+          resposta = '{"moeda": "BTC", "preco": 50000}'
+          dados = json.loads(resposta)
+          print(dados["moeda"])
+          print(dados["preco"])
+        must_include:
+          - loads
+        allow_imports:
+          - json
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_coleta
+    title: "Web scraping e coleta"
+    color: "#0d9488"
+    goals: ["automacao"]
+    summary: "Coletar dados de páginas: baixar o HTML, transformar e extrair o que interessa."
+    lessons:
+      - id: auto_coleta_intro
+        title: "Ler a página como código"
+        blocks:
+          - type: text
+            body: |
+              **Web scraping** é baixar o HTML de uma página e extrair os dados. Ferramentas comuns: `requests` (baixar) e `BeautifulSoup` (parsear).
+
+              A ideia é nova informação + estrutura: você empurra os dados de muitos lugares para uma planilha ou API.
+
+              Em memória (sem rede), o mesmo raciocínio com `re`:
+              ```python
+              import re
+              html = '<div class="preco">R$ 99,90</div>'
+              print(re.findall(r'preco">([^<]+)<', html))   # ['R$ 99,90']
+              ```
+          - type: callout
+            body: "Colete com responsabilidade: respeite `robots.txt`, evite bombardear o site (rate limit) e dê crédito à fonte."
+    exercises:
+      - id: auto_coleta_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import re
+
+          html = '<div class="preco">R$ 99,90</div><div class="preco">R$ 12,00</div>'
+          print(re.findall(r'preco">([^<]+)<', html))
+        answer: |
+          ['R$ 99,90', 'R$ 12,00']
+        hints:
+          - "O padrão captura o texto entre '>' e '<'."
+        time_estimate: 90
+
+      - id: auto_coleta_2
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: "Ao coletar dados de um site de terceiros, o certo é:"
+        options:
+        - Respeitar o robots.txt e o bom senso.
+        - Baixar a página 100 vezes por segundo.
+        - Vender os dados sem dar crédito.
+        - Ignorar os termos da página.
+        answer: '0'
+        hints:
+        - "Scraping responsável = cidadania digital."
+        time_estimate: 90
+
+      - id: auto_coleta_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete com a biblioteca famosa para parsear/analisar HTML:
+        code: |
+          from bs4 import ____
+        answer: 'BeautifulSoup'
+        hints:
+        - "É a 'sopa' do HTML."
+        time_estimate: 45
+
+      - id: auto_coleta_4
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene uma coleta simples.
+        lines:
+        - Baixar o HTML da página
+        - Parsear o HTML
+        - Extrair os itens de interesse
+        - Salvar em CSV/planilha
+        hints:
+        - "Baixa, entende, tira e guarda."
+        time_estimate: 90
+
+      - id: auto_coleta_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que extraia com `re.findall` os conteúdos entre `<li>` e `</li>` do HTML abaixo e exiba a lista.
+        code: |
+          html = "<li>maca</li><li>banana</li>"
+        tests:
+          - name: "Itens"
+            expected: |
+              ['maca', 'banana']
+        hints:
+          - "re.findall(r'<li>(.*?)</li>', html)"
+        solution: |
+          import re
+
+          html = "<li>maca</li><li>banana</li>"
+          print(re.findall(r"<li>(.*?)</li>", html))
+        must_include:
+          - findall
+        allow_imports:
+          - re
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_navegador
+    title: "Automação de navegador e interface"
+    color: "#c026d3"
+    goals: ["automacao"]
+    summary: "Controlar mouse, teclado e navegador como se um fantasma estivesse operando."
+    lessons:
+      - id: auto_navegador_intro
+        title: "O robô no lugar de você"
+        blocks:
+          - type: text
+            body: |
+              **PyAutoGUI** controla mouse e teclado; **Playwright/Selenium** controlam o navegador. É o último recurso, quando NÃO existe API.
+
+              A lógica é sempre: abrir → interagir → verificar → fechar:
+
+              ```python
+              def clicar(x, y):
+                  print(f"clique em ({x}, {y})")
+
+              clicar(120, 340)   # clique em (120, 340)
+              ```
+          - type: callout
+            body: "Automação de interface é frágil: se o botão mudar de posição, o clique erra. Prefira API quando existir; use interface só no que sobrar."
+    exercises:
+      - id: auto_navegador_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          def clicar(x, y):
+              print(f"clique em ({x}, {y})")
+
+          clicar(120, 340)
+        answer: |
+          clique em (120, 340)
+        hints:
+          - "Os dois números vão para o lugar de x e y."
+        time_estimate: 60
+
+      - id: auto_navegador_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual biblioteca controla mouse e teclado no desktop?
+        options:
+        - PyAutoGUI
+        - csv
+        - statistics
+        - json
+        answer: '0'
+        hints:
+        - "GUI = interface gráfica."
+        time_estimate: 60
+
+      - id: auto_navegador_3
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Qual é o maior risco de automatizar por coordenadas de tela?
+        options:
+        - A tela mudar de lugar/de desenho e o clique errar.
+        - O código ficar muito curto.
+        - Aumentar o salário do programador.
+        - Apagar os arquivos do sistema.
+        answer: '0'
+        hints:
+        - "Coordenadas são frágeis a mudanças visuais."
+        time_estimate: 90
+
+      - id: auto_navegador_4
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene um fluxo de automação de navegador.
+        lines:
+        - Abrir o navegador
+        - Aguardar a página carregar
+        - Preencher o formulário
+        - Tirar o print de confirmação
+        - Fechar o navegador
+        hints:
+        - "Abre, espera, usa, registra e fecha."
+        time_estimate: 90
+
+      - id: auto_navegador_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva uma função `foto(nome)` que mostra "salvar print: NOME" e chame com "tela_inicial.png".
+        tests:
+          - name: "Print"
+            expected: |
+              salvar print: tela_inicial.png
+        hints:
+          - 'def foto(nome): print("salvar print: " + nome)'
+        solution: |
+          def foto(nome):
+              print("salvar print: " + nome)
+
+          foto("tela_inicial.png")
+        must_include:
+          - def foto
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_agendamento
+    title: "Agendamento e execução"
+    color: "#8b5cf6"
+    goals: ["automacao"]
+    summary: "Rodar a tarefa sozinha: no horário certo, sem ninguém clicar em nada."
+    lessons:
+      - id: auto_agendamento_intro
+        title: "A tarefa que se agenda"
+        blocks:
+          - type: text
+            body: |
+              Uma vez escrita, a automação precisa **rodar sozinha**. Ferramentas de **agendamento**:
+
+              - **cron** (Linux/macOS) e **Agendador de Tarefas** (Windows).
+              - `schedule` em Python para agendar dentro do próprio código.
+
+              Antes de agendar, calcule datas no código — o `datetime` resolve:
+              ```python
+              import datetime
+              dia = datetime.date(2026, 3, 10)
+              print(dia.strftime("%d/%m/%Y"))   # 10/03/2026
+              ```
+          - type: callout
+            body: "Regra de ouro: agenda-se DEPOIS de testar manualmente. Uma automação que roda sozinha e quebra às 2h precisa de logs (veja o próximo tema)."
+    exercises:
+      - id: auto_agendamento_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          import datetime
+
+          dia = datetime.date(2026, 3, 10)
+          print(dia.strftime("%d/%m/%Y"))
+        answer: |
+          10/03/2026
+        hints:
+          - "%d dia, %m mês, %Y ano com 4 dígitos."
+        time_estimate: 60
+
+      - id: auto_agendamento_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual ferramenta do Linux agenda comandos para rodar nos horários programados?
+        options:
+        - cron
+        - Excel
+        - Navegador
+        - clipboard
+        answer: '0'
+        hints:
+        - "é o 'agenda' do Linux."
+        time_estimate: 60
+
+      - id: auto_agendamento_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete: para rodar a mesma tarefa todo dia no mesmo horário, usamos um ____.
+        answer: 'agendador'
+        hints:
+        - "O substantivo da palavra agendar."
+        time_estimate: 45
+
+      - id: auto_agendamento_4
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva um programa que calcule quantos dias faltam entre 1/3/2026 e 10/3/2026 usando `datetime.date` e `.days`.
+        tests:
+          - name: "Prazo"
+            expected: |
+              9
+        hints:
+          - "a = datetime.date(2026, 3, 1); b = datetime.date(2026, 3, 10); print((b - a).days)"
+        solution: |
+          import datetime
+
+          hoje = datetime.date(2026, 3, 1)
+          prazo = datetime.date(2026, 3, 10)
+          print((prazo - hoje).days)
+        must_include:
+          - date
+        allow_imports:
+          - datetime
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_erros
+    title: "Tratamento de erros e logs"
+    color: "#dc2626"
+    goals: ["automacao"]
+    summary: "try/except para não parar e registros (logs) para saber o que aconteceu."
+    lessons:
+      - id: auto_erros_intro
+        title: "Automação que sobrevive a imprevistos"
+        blocks:
+          - type: text
+            body: |
+              Tarefas automáticas pegam imprevistos o tempo todo: arquivo sumiu, dado veio errado, número inválido. Um **try/except** isola o erro:
+
+              ```python
+              try:
+                  quantidade = int("abc")
+              except ValueError:
+                  print("entrada nao numerica")
+              ```
+
+              O `finally` roda de qualquer jeito (até com erro) — ideal para fechar conexões:
+              ```python
+              try:
+                  processar()
+              finally:
+                  fechar()
+              ```
+          - type: text
+            body: |
+              **Logs** são o diário da automação: `logging.info("ok")`, `logging.error("falhou")`. Às 2h da manhã, é o log que diz o que devia estar certo e quebrou.
+          - type: callout
+            body: "try/except + logs = a diferença entre 'a automação quebrou à noite' e 'a automação registrou o erro à noite'."
+    exercises:
+      - id: auto_erros_1
+        type: predict
+        difficulty: easy
+        xp: 20
+        prompt: "O que será exibido?"
+        code: |
+          try:
+              quantidade = int("abc")
+          except ValueError:
+              print("entrada nao numerica")
+        answer: |
+          entrada nao numerica
+        hints:
+          - "int(\"abc\") falha e cai no except."
+        time_estimate: 90
+
+      - id: auto_erros_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          try:
+              print(10 / 0)
+          except ZeroDivisionError:
+              print("divisao invalida")
+        answer: |
+          divisao invalida
+        hints:
+          - "dividir por zero levanta ZeroDivisionError."
+        time_estimate: 90
+
+      - id: auto_erros_3
+        type: complete
+        difficulty: medium
+        xp: 20
+        prompt: |
+          Complete com a exceção que dividir um número por zero dispara:
+        code: |
+          try:
+              print(10 / 0)
+          except ____:
+              print("caiu aqui")
+        answer: 'ZeroDivisionError'
+        hints:
+        - "Zero + Division + Error."
+        time_estimate: 60
+
+      - id: auto_erros_4
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Para que serve o bloco `finally`?
+        options:
+        - Rodar sempre, mesmo com erro ou return no caminho.
+        - Rodar só quando der erro.
+        - Interromper o programa antes da hora.
+        - Apagar os logs.
+        answer: '0'
+        hints:
+        - "finally = por fim, independente do caminho."
+        time_estimate: 90
+
+      - id: auto_erros_5
+        type: write
+        difficulty: hard
+        xp: 40
+        prompt: |
+          Escreva um programa que leia um número com `input`, faça `10 / valor` e trate a divisão por zero mostrando "nao da para dividir por zero", sem deixar o programa quebrar.
+        tests:
+          - name: "Zero"
+            input: "0\n"
+            expected: |
+              nao da para dividir por zero
+          - name: "Dois"
+            input: "2\n"
+            expected: |
+              5.0
+        hints:
+          - "try/except ZeroDivisionError em volta da conta."
+        solution: |
+          try:
+              valor = input()
+              print(10 / int(valor))
+          except ZeroDivisionError:
+              print("nao da para dividir por zero")
+        must_include:
+          - except
+        time_estimate: 180
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_boas_praticas
+    title: "Boas práticas, segurança e manutenção"
+    color: "#0891b2"
+    goals: ["automacao"]
+    summary: "Código claro, sem segredos no bolso: nomes, funções pequenas e nada de senha no arquivo."
+    lessons:
+      - id: auto_boas_praticas_intro
+        title: "Automação que dura"
+        blocks:
+          - type: text
+            body: |
+              Automação boa é a que **sobrevive a você esquecer dela por 6 meses**. Regras de ouro:
+
+              - Nomes que explicam: `calcular_margem()` e não `c1()`.
+              - Função faz **uma coisa só** e tem um só motivo para mudar.
+              - Documente o "porquê", não só o "como".
+
+              ```python
+              def somar(a, b):
+                  """Soma dois numeros."""
+                  return a + b
+              ```
+          - type: text
+            body: |
+              **Segurança:** chave de API e senha **nunca** no código (nem em commit!). Use variáveis de ambiente/segredos. E trate o erro da permissão antes de tudo.
+          - type: callout
+            body: "Regra prática: se o código foi pro git sem querer, a senha foi pro git. Segredo sempre fora do arquivo."
+    exercises:
+      - id: auto_boas_praticas_1
+        type: choice
+        difficulty: medium
+        xp: 20
+        prompt: Onde guardar a chave de API de uma automação?
+        options:
+        - Em uma variável de ambiente/segredo.
+        - No corpo do código, comentado.
+        - No arquivo de configuração do git.
+        - No README do projeto.
+        answer: '0'
+        hints:
+        - "Fora do repositório, sempre."
+        time_estimate: 90
+
+      - id: auto_boas_praticas_2
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual destas funções segue uma boa prática?
+        options:
+        - def calcular_taxa(valor): return valor * 0.15
+        - def x(v): return v * 0.15
+        - def funcao_misteriosa(v): return v * 0.15
+        - def faz_tudo(v, w, z, y): uma coisa atrás da outra
+        answer: '0'
+        hints:
+        - "Nome claro e uma responsabilidade só."
+        time_estimate: 90
+
+      - id: auto_boas_praticas_3
+        type: complete
+        difficulty: easy
+        xp: 15
+        prompt: |
+          Complete: nunca exponha ____ (senhas, chaves, tokens) dentro do código.
+        answer: 'segredos'
+        hints:
+        - "O que não deve ir para o repositório."
+        time_estimate: 45
+
+      - id: auto_boas_praticas_4
+        type: order
+        difficulty: medium
+        xp: 25
+        prompt: Ordene como melhorar um código legado confuso.
+        lines:
+        - Renomear variáveis para nomes claros
+        - Extrair cada responsabilidade em uma função
+        - Testar o comportamento
+        - Documentar o porquê
+        hints:
+        - "Entende, organiza, valida e registra."
+        time_estimate: 120
+
+      - id: auto_boas_praticas_5
+        type: write
+        difficulty: medium
+        xp: 30
+        prompt: |
+          Escreva uma função `somar(a, b)` com docstring e mostre o resultado de `somar(2, 3)` na tela.
+        tests:
+          - name: "Soma"
+            expected: |
+              5
+        hints:
+          - 'def somar(a, b): """Soma dois numeros."""; return a + b'
+        solution: |
+          def somar(a, b):
+              """Soma dois numeros."""
+              return a + b
+
+          print(somar(2, 3))
+        must_include:
+          - def somar
+        time_estimate: 120
+
+  # ────────────────────────────────────────────────────────────────
+  - id: auto_projeto
+    title: "Projeto final: pipeline de automação"
+    color: "#facc15"
+    goals: ["automacao"]
+    summary: "Um pipeline completo: coletar CSV, processar, validar e gerar saída JSON."
+    lessons:
+      - id: auto_projeto_intro
+        title: "Juntando tudo"
+        blocks:
+          - type: text
+            body: |
+              O projeto final une tudo que você viu: ler um CSV, somar, montar um resumo e transformar em JSON.
+
+              Etapas:
+              1. Ler as linhas com `csv.DictReader`.
+              2. Calcular o total com `int()` em cada valor.
+              3. Montar o dicionário de resumo.
+              4. Converter com `json.dumps`.
+
+              Em código, o esqueleto é curto — é essa a mágica:
+              ```python
+              import csv
+              import io
+              import json
+
+              texto = "fruta,qtd\nmaca,2\nbanana,3"
+              total = 0
+              for l in csv.DictReader(io.StringIO(texto)):
+                  total += int(l["qtd"])
+              print("total de itens: " + str(total))
+              print(json.dumps({"total": total}))
+              ```
+          - type: callout
+            body: "Seu primeiro robô: dados entram CSV, saem JSON. Agora imagine isso rodando todo dia às 7h com você dormindo."
+    exercises:
+      - id: auto_projeto_1
+        type: choice
+        difficulty: easy
+        xp: 15
+        prompt: Qual o melhor primeiro robô para criar?
+        options:
+        - Um relatório semanal que hoje é feito à mão.
+        - Reinventar as redes sociais.
+        - Um robô espacial.
+        - Copiar o site de outra empresa.
+        answer: '0'
+        hints:
+        - "Empurre a sua própria tarefa repetitiva."
+        time_estimate: 60
+
+      - id: auto_projeto_2
+        type: predict
+        difficulty: medium
+        xp: 25
+        prompt: "O que será exibido?"
+        code: |
+          import csv
+          import io
+
+          texto = "fruta,qtd\nmaca,2\nbanana,3"
+          total = 0
+          for l in csv.DictReader(io.StringIO(texto)):
+              total += int(l["qtd"])
+          print("total de itens: " + str(total))
+        answer: |
+          total de itens: 5
+        hints:
+          - "2 + 3 = 5; str() converte o número para texto."
+        time_estimate: 90
+
+      - id: auto_projeto_3
+        type: order
+        difficulty: hard
+        xp: 30
+        prompt: Ordene o pipeline final do projeto.
+        lines:
+        - Ler o CSV com DictReader
+        - Converter valores com int() e somar
+        - Montar o dicionário do resumo
+        - Gerar o JSON com json.dumps
+        - Avisar/entregar o resultado
+        hints:
+        - "Entrada → processamento → saída → entrega."
+        time_estimate: 120
+
+      - id: auto_projeto_boss
+        type: write
+        difficulty: hard
+        xp: 65
+        time_estimate: 480
+        prompt: 'Chefão (escreva o código): monte o pipeline completo. Leia o CSV abaixo com `csv.DictReader`, some os valores de `qtd` com `int()`, exiba "total de itens: TOTAL" e, logo abaixo, o resumo com `json.dumps({"total": total})`.'
+        code: |
+          texto = "fruta,qtd\nmaca,2\nbanana,3"
+        solution: |
+          import csv
+          import io
+          import json
+
+          texto = "fruta,qtd\nmaca,2\nbanana,3"
+          total = 0
+          for linha in csv.DictReader(io.StringIO(texto)):
+              total += int(linha["qtd"])
+          print("total de itens: " + str(total))
+          print(json.dumps({"total": total}))
+        must_include:
+          - DictReader
+          - json.dumps
+        allow_imports:
+          - csv
+          - io
+          - json
+        tests:
+        - name: Pipeline
+          expected: 'total de itens: 5
+
+            {"total": 5}
+
+            '
+        hints:
+        - Importe csv, io e json.
+        common_error: Esquecer o json.dumps ou somar texto em vez de int.
