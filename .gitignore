@@ -14,3 +14,7 @@ app/static/uploads/
 # OS
 .DS_Store
 Thumbs.db
+
+# Anexos grandes (não versionar)
+*.pdf
+*.docx
